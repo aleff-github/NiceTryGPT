@@ -11,7 +11,8 @@ All notable changes to NiceTryGPT are documented here.
 - an expanded GitHub Pages site with methodology, evidence, FAQ, citation, and project-resource sections;
 - `llms.txt` as a concise machine-readable project guide;
 - structured bug and methodology-proposal issue forms;
-- Dependabot updates for GitHub Actions.
+- Dependabot updates for GitHub Actions;
+- automated Software Heritage archival requests and preservation/DOI guidance.
 
 ### Changed
 
