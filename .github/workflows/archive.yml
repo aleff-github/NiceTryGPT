@@ -1,0 +1,39 @@
+name: Archive source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/archive.yml"
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  software-heritage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Request Software Heritage archival
+        shell: bash
+        env:
+          ORIGIN_URL: https://github.com/${{ github.repository }}
+        run: |
+          set -euo pipefail
+          endpoint="https://archive.softwareheritage.org/api/1/origin/save/"
+          url="${endpoint}?visit_type=git&origin_url=${ORIGIN_URL}"
+          response="$(curl --fail-with-body --silent --show-error --retry 3 --retry-all-errors -X POST "$url")"
+          printf "%s\n" "$response"
+          python - <<'PY' <<< "$response"
+          import json, sys
+
+          data = json.load(sys.stdin)
+          request_status = data.get("save_request_status")
+          task_status = data.get("save_task_status")
+          print(f"Software Heritage request: {request_status}; task: {task_status}")
+          if request_status not in {"accepted", "pending"}:
+              raise SystemExit(f"Unexpected archival request status: {request_status}")
+          PY
