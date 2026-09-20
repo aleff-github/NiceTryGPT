@@ -20,6 +20,7 @@ All notable changes to NiceTryGPT are documented here.
 - standalone Claude Code marketplace metadata for direct repository installation;
 - verified cross-agent installation through the open `skills` CLI without telemetry;
 - recorded the successful Software Heritage snapshot SWHID `swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf`.
+- added a pinned public/open-source CTF candidate registry with verified local baselines for NexusCTF, DiceCTF, and CSAW candidates.
 
 ### Changed
 
