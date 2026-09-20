@@ -1,10 +1,19 @@
+<div align="center">
+
 # NiceTryGPT ☕🤖
 
-> **Less pattern matching. More actual hacking.**
+**Less pattern matching. More actual hacking.**
+
+A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challenges — without making them worse for humans.
 
 [![Tests](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml/badge.svg)](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Version: v0.2.0](https://img.shields.io/badge/version-v0.2.0-orange.svg)](#project-status)
+[![Website](https://img.shields.io/badge/website-GitHub%20Pages-ffb347.svg)](https://aleff-github.github.io/NiceTryGPT/)
+
+[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
+
+</div>
 
 ### Your CTF got one-shot by an LLM? Nice try.
 
