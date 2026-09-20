@@ -18,6 +18,7 @@ All notable changes to NiceTryGPT are documented here.
 - native Claude Code plugin manifest and auto-discovered `skills/nice-try-gpt/` layout;
 - a synchronization helper and CI checks that keep standalone and plugin skill copies identical;
 - standalone Claude Code marketplace metadata for direct repository installation.
+- verified cross-agent installation through the open `skills` CLI without telemetry.
 
 ### Changed
 
