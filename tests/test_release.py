@@ -142,6 +142,14 @@ def test_project_metadata():
     llms = (ROOT / "docs" / "llms.txt").read_text(encoding="utf-8")
     assert f"Current release: {VERSION}" in llms
 
+    preservation = (ROOT / "docs" / "preservation.md").read_text(encoding="utf-8")
+    assert "Software Heritage" in preservation
+    assert "Zenodo" in preservation
+
+    archive_workflow = (ROOT / ".github" / "workflows" / "archive.yml").read_text(encoding="utf-8")
+    assert "archive.softwareheritage.org/api/1/origin/save/" in archive_workflow
+    assert "release:" in archive_workflow
+
 
 def test_readme_local_links():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
