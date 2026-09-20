@@ -61,6 +61,34 @@ def test_package():
         assert not any("__pycache__" in name or name.endswith(".pyc") for name in names)
 
 
+def test_claude_plugin():
+    manifest_path = ROOT / ".claude-plugin" / "plugin.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    assert manifest["name"] == "nice-try-gpt"
+    assert manifest["version"] == VERSION
+    assert manifest["repository"] == "https://github.com/aleff-github/NiceTryGPT"
+    assert manifest["license"] == "GPL-3.0-only"
+    assert manifest["author"]["name"] == "Alessandro Greco"
+
+    standalone = ROOT / "nice-try-gpt"
+    plugin_skill = ROOT / "skills" / "nice-try-gpt"
+    standalone_files = sorted(
+        path.relative_to(standalone) for path in standalone.rglob("*") if path.is_file()
+    )
+    plugin_files = sorted(
+        path.relative_to(plugin_skill) for path in plugin_skill.rglob("*") if path.is_file()
+    )
+
+    assert standalone_files == plugin_files
+    for relative in standalone_files:
+        assert (standalone / relative).read_bytes() == (plugin_skill / relative).read_bytes()
+
+    skill_text = (plugin_skill / "SKILL.md").read_text(encoding="utf-8")
+    assert "name: nice-try-gpt" in skill_text
+    assert f"version: {VERSION}" in skill_text
+
+
 def test_eval_schema():
     results = ROOT / "evals" / "results.csv"
     with results.open(newline="", encoding="utf-8") as handle:
@@ -176,6 +204,7 @@ def test_readme_local_links():
 def main():
     tests = [
         ("release package", test_package),
+        ("Claude Code plugin", test_claude_plugin),
         ("evaluation schema", test_eval_schema),
         ("example contract", test_example_contract),
         ("release docs", test_release_docs),
