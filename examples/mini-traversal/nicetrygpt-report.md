@@ -3,17 +3,19 @@
 - Final status: `TRANSFORMED PASS`
 - Baseline result: PASS
 - Vulnerability class: Path traversal
+- Learning objective: identify and exploit unsafe path joining to escape the public download directory
 - Cheap shortcut: a static export path makes `../exports/latest.txt` an immediate one-shot candidate
 - Transformation: runtime discovery
 - Human cost: +1 meaningful request
 - Original difficulty band: Easy
 - Post-change difficulty band: Easy
+- Shortcut reduction check: PASS
 - Post-change E2E result: PASS
-- Fresh-solver result: NOT TESTED
+- Fresh-solver result: `NOT TESTED`
 - Files changed: `after/server.py`
 
-The vulnerable download logic is intentionally unchanged.
+The baseline is valid because the runtime flag is read through the vulnerable download endpoint using path traversal.
 
-In the baseline, the application exposes a fixed export filename. In the transformed version, the export filename is generated at startup and is revealed through normal `/api/activity` behavior. The old static traversal path therefore fails, while the player can still discover the current export path and exploit the same traversal with one additional request.
+In the transformed version, the old static traversal path fails. A normal activity response reveals the current export path, and the same traversal primitive then reaches the flag.
 
-No honeypot or decoy is used in this example.
+No honeypot, new exploit primitive, or brute force is introduced, so the added human cost is one ordinary observation.
