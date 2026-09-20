@@ -1,11 +1,21 @@
 # Mini IDOR — before
 
+This is the intentionally shortcut-friendly baseline.
+
 Run:
 
 ```bash
-python server.py --port 8000
+CTF_FLAG='FLAG{local_demo}' python server.py --port 8000
 ```
 
-Player starts at `/` as `guest` and owns order `1001`.
+On Windows PowerShell:
 
-Learning objective: identify and exploit an IDOR in the receipt endpoint.
+```powershell
+$env:CTF_FLAG='FLAG{local_demo}'; python server.py --port 8000
+```
+
+The player starts at `/` as `guest` and owns order `1001`.
+
+Learning objective: identify and exploit an IDOR / missing object-level authorization issue in the receipt endpoint.
+
+The cheap shortcut is intentional: the sensitive order is the immediately adjacent ID.

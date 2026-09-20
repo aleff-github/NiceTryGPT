@@ -2,46 +2,66 @@
 
 Use this file as a menu, not a checklist. Most challenges need zero or one pattern.
 
+The selection rule is:
+
+> Choose the largest reduction in cheap pattern matching for the smallest increase in human effort.
+
 ## Pattern break
 
-Use when names, messages, or layout practically announce a textbook exploit. Rename or reframe the cue while leaving enough evidence for a player to form the same hypothesis naturally.
+Use when names, messages, or layout practically announce a textbook exploit.
 
-Good: a generic `receipt` identifier instead of a parameter literally named `admin_id`.
+**Good:** a generic `receipt` identifier instead of a parameter literally named `admin_id`.
 
-Bad: renaming every variable to random strings.
+**Bad:** renaming every variable to random strings.
+
+**Typical human cost:** zero or one extra inspection step.
 
 ## Runtime discovery
 
 Move one small solve-relevant fact into normal runtime behavior.
 
-Good: a nearby activity endpoint reveals a valid object reference that the vulnerable endpoint fails to authorize.
+**Good:** an activity endpoint reveals a valid object reference that a vulnerable receipt endpoint fails to authorize.
 
-Bad: a random secret generated on every request with no player-visible way to discover it.
+**Good:** an object ID is generated at startup but is visible through ordinary application behavior.
+
+**Bad:** generating a secret value that the player has no normal way to discover.
+
+Randomization is useful only when it removes a static shortcut, not when it adds luck.
+
+**Typical human cost:** one extra request or observation.
 
 ## Context split
 
-Place two simple clues in different but nearby application surfaces so the player must connect them.
+Place two simple clues in different but nearby application surfaces so the player has to connect them.
 
-Good: an order ID appears in recent activity and is accepted by an insecure receipt endpoint.
+**Good:** an order ID appears in recent activity and is accepted by an insecure receipt endpoint.
 
-Bad: requiring clues from unrelated protocols, files, and services for an otherwise easy challenge.
+**Bad:** requiring clues from unrelated protocols, files, and services for an otherwise easy challenge.
+
+**Typical human cost:** one or two extra observations.
 
 ## State dependency
 
 Let a small amount of ordinary state affect the solve.
 
-Good: a session-created resource must exist before an authorization bug can be exercised.
+**Good:** a session-created resource must exist before an authorization bug can be exercised.
 
-Bad: a five-step state machine that turns an easy challenge into an exploitation chain.
+**Bad:** a five-step state machine that turns an easy challenge into an exploitation chain.
+
+**Typical human cost:** one normal setup action.
 
 ## Semantic decoy
 
 Add a plausible attack surface that can be disproved quickly.
 
-Good: a download endpoint looks traversal-prone but rejects traversal cleanly; one test is enough to move on.
+**Good:** a download endpoint looks traversal-prone but rejects traversal cleanly; one test is enough to move on.
 
-Bad: multiple deep rabbit holes, fake flags, destructive traps, rate-limit punishment, or misleading evidence that costs substantial time.
+**Bad:** multiple rabbit holes, fake flags, destructive traps, rate-limit punishment, or misleading evidence that costs substantial time.
 
-## Selection rule
+For v0.1, use at most one semantic decoy.
 
-Choose the pattern that creates the largest reduction in cheap pattern matching for the smallest increase in human effort. If none clears that bar, make no change.
+**Typical human cost:** one failed hypothesis.
+
+## Do not stack by default
+
+If one pattern already removes the identified shortcut, stop. A second pattern needs a clear reason and must still pass the Human Cost Gate.

@@ -1,11 +1,21 @@
 # Mini IDOR — after
 
+This version keeps the same learning objective and difficulty band while removing the adjacent-ID shortcut.
+
 Run:
 
 ```bash
-python server.py --port 8000
+CTF_FLAG='FLAG{local_demo}' python server.py --port 8000
 ```
 
-The learning objective is unchanged: exploit an IDOR in the receipt endpoint.
+On Windows PowerShell:
 
-The player still owns order `1001`, but the useful foreign object reference is learned through the normal `/api/activity` surface. A safe `/download` endpoint acts as a cheap semantic decoy and rejects traversal cleanly.
+```powershell
+$env:CTF_FLAG='FLAG{local_demo}'; python server.py --port 8000
+```
+
+The player still owns order `1001`.
+
+The sensitive foreign order ID is generated at server startup, so it cannot be learned from a static adjacent-ID guess. The ID is exposed through normal `/api/activity` behavior and can then be used against the same vulnerable `/receipt` endpoint.
+
+A safe `/download` endpoint provides one shallow semantic decoy. A normal download works; traversal is rejected cleanly.

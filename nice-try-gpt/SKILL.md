@@ -1,144 +1,196 @@
 ---
 name: nice-try-gpt
-description: Makes authorized CTF challenges less trivial for LLMs without making them miserable for humans. Use when asked to harden, de-pattern, or test a CTF against AI shortcuts.
+description: Analyze an authorized CTF challenge, reproduce its intended solve, identify cheap LLM shortcuts, apply minimal human-friendly transformations, and verify the result end-to-end. Use when reviewing or adapting CTFs to reduce pattern-matching shortcuts without materially increasing human difficulty.
 ---
 
 # NiceTryGPT
 
 Less pattern matching. More actual hacking.
 
-Use this skill only for CTFs, labs, and systems the user is authorized to test. The goal is not to make a challenge harder in general. The goal is to remove cheap LLM shortcuts while keeping the human experience simple, fair, and close to the original difficulty.
+Use this skill only for CTFs, training labs, and systems the user is authorized to test.
 
-## Core rule
+## Core contract
 
-Increase uncertainty, not complexity.
+The goal is not to make the challenge harder in general. The goal is to reduce one cheap LLM shortcut while keeping the challenge fair and recognizable to a human player.
 
-Preserve all three invariants:
+Preserve these invariants:
 
-1. The intended vulnerability class stays the same.
-2. The prerequisite knowledge stays the same.
-3. Expected human difficulty stays roughly the same.
+1. Same intended vulnerability class.
+2. Same learning objective.
+3. Same prerequisite knowledge.
+4. Same flag or success semantics.
+5. Roughly the same human difficulty band.
 
-Prefer one small, strong change over several clever changes. It is valid to conclude `NO CHANGE NEEDED`.
+Default to **one** resistance change. Use a second only when the first is insufficient and the Human Cost Gate still passes.
 
-## Workflow
+It is valid to make no change.
 
-### 1. Understand
+Use these final statuses exactly:
 
-Read only what is needed to understand the challenge: entry point, run instructions, player-facing description, relevant code, flag format, and intended learning objective.
+- `BASELINE FAILED`
+- `NO CHANGE NEEDED`
+- `TRANSFORMED PASS`
+- `TRANSFORMED FAILED`
 
-Write down:
+## 1. Understand
+
+Read only what is needed to understand and run the challenge:
+
+- player-facing description;
+- entry point;
+- relevant source/configuration;
+- run or build instructions;
+- flag format or equivalent success condition;
+- intended learning objective.
+
+Before editing, record:
 
 - vulnerability class;
 - intended solve path;
 - expected player knowledge;
-- approximate human difficulty;
-- how to start from a clean state.
+- approximate difficulty band;
+- clean-start procedure.
 
 Do not modify files yet.
 
-### 2. Baseline solve
+## 2. Baseline solve
 
-Start the challenge from a clean state and solve it end-to-end through the player-facing surface.
+Start from a clean state and solve the original challenge end-to-end through the player-facing surface.
 
-A valid baseline ends with the flag or equivalent success condition obtained through the intended vulnerability. Do not count reading the flag directly from source code, fixtures, environment files, or container internals as a solve.
+A valid baseline must obtain the runtime flag or equivalent success condition through the intended vulnerability.
 
-If the baseline cannot be reproduced, stop and report `BASELINE FAILED`. Do not transform a challenge you have not verified.
+Do **not** count any of these as a solve:
 
-### 3. Find shortcuts
+- reading the flag directly from source;
+- reading fixture or environment values directly;
+- inspecting container internals only to extract the answer;
+- assuming the documented solve works without reproducing it.
 
-Ask one question: why could an LLM jump too quickly from observation to solution?
+If the baseline cannot be reproduced, stop with `BASELINE FAILED`. Do not transform an unverified challenge.
 
-Look for cheap shortcuts such as:
+## 3. Identify the cheapest shortcut
 
-- an endpoint or parameter that names the vulnerability too clearly;
-- a direct one-step mapping from a common pattern to a canned exploit;
-- all required information appearing in one obvious response;
-- a static value that removes the need to observe runtime behavior;
-- an error message that effectively reveals the solve path;
-- a challenge that rewards guessing a textbook payload without validating a hypothesis.
+Ask:
 
-Do not assume every obvious challenge needs changing.
+> What lets an LLM jump from observation to solution without enough interaction or hypothesis testing?
 
-### 4. Pick a minimal resistance move
+Choose one primary shortcut, supported by evidence from the baseline. Examples:
 
-Choose zero, one, or at most two lightweight changes. Prefer these families:
+- a parameter or endpoint practically names the vulnerability;
+- the next obvious numeric ID is the target;
+- a textbook payload works immediately with no discovery;
+- all solve-relevant facts appear in one static response;
+- an error message reveals the intended path;
+- a static value removes the need to observe runtime behavior.
+
+Do not invent a problem just to justify a transformation.
+
+## 4. Pick the smallest resistance move
+
+Choose zero, one, or at most two lightweight moves:
 
 - **Pattern break** — remove an overly explicit cue without hiding the vulnerability.
-- **Runtime discovery** — make one small fact discoverable through normal interaction rather than static pattern matching.
+- **Runtime discovery** — move one solve-relevant fact into normal runtime behavior.
 - **Context split** — require connecting two nearby pieces of ordinary application behavior.
-- **State dependency** — let a small piece of state matter, without creating a multi-stage exploit chain.
+- **State dependency** — let a small amount of ordinary state matter.
 - **Semantic decoy** — add one plausible but cheaply falsifiable attack surface.
 
-A decoy is optional. Never make honeypots a predictable signature of this skill.
+Read `references/resistance-patterns.md` only when selection guidance is useful.
 
-Read `references/resistance-patterns.md` only when you need examples or selection guidance.
+Do not stack patterns by default.
 
-### 5. Human Cost Gate
+## 5. Human Cost Gate
 
-Reject a proposed change unless all of these remain true:
+Reject a proposal unless all of these remain true:
 
 - same vulnerability class;
+- same learning objective;
 - same prerequisite knowledge;
 - no new exploit primitive required;
 - no brute force;
 - no CAPTCHA or human-verification gimmick;
 - no huge context, token flooding, or pointless encoding;
-- no obscure trivia or external knowledge;
+- no obscure external trivia;
 - no artificial multi-stage chain;
 - normally no more than 1–3 additional meaningful player actions;
-- expected human solve time should remain in the same difficulty band.
+- expected solve difficulty stays in the same band.
 
-For decoys, add no more than 1–3 and make each dismissible in 1–2 normal interactions.
+A meaningful action is an interaction that materially advances or rejects a hypothesis, such as one request, command, or inspection step.
 
-If a useful LLM-resistance change would violate this gate, keep the original challenge.
+For semantic decoys:
 
-### 6. Modify
+- default to zero;
+- if useful, add only one in v0.1;
+- make it dismissible in 1–2 normal interactions;
+- never use fake flags, destructive traps, or punishment.
+
+If a useful resistance change fails this gate, keep the original challenge and report `NO CHANGE NEEDED`.
+
+## 6. Modify
 
 Implement the smallest diff that satisfies the chosen strategy.
 
-Preserve normal application behavior. Do not rewrite the challenge simply to make it look different. Do not hide the flag behind random instability. Do not remove the intended teaching signal.
+Preserve normal application behavior. Avoid cosmetic rewrites that do not change the shortcut.
 
-If a `nicetrygpt-history.md` file exists, scan it before choosing a mechanism and avoid repeating the same transformation pattern without a good reason.
+Runtime randomization is acceptable only when:
 
-### 7. Verify end-to-end
+- the player can discover the randomized value through normal interaction;
+- it never requires guessing or brute force;
+- it does not make the challenge flaky.
 
-Rebuild or restart from a clean state.
+Do not hide the flag behind randomness or instability.
 
-Verify:
+## 7. Verify end-to-end
 
-1. the application starts normally;
-2. ordinary player-facing functionality still works;
+Restart or rebuild from a clean state.
+
+Verify all applicable checks:
+
+1. application starts normally;
+2. legitimate player-facing functionality still works;
 3. the intended vulnerability still exists;
-4. the transformed challenge can still be solved end-to-end;
-5. the flag is obtained through the vulnerability, not by static extraction;
-6. any decoy is harmless, plausible, and cheap to reject.
+4. the original cheap shortcut is actually reduced or removed;
+5. the transformed solve works end-to-end;
+6. the runtime flag is obtained through the vulnerability;
+7. the flag is not leaked by unrelated surfaces;
+8. any decoy has a normal path that works and an obvious exploit probe that fails safely.
 
-If verification fails, revert or simplify the transformation. A broken challenge is never a successful transformation.
+If verification fails, simplify or revert the transformation. End with `TRANSFORMED FAILED` if a valid transformed challenge cannot be restored.
 
-### 8. Fresh-solver check
+## 8. Fresh-solver check
 
-When an isolated subagent or fresh context is available, give it only the player-facing challenge information and ask it to solve the transformed challenge. Do not reveal the transformation plan or baseline solution.
+When a genuinely isolated context, subagent, or separate model is available, give it only the player-facing challenge information and ask it to solve the transformed challenge.
 
-When a fresh context is not available, generate a short fresh-solver brief that another session can use. Do not pretend that self-review proves LLM resistance.
+Do not reveal:
 
-### 9. Report
+- the baseline solution;
+- the shortcut analysis;
+- the transformation plan.
 
-Create or update `nicetrygpt-report.md` in the challenge root with a short report containing:
+If no independent solver is available, mark the result `NOT TESTED`.
 
+Never claim that self-review proves LLM resistance.
+
+## 9. Report
+
+Create or update `nicetrygpt-report.md` in the challenge root.
+
+Keep it short and include:
+
+- final status;
 - baseline result;
 - vulnerability class;
 - shortcut identified;
 - transformation used, or `NO CHANGE NEEDED`;
-- human-cost estimate;
+- human-cost estimate in additional meaningful actions;
+- original difficulty band;
+- post-change difficulty band;
 - post-change E2E result;
-- fresh-solver result if actually tested;
+- fresh-solver result or `NOT TESTED`;
 - files changed.
 
-Keep the report concise. NiceTryGPT should leave behind a challenge, not a research paper.
+## Success rule
 
-## Success criteria
-
-A transformation succeeds only when the original learning objective is preserved, the challenge still works end-to-end, and the LLM shortcut is reduced without materially worsening the human experience.
+A transformation succeeds only when the learning objective is preserved, the challenge still works end-to-end, and the identified shortcut is reduced without materially worsening the human experience.
 
 If those goals conflict, favor the human player.
