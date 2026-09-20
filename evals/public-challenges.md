@@ -35,7 +35,7 @@ Public writeups create a possible model-training contamination risk. That is not
 
 | Challenge | Event / source | Intended security idea | License | Local packaging | Smoke status | Role |
 |---|---|---|---|---|---|---|
-| **Interstellar Ingress** | NexusCTF 2025 | JWT/session authentication bypass using an unsecured token | MIT | Docker, Node 22 | **PASS — baseline solved** | Primary candidate |
+| **Interstellar Ingress** | NexusCTF 2025 | JWT/session authentication bypass using an unsecured token | MIT | Docker, Node 22 | **TRANSFORMED PASS — fresh solver pending** | Primary candidate |
 | **DiceMiner** | DiceCTF Quals 2026 | IEEE-754 coordinate aliasing causes repeated reward accounting for one mined block | AGPL-3.0 | Docker, Node 22 | **PASS — baseline solved** | Primary cross-event candidate |
 | **Some Stars Read Fast** | NexusCTF 2025 | SSRF hidden behind a reversible URL encoding layer | MIT | Docker, Node 22 | **PASS — baseline pending** | Reserve |
 | **Orbital Uplink** | CSAW CTF 2025 Finals | privilege escalation plus improper access control / arbitrary file preview | Apache-2.0 | Docker, Python 3.12 | **PASS — baseline solved*** | Cross-check candidate |
@@ -128,4 +128,6 @@ The following checks were executed against isolated local containers built from 
 
 No organizer-hosted live challenge endpoint was attacked or used for these checks.
 
-Until a challenge also has a verified NiceTryGPT after-variant, the existing mini challenges remain the regression fixtures and no external before/after model-evaluation result should be claimed.
+Interstellar Ingress now also has a verified NiceTryGPT after-variant; the transformation record is documented in [`interstellar-ingress.md`](interstellar-ingress.md). Fresh-context model runs are still pending, so no external before/after model-resistance result is claimed yet.
+
+For the remaining candidates, the existing mini challenges remain the regression fixtures until a verified after-variant exists.
