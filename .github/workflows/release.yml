@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v0.1.0"
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,18 +15,49 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Read version
+        id: version
+        shell: bash
+        run: |
+          version="$(tr -d '[:space:]' < VERSION)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Check whether release already exists
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        shell: bash
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run validation
+        if: steps.existing.outputs.exists == 'false'
         run: |
           python tests/test_demo.py
           python tests/test_release.py
+
       - name: Package skill
+        if: steps.existing.outputs.exists == 'false'
         run: python scripts/package_skill.py
+
       - name: Create GitHub release
+        if: steps.existing.outputs.exists == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/nice-try-gpt-v0.1.0.zip             --title "NiceTryGPT v0.1.0 ☕🤖"             --notes-file .github/release-notes/v0.1.0.md
+          gh release create "$TAG" "dist/nice-try-gpt-v$VERSION.zip" --target "$GITHUB_SHA" --title "NiceTryGPT $TAG ☕🤖" --notes-file ".github/release-notes/$TAG.md"
