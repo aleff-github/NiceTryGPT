@@ -3,7 +3,8 @@ message: "If you use NiceTryGPT, please cite the software using these metadata."
 title: "NiceTryGPT"
 type: software
 authors:
-  - family-names: "Aleff"
+  - family-names: "Greco"
+    given-names: "Alessandro"
     alias: "@aleff-github"
     website: "https://github.com/aleff-github"
 abstract: >-
@@ -13,6 +14,7 @@ abstract: >-
   bounded human difficulty cost.
 version: "0.2.0"
 date-released: "2026-09-20"
+doi: "10.5281/zenodo.22858477"
 repository-code: "https://github.com/aleff-github/NiceTryGPT"
 url: "https://aleff-github.github.io/NiceTryGPT/"
 license: "GPL-3.0-only"
