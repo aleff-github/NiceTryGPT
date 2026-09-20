@@ -1,0 +1,33 @@
+{
+  "@context": "https://w3id.org/codemeta/3.1",
+  "@type": "SoftwareSourceCode",
+  "name": "NiceTryGPT",
+  "identifier": "NiceTryGPT",
+  "description": "A minimal-diff workflow for reducing cheap LLM shortcuts in existing, authorized CTF challenges while preserving the human learning objective.",
+  "version": "0.2.0",
+  "dateCreated": "2026-09-20",
+  "datePublished": "2026-09-20",
+  "codeRepository": "https://github.com/aleff-github/NiceTryGPT",
+  "issueTracker": "https://github.com/aleff-github/NiceTryGPT/issues",
+  "url": "https://aleff-github.github.io/NiceTryGPT/",
+  "license": "https://spdx.org/licenses/GPL-3.0-only.html",
+  "programmingLanguage": "Python",
+  "applicationCategory": "Cybersecurity",
+  "developmentStatus": "active",
+  "continuousIntegration": "https://github.com/aleff-github/NiceTryGPT/actions",
+  "author": {
+    "@type": "Person",
+    "name": "Aleff",
+    "url": "https://github.com/aleff-github"
+  },
+  "keywords": [
+    "capture the flag",
+    "CTF",
+    "cybersecurity",
+    "LLM",
+    "AI security",
+    "security education",
+    "challenge design",
+    "agent skills"
+  ]
+}
