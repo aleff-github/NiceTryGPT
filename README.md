@@ -12,7 +12,7 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 [![Website](https://img.shields.io/badge/website-GitHub%20Pages-ffb347.svg)](https://aleff-github.github.io/NiceTryGPT/)
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-8fe3b4.svg)](CITATION.cff)
 
-[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Citation**](#citation) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
+[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Citation**](#citation) · [**Preservation**](#preservation) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
 
 </div>
 
@@ -201,6 +201,16 @@ See [`docs/related-work.md`](docs/related-work.md) for the current positioning a
 NiceTryGPT ships with machine-readable [`CITATION.cff`](CITATION.cff) metadata, so GitHub can expose **Cite this repository** with generated APA and BibTeX formats.
 
 For research or evaluation work, cite the release or commit you actually used and record the model version, tool access, run count, and evaluation protocol. See [`CITING.md`](CITING.md) for the current human-readable citation and [`codemeta.json`](codemeta.json) for CodeMeta software metadata.
+
+## Preservation
+
+NiceTryGPT separates distribution, preservation, and citation:
+
+- GitHub Releases provide versioned project releases;
+- Software Heritage archival is requested automatically for the repository when the archival workflow is introduced and whenever a new GitHub release is published;
+- Zenodo DOI minting is prepared through the existing `CITATION.cff`, but requires the maintainer to connect and enable the GitHub repository in Zenodo before a DOI can be minted.
+
+See [`docs/preservation.md`](docs/preservation.md) for the preservation and persistent-identifier strategy.
 
 ## What NiceTryGPT will not do
 
