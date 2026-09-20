@@ -1,0 +1,57 @@
+name: One-off marketplace submissions
+
+on:
+  push:
+    branches:
+      - ops/marketplace-submissions
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: github.event.head_commit.message == 'chore: submit NiceTryGPT to public skill directories'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Submit to AgentSkill.sh
+        continue-on-error: true
+        shell: bash
+        run: |
+          payload='{"url":"https://github.com/aleff-github/NiceTryGPT/blob/main/skills/nice-try-gpt/SKILL.md"}'
+          code=$(curl --silent --show-error --location --output /tmp/agentskill.json --write-out '%{http_code}' \
+            --request POST 'https://agentskill.sh/api/skills/submit' \
+            --header 'Content-Type: application/json' \
+            --header 'Accept: application/json' \
+            --data "$payload")
+          echo "HTTP $code"
+          cat /tmp/agentskill.json || true
+          test "$code" -ge 200 -a "$code" -lt 300
+
+      - name: Submit to agent-skills.md
+        continue-on-error: true
+        shell: bash
+        run: |
+          payload='{"json":{"url":"https://github.com/aleff-github/NiceTryGPT"}}'
+          code=$(curl --silent --show-error --location --output /tmp/agentskillsmd.json --write-out '%{http_code}' \
+            --request POST 'https://agent-skills.md/rpc/repos/submit' \
+            --header 'Content-Type: application/json' \
+            --header 'Accept: application/json' \
+            --data "$payload")
+          echo "HTTP $code"
+          cat /tmp/agentskillsmd.json || true
+          test "$code" -ge 200 -a "$code" -lt 300
+
+      - name: Submit to SkillsMD
+        continue-on-error: true
+        shell: bash
+        run: |
+          payload='{"repo":"aleff-github/NiceTryGPT","name":"nice-try-gpt","description":"Analyzes authorized CTF challenges by reproducing intended solves, identifying cheap LLM shortcuts, applying minimal human-friendly transformations, and verifying results end-to-end."}'
+          code=$(curl --silent --show-error --location --output /tmp/skillsmd.json --write-out '%{http_code}' \
+            --request POST 'https://skillsmd.dev/api/submit' \
+            --header 'Content-Type: application/json' \
+            --header 'Accept: application/json' \
+            --data "$payload")
+          echo "HTTP $code"
+          cat /tmp/skillsmd.json || true
+          test "$code" -ge 200 -a "$code" -lt 300
