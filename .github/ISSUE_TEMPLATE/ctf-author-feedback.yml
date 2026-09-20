@@ -1,0 +1,89 @@
+name: CTF author feedback
+description: Share design feedback on NiceTryGPT, the Human Cost Gate, or the before/after methodology.
+title: "[Feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reviewing NiceTryGPT. This form is for CTF authors, organizers, educators, and players who want to comment on challenge-design fairness.
+
+        Please do not include private challenge material, unpublished flags, credentials, or other sensitive information.
+
+  - type: dropdown
+    id: perspective
+    attributes:
+      label: Perspective
+      description: Which perspective best matches your feedback?
+      options:
+        - CTF challenge author
+        - CTF organizer
+        - Security educator / trainer
+        - CTF player
+        - Security researcher
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tried
+    attributes:
+      label: Did you inspect or run the examples?
+      options:
+        - Yes, I ran at least one before/after example
+        - I inspected the repository but did not run it
+        - No, this is methodology-level feedback
+    validations:
+      required: true
+
+  - type: textarea
+    id: useful
+    attributes:
+      label: What works well?
+      description: Which parts of the methodology feel realistic or useful for actual CTF design?
+      placeholder: Baseline-first workflow, Human Cost Gate, a specific resistance pattern, reporting format...
+    validations:
+      required: true
+
+  - type: textarea
+    id: friction
+    attributes:
+      label: What feels artificial or unfair?
+      description: Point out anything that would make a human challenge worse, more annoying, or less educational.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: human_cost
+    attributes:
+      label: Is the Human Cost Gate a useful constraint?
+      options:
+        - Yes
+        - Mostly, but it needs adjustment
+        - No
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected_classes
+    attributes:
+      label: Which challenge classes need this most?
+      description: Which vulnerability or CTF categories are most vulnerable to cheap LLM shortcuts in your experience?
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What evidence would make you trust a transformation?
+      description: For example human solve data, model runs, author review, action counts, or another measure.
+    validations:
+      required: false
+
+  - type: textarea
+    id: other
+    attributes:
+      label: Anything else?
+      description: Suggestions, edge cases, or examples we should study next.
+    validations:
+      required: false
