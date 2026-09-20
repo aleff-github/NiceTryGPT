@@ -115,7 +115,7 @@ def test_release_docs():
 def test_project_metadata():
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     release_match = re.search(
-        rf"## \\[{re.escape(VERSION)}\\] — (\\d{{4}}-\\d{{2}}-\\d{{2}})",
+        rf"## \[{re.escape(VERSION)}\] — (\d{{4}}-\d{{2}}-\d{{2}})",
         changelog,
     )
     assert release_match, "current VERSION must have a dated CHANGELOG entry"
@@ -145,7 +145,7 @@ def test_project_metadata():
 
 def test_readme_local_links():
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    links = re.findall(r"\\[[^\\]]+\\]\\(([^)]+)\\)", readme)
+    links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", readme)
 
     for target in links:
         if target.startswith(("http://", "https://", "#", "mailto:")):
