@@ -4,11 +4,13 @@ NiceTryGPT provides machine-readable citation metadata in [CITATION.cff](CITATIO
 
 For work that depends on a specific NiceTryGPT release, cite the release version you actually used rather than the moving main branch.
 
-A compact human-readable citation for the current release is:
+The canonical citation for the current release is:
 
-> Aleff. (2026). *NiceTryGPT* (Version 0.2.0) [Computer software]. https://github.com/aleff-github/NiceTryGPT
+> Greco, A. (2026). *NiceTryGPT* (Version 0.2.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.22858477
 
-The project does not currently have a DOI and should not be cited as if it were a peer-reviewed paper. If an archival DOI is minted in the future, the canonical citation metadata will be updated in CITATION.cff.
+The archived Zenodo record for v0.2.0 is available at https://zenodo.org/records/22858477.
+
+The DOI identifies this specific software release; it does not imply peer review of the software or its methodology.
 
 ## Research use
 
