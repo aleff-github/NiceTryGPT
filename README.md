@@ -237,7 +237,7 @@ For research or evaluation work, cite the release or commit you actually used an
 NiceTryGPT separates distribution, preservation, and citation:
 
 - GitHub Releases provide versioned project releases;
-- Software Heritage archival is requested automatically for the repository when the archival workflow is introduced and whenever a new GitHub release is published;
+- Software Heritage preserves the repository independently of GitHub; the first completed snapshot is `swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf`;
 - Zenodo preserves the v0.2.0 source archive under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477); future releases can use the connected GitHub/Zenodo integration.
 
 See [`docs/preservation.md`](docs/preservation.md) for the preservation and persistent-identifier strategy.
