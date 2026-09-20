@@ -14,7 +14,7 @@
 
 > **Increase uncertainty, not complexity.**
 
-NiceTryGPT is intentionally small: one skill, one demo, one E2E test, no framework.
+NiceTryGPT is intentionally small: one skill, two tiny demos, one E2E test suite, no framework.
 
 ## Try it in 30 seconds
 
@@ -66,20 +66,38 @@ The default is **one resistance change**. A second change is justified only when
 
 ## Before / after
 
-The included `mini-idor` example is intentionally tiny.
+NiceTryGPT currently ships with two deliberately tiny examples:
+
+| Example | Before | After | Human cost |
+|---|---|---|---|
+| `mini-idor` | adjacent order ID gives the flag | foreign order ID must be observed at runtime | +1 request |
+| `mini-traversal` | static export path is immediately reusable | export filename changes each run and is exposed by normal activity | +1 request |
+
+Both keep the original vulnerability class and learning objective.
+
+### mini-idor
 
 | | Before | After |
 |---|---|---|
 | Vulnerability | IDOR | IDOR |
-| Learning objective | Missing object-level authorization | Same |
 | Cheap shortcut | Try the adjacent order ID | Adjacent guess fails |
 | Needed observation | None | One runtime activity request |
 | Human difficulty | Easy | Still easy |
 | Decoy | None | One shallow, safe download decoy |
 
-The transformed version does **not** hide the vulnerability behind complexity. It simply moves one solve-relevant fact into runtime behavior, so the solver has to observe the application instead of relying only on a static pattern.
+### mini-traversal
 
-## Run the demo
+| | Before | After |
+|---|---|---|
+| Vulnerability | Path traversal | Path traversal |
+| Cheap shortcut | Static `../exports/latest.txt` path | Static path fails |
+| Needed observation | None | One runtime activity request |
+| Human difficulty | Easy | Still easy |
+| Decoy | None | None |
+
+The traversal example is intentionally useful as a generalization check: it uses **no honeypot**. The only change is moving one solve-relevant fact from static behavior into ordinary runtime behavior.
+
+## Run the demos
 
 No third-party Python packages are required.
 
@@ -87,21 +105,16 @@ No third-party Python packages are required.
 python tests/test_demo.py
 ```
 
-The test verifies that:
-
-- the original challenge is solvable through the obvious adjacent-ID shortcut;
-- normal functionality still works after the transformation;
-- the old adjacent-ID shortcut no longer works;
-- the useful foreign object reference must be learned at runtime;
-- the same IDOR still yields the flag;
-- the semantic decoy behaves normally and rejects traversal.
+The suite verifies that each original challenge is solvable, the identified cheap shortcut stops working after transformation, normal functionality still works, and the intended vulnerability still reaches the runtime flag.
 
 Expected result:
 
 ```text
 PASS  skill metadata
-PASS  before baseline
-PASS  after transformed
+PASS  IDOR before
+PASS  IDOR after
+PASS  traversal before
+PASS  traversal after
 
 NiceTryGPT demo E2E: PASS
 ```
@@ -156,7 +169,11 @@ NiceTryGPT/
 │   └── references/
 │       └── resistance-patterns.md
 ├── examples/
-│   └── mini-idor/
+│   ├── mini-idor/
+│   │   ├── before/
+│   │   ├── after/
+│   │   └── nicetrygpt-report.md
+│   └── mini-traversal/
 │       ├── before/
 │       ├── after/
 │       └── nicetrygpt-report.md
@@ -168,7 +185,7 @@ NiceTryGPT/
 
 **v0.1 — tiny on purpose.**
 
-The current goal is to validate the method on a small set of reproducible CTFs before adding broader benchmarks, automation, or extra infrastructure.
+The method is now demonstrated across two different vulnerability classes: IDOR and path traversal. The next goal is to validate it on a few more small, reproducible CTFs before adding broader benchmarks, automation, or extra infrastructure.
 
 ## Contributing
 
