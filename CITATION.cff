@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use NiceTryGPT, please cite the software using these metadata."
+title: "NiceTryGPT"
+type: software
+authors:
+  - family-names: "Aleff"
+    alias: "@aleff-github"
+    website: "https://github.com/aleff-github"
+abstract: >-
+  NiceTryGPT is a minimal-diff workflow for reducing cheap LLM shortcuts in
+  existing, authorized Capture the Flag challenges while preserving the
+  vulnerability class, learning objective, prerequisite knowledge, and a
+  bounded human difficulty cost.
+version: "0.2.0"
+date-released: "2026-09-20"
+repository-code: "https://github.com/aleff-github/NiceTryGPT"
+url: "https://aleff-github.github.io/NiceTryGPT/"
+license: "GPL-3.0-only"
+keywords:
+  - "capture the flag"
+  - "CTF"
+  - "cybersecurity"
+  - "LLM"
+  - "AI security"
+  - "security education"
+  - "challenge design"
+  - "agent skill"
