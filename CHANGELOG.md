@@ -13,7 +13,8 @@ All notable changes to NiceTryGPT are documented here.
 - structured bug and methodology-proposal issue forms;
 - Dependabot updates for GitHub Actions;
 - automated Software Heritage archival requests and preservation/DOI guidance;
-- Zenodo archival metadata and version-specific DOI `10.5281/zenodo.22858477` for v0.2.0.
+- Zenodo archival metadata and version-specific DOI `10.5281/zenodo.22858477` for v0.2.0;
+- Google Search Console ownership-verification metadata for the GitHub Pages site.
 
 ### Changed
 

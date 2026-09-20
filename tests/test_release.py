@@ -145,6 +145,7 @@ def test_project_metadata():
     assert 'https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff' in site
     assert "10.5281/zenodo.22858477" in site
     assert "Alessandro Greco" in site
+    assert 'name="google-site-verification"' in site
 
     llms = (ROOT / "docs" / "llms.txt").read_text(encoding="utf-8")
     assert f"Current release: {VERSION}" in llms
