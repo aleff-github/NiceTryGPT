@@ -4,7 +4,7 @@
 
 [![Tests](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml/badge.svg)](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![Status: v0.1](https://img.shields.io/badge/status-v0.1%20POC-orange.svg)](#project-status)
+[![Version: v0.1.0](https://img.shields.io/badge/version-v0.1.0-orange.svg)](#project-status)
 
 ### Your CTF got one-shot by an LLM? Nice try.
 
@@ -103,21 +103,44 @@ No third-party Python packages are required.
 
 ```bash
 python tests/test_demo.py
+python tests/test_release.py
 ```
 
 The suite verifies that each original challenge is solvable, the identified cheap shortcut stops working after transformation, normal functionality still works, and the intended vulnerability still reaches the runtime flag.
 
-Expected result:
+## Package the skill
+
+Build a deterministic ZIP containing only the installable skill:
+
+```bash
+python scripts/package_skill.py
+```
+
+Output:
 
 ```text
-PASS  skill metadata
-PASS  IDOR before
-PASS  IDOR after
-PASS  traversal before
-PASS  traversal after
-
-NiceTryGPT demo E2E: PASS
+dist/nice-try-gpt-v0.1.0.zip
 ```
+
+The ZIP keeps `nice-try-gpt/` as its root directory, so it can be inspected or copied directly into a compatible Agent Skills location.
+
+## Evaluations
+
+NiceTryGPT now includes a minimal reproducible evaluation protocol under [`evals/`](evals/).
+
+The first planned pilot is:
+
+```text
+2 challenges
+× 2 variants
+× 3 model families
+× 5 fresh-context runs
+= 60 runs
+```
+
+The protocol fixes isolation, tool parity, prompt, stop conditions, and raw result fields. **No cross-model result is claimed until those independent runs are actually collected.**
+
+See [`evals/protocol.md`](evals/protocol.md).
 
 ## Resistance patterns
 
@@ -154,13 +177,15 @@ If LLM resistance and human experience conflict, **the human player wins**.
 
 NiceTryGPT does **not** claim to prove that a challenge is AI-proof.
 
-In v0.1, “resistance” means reducing an identified cheap shortcut while preserving the intended challenge. A same-model self-review is not evidence of resistance; fresh-context or cross-model solving should be reported separately when actually performed.
+In v0.1.0, “resistance” means reducing an identified cheap shortcut while preserving the intended challenge. A same-model self-review is not evidence of resistance; fresh-context or cross-model solving is reported separately when actually performed.
 
 ## Repository layout
 
 ```text
 NiceTryGPT/
 ├── README.md
+├── CHANGELOG.md
+├── VERSION
 ├── LICENSE
 ├── SECURITY.md
 ├── CONTRIBUTING.md
@@ -170,22 +195,27 @@ NiceTryGPT/
 │       └── resistance-patterns.md
 ├── examples/
 │   ├── mini-idor/
-│   │   ├── before/
-│   │   ├── after/
-│   │   └── nicetrygpt-report.md
 │   └── mini-traversal/
-│       ├── before/
-│       ├── after/
-│       └── nicetrygpt-report.md
+├── evals/
+│   ├── README.md
+│   ├── protocol.md
+│   ├── solver-prompt.txt
+│   ├── results.csv
+│   └── summarize.py
+├── scripts/
+│   └── package_skill.py
 └── tests/
-    └── test_demo.py
+    ├── test_demo.py
+    └── test_release.py
 ```
 
 ## Project status
 
-**v0.1 — tiny on purpose.**
+**v0.1.0 — first public proof of concept. Tiny on purpose.**
 
-The method is now demonstrated across two different vulnerability classes: IDOR and path traversal. The next goal is to validate it on a few more small, reproducible CTFs before adding broader benchmarks, automation, or extra infrastructure.
+The method is demonstrated across IDOR and path traversal, with automated checks for solvability, shortcut reduction, and packaging. Cross-model evaluation is the next evidence milestone.
+
+See [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Contributing
 
