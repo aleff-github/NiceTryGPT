@@ -2,7 +2,7 @@
   "@context": "https://w3id.org/codemeta/3.1",
   "@type": "SoftwareSourceCode",
   "name": "NiceTryGPT",
-  "identifier": "NiceTryGPT",
+  "identifier": "https://doi.org/10.5281/zenodo.22858477",
   "description": "A minimal-diff workflow for reducing cheap LLM shortcuts in existing, authorized CTF challenges while preserving the human learning objective.",
   "version": "0.2.0",
   "dateCreated": "2026-09-20",
@@ -17,7 +17,7 @@
   "continuousIntegration": "https://github.com/aleff-github/NiceTryGPT/actions",
   "author": {
     "@type": "Person",
-    "name": "Aleff",
+    "name": "Alessandro Greco",
     "url": "https://github.com/aleff-github"
   },
   "keywords": [
@@ -29,5 +29,9 @@
     "security education",
     "challenge design",
     "agent skills"
-  ]
+  ],
+  "sameAs": [
+    "https://zenodo.org/records/22858477"
+  ],
+  "citation": "https://doi.org/10.5281/zenodo.22858477"
 }
