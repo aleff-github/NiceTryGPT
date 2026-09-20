@@ -57,6 +57,18 @@ Avoid:
 - changes that turn a simple challenge into an artificial multi-stage chain;
 - claims of “AI-proof” or “LLM-resistant” based only on self-review.
 
+## Claude Code plugin mirror
+
+The canonical standalone skill under `nice-try-gpt/` is mirrored under `skills/nice-try-gpt/` so the repository can also load as a Claude Code plugin.
+
+After changing the skill or its bundled references, run:
+
+```bash
+python scripts/sync_plugin_skill.py
+```
+
+Do not edit only one copy. CI requires the two trees to be byte-for-byte identical.
+
 ## Project metadata
 
 If a release changes `VERSION`, keep the matching release metadata synchronized. The release checks validate `CITATION.cff`, `codemeta.json`, the website, and `docs/llms.txt` against the current version and dated changelog entry.

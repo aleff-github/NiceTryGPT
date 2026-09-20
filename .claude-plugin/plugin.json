@@ -1,0 +1,20 @@
+{
+  "name": "nice-try-gpt",
+  "version": "0.2.0",
+  "description": "Reduce cheap LLM shortcuts in authorized CTF challenges while preserving the intended vulnerability, learning objective, and human difficulty band.",
+  "author": {
+    "name": "Alessandro Greco",
+    "url": "https://github.com/aleff-github"
+  },
+  "homepage": "https://aleff-github.github.io/NiceTryGPT/",
+  "repository": "https://github.com/aleff-github/NiceTryGPT",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "ctf",
+    "cybersecurity",
+    "security-education",
+    "llm",
+    "ai-security",
+    "challenge-design"
+  ]
+}
