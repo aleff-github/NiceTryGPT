@@ -194,7 +194,7 @@ The first planned pilot is:
 
 The protocol fixes isolation, tool parity, prompt, stop conditions, and raw result fields. **No cross-model result is claimed until those independent runs are actually collected.**
 
-See [`evals/protocol.md`](evals/protocol.md).
+See [`evals/protocol.md`](evals/protocol.md). A separate [public CTF candidate registry](evals/public-challenges.md) now tracks independently authored, open-source challenges that must pass local baseline and transformation gates before entering the model-evaluation matrix.
 
 
 ## Roadmap
