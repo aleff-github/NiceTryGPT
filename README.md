@@ -248,6 +248,21 @@ The method is demonstrated across IDOR, path traversal, and SQL injection. Examp
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
+
+
+## Feedback from CTF authors
+
+If you design, organize, or teach CTFs, feedback on the methodology is especially useful.
+
+The most valuable questions are:
+
+- does the Human Cost Gate match real challenge-design constraints?
+- which transformations feel fair versus annoying?
+- which vulnerability classes are most affected by one-shot LLM solving?
+- what evidence would make you trust a before/after transformation?
+
+Use the [CTF author feedback issue form](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml). No model-evaluation results are required to give design feedback.
+
 ## Contributing
 
 Small, focused contributions are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first.

@@ -22,25 +22,31 @@ NiceTryGPT is a small Agent Skill for CTF authors. It first solves a challenge e
 >
 > https://github.com/aleff-github/NiceTryGPT
 
-## Show HN draft
+## Hacker News
 
-**Title**
+Do **not** copy an LLM-written submission body to Hacker News.
 
-`Show HN: NiceTryGPT – make CTFs less shortcut-friendly to LLMs without hurting humans`
+Current HN guidance explicitly asks users to write submission text themselves and discourages using the site primarily for promotion.
 
-**Body**
+If the maintainer decides to submit NiceTryGPT as a Show HN, write the post manually and cover these factual points in your own words:
 
-> I built NiceTryGPT, a small Agent Skill for CTF authors.
->
-> The idea is deliberately narrow: take an existing challenge, solve it end-to-end first, identify one cheap LLM shortcut, make the smallest useful change, then solve it again.
->
-> The transformation must preserve the vulnerability class, learning objective, prerequisite knowledge, and roughly the same human difficulty.
->
-> v0.2.0 includes three dependency-free before/after demos (IDOR, path traversal, and SQL injection), a CI-enforced example acceptance contract, and a fresh-context evaluation protocol. I am not claiming the examples are AI-proof; independent multi-model results are intentionally not published until they are actually run.
->
-> Feedback from CTF authors on the Human Cost Gate and transformation patterns would be especially useful.
->
-> https://github.com/aleff-github/NiceTryGPT
+- you built NiceTryGPT for existing CTF challenges;
+- it requires a baseline solve before any transformation;
+- it tries to remove one cheap shortcut with the smallest useful change;
+- it preserves the vulnerability class and learning objective;
+- v0.2.0 includes IDOR, path traversal, and SQL injection examples;
+- CI checks deterministic before/after properties;
+- independent Claude/GPT/Gemini results are not published yet;
+- you want feedback specifically on the Human Cost Gate and fairness of transformations.
+
+Suggested title only:
+
+`Show HN: NiceTryGPT – reduce cheap LLM shortcuts in existing CTFs`
+
+Before posting, re-read:
+
+- https://news.ycombinator.com/showhn.html
+- https://news.ycombinator.com/newsguidelines.html
 
 ## CTF organizer outreach
 
@@ -51,19 +57,24 @@ NiceTryGPT is a small Agent Skill for CTF authors. It first solves a challenge e
 > I’ve published v0.2.0 with three tiny reproducible examples and would be interested in feedback from challenge authors on whether the methodology matches real CTF design constraints:
 >
 > https://github.com/aleff-github/NiceTryGPT
+>
+> There is also a short structured feedback form:
+>
+> https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml
 
 ## Good places to share
 
 Use a staged launch rather than posting everywhere at once:
 
 1. GitHub profile / personal portfolio;
-2. one technical community where CTF authors are likely to give useful feedback;
-3. Show HN or a similar builder community;
-4. relevant cybersecurity communities, respecting each community's self-promotion rules;
-5. direct outreach to a small number of CTF organizers or educators;
-6. after real evaluation data exists, a deeper technical article with results.
+2. a handful of CTF organizers through their public project/event contact channels;
+3. one relevant cybersecurity or education community whose rules permit project feedback posts;
+4. Hacker News only if the maintainer is already participating there and writes the submission text personally;
+5. after real evaluation data exists, a deeper technical article with raw results.
 
 The goal of the first launch is **feedback and contributors**, not inflated reach.
+
+See [`outreach-plan.md`](outreach-plan.md) for channel-specific guidance.
 
 ## What to show
 
@@ -74,7 +85,8 @@ Lead with concrete evidence:
 - green E2E tests;
 - the CI-enforced report contract;
 - the Human Cost Gate;
-- the downloadable v0.2.0 release.
+- the downloadable v0.2.0 release;
+- the structured CTF-author feedback form.
 
 A short terminal recording or GIF can be added later, but it is not required for the first public post.
 
