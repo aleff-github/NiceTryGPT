@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aleff-github.github.io/NiceTryGPT/sitemap.xml
