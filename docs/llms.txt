@@ -20,6 +20,19 @@ License: GPL-3.0-only
 - Roadmap: https://github.com/aleff-github/NiceTryGPT/blob/main/ROADMAP.md
 - Citation metadata: https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff
 - Archived release: https://zenodo.org/records/22858477
+- Distribution metadata: https://github.com/aleff-github/NiceTryGPT/blob/main/docs/distribution.md
+- Anthropic skills submission: https://github.com/anthropics/skills/pull/1798
+- AI Skill Store index: https://github.com/aiskillstore/marketplace/tree/main/skills/aleff-github/nice-try-gpt
+
+## Agent Skill discovery
+
+Skill name: nice-try-gpt
+Canonical skill directory: https://github.com/aleff-github/NiceTryGPT/tree/main/skills/nice-try-gpt
+Canonical SKILL.md: https://github.com/aleff-github/NiceTryGPT/blob/main/skills/nice-try-gpt/SKILL.md
+Standalone mirror: https://github.com/aleff-github/NiceTryGPT/tree/main/nice-try-gpt
+Cross-agent install: npx -y skills add aleff-github/NiceTryGPT --skill nice-try-gpt
+Category: security / CTF / security education
+Keywords: CTF, cybersecurity, Agent Skills, LLM, AI security, challenge design, security training
 
 ## Evidence boundary
 
