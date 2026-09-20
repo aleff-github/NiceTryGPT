@@ -1,6 +1,8 @@
 from pathlib import Path
 from zipfile import ZipFile
 import csv
+import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -110,12 +112,58 @@ def test_release_docs():
     assert f"NiceTryGPT v{VERSION}" in notes
 
 
+def test_project_metadata():
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    release_match = re.search(
+        rf"## \[{re.escape(VERSION)}\] — (\d{{4}}-\d{{2}}-\d{{2}})",
+        changelog,
+    )
+    assert release_match, "current VERSION must have a dated CHANGELOG entry"
+    release_date = release_match.group(1)
+
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    assert 'cff-version: 1.2.0' in citation
+    assert f'version: "{VERSION}"' in citation
+    assert f'date-released: "{release_date}"' in citation
+    assert 'repository-code: "https://github.com/aleff-github/NiceTryGPT"' in citation
+
+    codemeta = json.loads((ROOT / "codemeta.json").read_text(encoding="utf-8"))
+    assert codemeta["@context"] == "https://w3id.org/codemeta/3.1"
+    assert codemeta["@type"] == "SoftwareSourceCode"
+    assert codemeta["version"] == VERSION
+    assert codemeta["datePublished"] == release_date
+    assert codemeta["codeRepository"] == "https://github.com/aleff-github/NiceTryGPT"
+
+    site = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
+    assert f'v{VERSION}' in site
+    assert '"version": "' + VERSION + '"' in site
+    assert 'https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff' in site
+
+    llms = (ROOT / "docs" / "llms.txt").read_text(encoding="utf-8")
+    assert f"Current release: {VERSION}" in llms
+
+
+def test_readme_local_links():
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", readme)
+
+    for target in links:
+        if target.startswith(("http://", "https://", "#", "mailto:")):
+            continue
+        path = target.split("#", 1)[0]
+        if not path:
+            continue
+        assert (ROOT / path).exists(), f"README local link does not exist: {target}"
+
+
 def main():
     tests = [
         ("release package", test_package),
         ("evaluation schema", test_eval_schema),
         ("example contract", test_example_contract),
         ("release docs", test_release_docs),
+        ("project metadata", test_project_metadata),
+        ("README local links", test_readme_local_links),
     ]
     failed = 0
 

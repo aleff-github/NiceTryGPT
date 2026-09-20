@@ -57,7 +57,15 @@ Avoid:
 - changes that turn a simple challenge into an artificial multi-stage chain;
 - claims of “AI-proof” or “LLM-resistant” based only on self-review.
 
-## Pull requests
+## Project metadata
+
+If a release changes `VERSION`, keep the matching release metadata synchronized. The release checks validate `CITATION.cff`, `codemeta.json`, the website, and `docs/llms.txt` against the current version and dated changelog entry.
+
+Do not add personal contact details to metadata unless the person has explicitly published them for that purpose.
+
+## Issues and pull requests
+
+Use the structured bug form for reproducible unintended behavior, the method-proposal form for new examples or methodology changes, and the CTF-author form for design feedback. Security-sensitive reports belong under the repository security policy.
 
 Prefer a small PR with one clear purpose. The E2E workflow should be green before merge.
 

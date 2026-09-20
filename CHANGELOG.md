@@ -2,6 +2,23 @@
 
 All notable changes to NiceTryGPT are documented here.
 
+## [Unreleased]
+
+### Added
+
+- machine-readable `CITATION.cff` citation metadata and human-readable citation guidance;
+- CodeMeta 3.1 software metadata;
+- an expanded GitHub Pages site with methodology, evidence, FAQ, citation, and project-resource sections;
+- `llms.txt` as a concise machine-readable project guide;
+- structured bug and methodology-proposal issue forms;
+- Dependabot updates for GitHub Actions.
+
+### Changed
+
+- release checks now enforce version/date consistency across citation, CodeMeta, website, and machine-readable project metadata;
+- release checks now detect broken local Markdown links in the README;
+- contribution guidance now documents metadata synchronization and issue-routing expectations.
+
 ## [0.2.0] — 2026-09-20
 
 Variety without bloat.

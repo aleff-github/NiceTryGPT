@@ -13,6 +13,7 @@ Which problem or cheap shortcut does this address?
 - [ ] No unnecessary complexity added for human players
 - [ ] Shortcut reduction is tested where applicable
 - [ ] `python tests/test_demo.py` passes
+- [ ] `python tests/test_release.py` passes
 
 ## Evidence
 

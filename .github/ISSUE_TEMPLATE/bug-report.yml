@@ -1,0 +1,62 @@
+name: Bug report
+description: Report reproducible unintended behavior in NiceTryGPT
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve NiceTryGPT. Do not use this form for sensitive vulnerabilities; use the repository security policy instead.
+  - type: input
+    id: version
+    attributes:
+      label: NiceTryGPT version or commit
+      placeholder: v0.2.0 or commit SHA
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Skill instructions
+        - Example challenge
+        - Tests / CI
+        - Packaging / release
+        - Documentation / website
+        - Evaluation tooling
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      description: Describe the unintended behavior and the smallest reproducible case.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I verified that this is not an intentional vulnerability inside a demo CTF.
+          required: true
+        - label: I removed secrets, credentials, third-party flags, and private data from this report.
+          required: true

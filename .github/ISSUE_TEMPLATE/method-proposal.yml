@@ -1,0 +1,57 @@
+name: Method or example proposal
+description: Propose a focused resistance pattern, example, or methodology improvement
+title: "[Proposal]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        NiceTryGPT is intentionally small. Proposals should reduce a demonstrated shortcut without adding unnecessary human complexity.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Proposal type
+      options:
+        - New example challenge
+        - Resistance-pattern refinement
+        - Evaluation improvement
+        - Documentation / methodology clarification
+    validations:
+      required: true
+  - type: textarea
+    id: shortcut
+    attributes:
+      label: Cheap shortcut or problem
+      description: What behavior is the proposal meant to address?
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Smallest useful change
+      description: Describe the minimal change you would make.
+    validations:
+      required: true
+  - type: textarea
+    id: human_cost
+    attributes:
+      label: Expected human cost
+      description: What additional meaningful actions or knowledge would a human player need?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or reproduction
+      description: Link to a minimal example, test, or public reference when available.
+  - type: checkboxes
+    id: invariants
+    attributes:
+      label: Invariants
+      options:
+        - label: The vulnerability class or intended security concept remains the same.
+          required: true
+        - label: The learning objective and prerequisite knowledge remain substantially the same.
+          required: true
+        - label: The proposal does not depend on CAPTCHA, brute force, context flooding, or pointless encoding.
+          required: true
