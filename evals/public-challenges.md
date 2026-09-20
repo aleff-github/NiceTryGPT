@@ -42,7 +42,7 @@ Public writeups create a possible model-training contamination risk. That is not
 | **Rolodex** | Pixels Camp 2016/2017, Probely archive | improper authorization via editable role data | Apache-2.0 | legacy Python service | Not yet smoke-tested | Secondary |
 | **Get The List** | Pixels Camp 2016/2017, Probely archive | NoSQL injection against MongoDB-backed lookup | Apache-2.0 | legacy Python + MongoDB | Not yet smoke-tested | Secondary |
 | **Regain Session** | Pixels Camp 2017, Probely archive | client-side/session/JWT trust failure | Apache-2.0 | Docker Compose | Not yet smoke-tested | Secondary |
-| **Heap Dump** | CSAW CTF 2025 Finals | exposed Spring Boot actuator heap dump and credential disclosure | Apache-2.0 | Docker, Java/Gradle + PostgreSQL | Build verification in progress | Secondary |
+| **Heap Dump** | CSAW CTF 2025 Finals | exposed Spring Boot actuator heap dump and credential disclosure | Apache-2.0 | Docker, Java/Gradle + PostgreSQL | **PASS*** | Secondary |
 | **Conditional Constellation** | NexusCTF 2025 | intentionally brute-force a short-lived PIN | MIT | Docker, Node 22 | Not required yet | Negative/control candidate |
 
 ## Pinned upstream revisions
@@ -62,6 +62,8 @@ The repository documents all six web challenges and provides Docker packaging an
 - License: Apache-2.0
 
 The public repository contains challenge source across categories. `web/orbital-uplink/infra/` and `web/heap-dump/heap-dump/` include container build material.
+
+\* `Heap Dump` still references the retired competition hostname `heap-dump.ctf.csaw.io` in its datasource URL. The unmodified container starts successfully when that hostname is mapped to `127.0.0.1`, where the bundled PostgreSQL service already runs. This compatibility mapping is part of the local harness, not a challenge transformation.
 
 ### Probely CTF Challenges
 
