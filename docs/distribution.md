@@ -58,12 +58,22 @@ Use the canonical repository URL rather than copying the skill into a new reposi
 
 ## Current ecosystem status
 
-- **Anthropic Agent Skills repository:** upstream submission open as [anthropics/skills#1798](https://github.com/anthropics/skills/pull/1798).
-- **AI Skill Store:** NiceTryGPT is already indexed under `aiskillstore/marketplace`; the canonical repository remains the source of truth for current metadata and licensing.
-- **skills.sh:** the repository is compatible with the `skills` CLI. skills.sh states that leaderboard entries are created from anonymous installation telemetry after users install a skill.
-- **ClaudSkills:** its public crawler discovers eligible public GitHub repositories containing valid `SKILL.md` files; the canonical skill has the required name and description metadata.
+Last verified: **2026-09-20**.
 
-Directory inclusion is not an endorsement. Pending submissions should not be described as accepted until the directory maintainers merge or publish them.
+| Channel | Status | Evidence / note |
+|---|---|---|
+| Anthropic Agent Skills repository | **Submitted** | Upstream PR [anthropics/skills#1798](https://github.com/anthropics/skills/pull/1798) is open. |
+| AI Skill Store / `aiskillstore/marketplace` | **Listed** | Initial automated submission was merged as [aiskillstore/marketplace#3490](https://github.com/aiskillstore/marketplace/pull/3490) with a `safe` security verdict. A metadata refresh has been submitted so the indexed copy picks up the current GPL-3.0-only frontmatter. |
+| AgentSkill.sh | **Imported** | Public intake returned one imported NiceTryGPT skill with security score 100. |
+| agent-skills.md | **Imported** | Public intake accepted the repository and reported one skill added. |
+| skills.re | **Submitted** | Public intake accepted one NiceTryGPT skill into its upload workflow. |
+| SkillMap | **Submitted** | Marketplace consideration request was accepted by its public feedback endpoint. |
+| skills.sh | **Installer-compatible** | The `skills` CLI successfully discovers and installs `nice-try-gpt`. The project does not generate synthetic leaderboard installs; real user installs may be reflected by skills.sh telemetry. |
+| ClaudSkills | **Crawler-ready** | The public repository exposes valid `SKILL.md` metadata and canonical discovery links; no claim of manual fast-track acceptance is made. |
+| SkillsMD | **Intake error** | Its public submission endpoint returned `GitHub repo not found` for the valid public repository, so repeated automated retries are intentionally avoided. |
+| skillsrep.com | **Temporarily unavailable** | A submission attempt encountered an upstream HTTP 521 response; no acceptance is claimed. |
+
+The canonical repository remains the source of truth for current content, licensing, and evidence. Directory inclusion is not an endorsement. Pending submissions are not described as accepted until the relevant service reports that state.
 
 ## Evidence boundary
 
