@@ -193,6 +193,10 @@ def test_project_metadata():
     preservation = (ROOT / "docs" / "preservation.md").read_text(encoding="utf-8")
     assert "Software Heritage" in preservation
     assert "Zenodo" in preservation
+    assert "swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf" in preservation
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf" in readme
 
     archive_workflow = (ROOT / ".github" / "workflows" / "archive.yml").read_text(encoding="utf-8")
     assert "archive.softwareheritage.org/api/1/origin/save/" in archive_workflow
