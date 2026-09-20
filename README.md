@@ -13,7 +13,7 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-8fe3b4.svg)](CITATION.cff)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22858477.svg)](https://doi.org/10.5281/zenodo.22858477)
 
-[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Citation**](#citation) · [**Preservation**](#preservation) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
+[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Distribution**](docs/distribution.md) · [**Citation**](#citation) · [**Preservation**](#preservation) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
 
 </div>
 
