@@ -45,6 +45,18 @@ make the smallest useful change, and verify the result end-to-end.
 
 Claude Code discovers project skills from `.claude/skills/<skill-name>/SKILL.md`. Custom skills can also be packaged and uploaded where supported. See the [official Agent Skills documentation](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview).
 
+## Claude Code plugin
+
+NiceTryGPT is also structured as a native Claude Code plugin. The repository root contains `.claude-plugin/plugin.json`, and Claude Code auto-discovers the mirrored skill under `skills/nice-try-gpt/`.
+
+For local plugin testing:
+
+```bash
+claude --plugin-dir /path/to/NiceTryGPT
+```
+
+The original standalone skill layout remains available under `nice-try-gpt/`, so existing ZIP/project-local installation workflows continue to work. See [`docs/claude-plugin.md`](docs/claude-plugin.md) for plugin structure, synchronization, and distribution notes.
+
 ## How it works
 
 ```text
@@ -249,6 +261,12 @@ NiceTryGPT/
 ├── codemeta.json
 ├── SECURITY.md
 ├── CONTRIBUTING.md
+├── .claude-plugin/
+│   └── plugin.json
+├── skills/
+│   └── nice-try-gpt/
+│       ├── SKILL.md
+│       └── references/
 ├── nice-try-gpt/
 │   ├── SKILL.md
 │   └── references/
@@ -264,7 +282,8 @@ NiceTryGPT/
 │   ├── results.csv
 │   └── summarize.py
 ├── scripts/
-│   └── package_skill.py
+│   ├── package_skill.py
+│   └── sync_plugin_skill.py
 └── tests/
     ├── test_demo.py
     └── test_release.py
