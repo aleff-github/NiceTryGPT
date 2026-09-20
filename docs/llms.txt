@@ -5,6 +5,9 @@
 Canonical website: https://aleff-github.github.io/NiceTryGPT/
 Source repository: https://github.com/aleff-github/NiceTryGPT
 Current release: 0.2.0
+Author: Alessandro Greco (@aleff-github)
+DOI: 10.5281/zenodo.22858477
+Zenodo record: https://zenodo.org/records/22858477
 License: GPL-3.0-only
 
 ## Core resources
@@ -16,6 +19,7 @@ License: GPL-3.0-only
 - Related work: https://github.com/aleff-github/NiceTryGPT/blob/main/docs/related-work.md
 - Roadmap: https://github.com/aleff-github/NiceTryGPT/blob/main/ROADMAP.md
 - Citation metadata: https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff
+- Archived release: https://zenodo.org/records/22858477
 
 ## Evidence boundary
 
