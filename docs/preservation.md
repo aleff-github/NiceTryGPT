@@ -24,17 +24,13 @@ Once the archive visit succeeds, a stable SWHID can be recorded here and, if use
 
 ## Zenodo and DOI
 
-NiceTryGPT already contains `CITATION.cff`, which Zenodo supports for GitHub software releases. A `.zenodo.json` file is deliberately not included because Zenodo gives it precedence over `CITATION.cff`, and the project does not currently need Zenodo-specific grant, community, or relationship metadata.
+NiceTryGPT v0.2.0 is archived on Zenodo as record [22858477](https://zenodo.org/records/22858477) with version-specific DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477).
 
-To mint a DOI for a release:
+The repository uses `CITATION.cff` as its canonical software citation metadata. A `.zenodo.json` file is deliberately not included because Zenodo gives it precedence over `CITATION.cff`, and the project does not currently need Zenodo-specific grant, community, or relationship metadata.
 
-1. connect the maintainer's GitHub account to Zenodo;
-2. enable `aleff-github/NiceTryGPT` in the Zenodo GitHub integration;
-3. archive the desired GitHub release;
-4. verify the generated Zenodo record and DOI;
-5. add the DOI back to the canonical citation metadata in a normal pull request.
+For future releases, the maintainer's GitHub account and `aleff-github/NiceTryGPT` repository are already connected to Zenodo. New release metadata should keep `CITATION.cff`, CodeMeta, the website, and the Zenodo record consistent.
 
-Do not invent or pre-reserve a DOI in repository metadata.
+The DOI above identifies the archived v0.2.0 release.
 
 ## Search indexing
 
