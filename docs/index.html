@@ -3,107 +3,170 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NiceTryGPT — Less pattern matching. More actual hacking.</title>
-  <meta name="description" content="NiceTryGPT is a minimal-diff workflow for making existing CTF challenges less vulnerable to cheap LLM shortcuts without making them worse for humans.">
-  <meta name="keywords" content="CTF, cybersecurity, LLM, AI security, Capture the Flag, challenge design, Agent Skills, security education">
-  <meta name="author" content="aleff-github">
-  <meta name="robots" content="index,follow">
+  <title>NiceTryGPT — Human-first CTF design for the LLM era</title>
+  <meta name="description" content="NiceTryGPT is an open-source minimal-diff workflow that helps CTF authors reduce cheap LLM shortcuts while preserving the intended vulnerability, learning objective, and human experience.">
+  <meta name="keywords" content="CTF, Capture the Flag, cybersecurity, LLM security, AI security, CTF challenge design, security education, Agent Skills">
+  <meta name="author" content="Aleff">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#0a0c10">
   <link rel="canonical" href="https://aleff-github.github.io/NiceTryGPT/">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="NiceTryGPT">
-  <meta property="og:description" content="Less pattern matching. More actual hacking. A minimal-diff workflow for CTF authors working in the age of capable LLMs.">
+  <meta property="og:site_name" content="NiceTryGPT">
+  <meta property="og:title" content="NiceTryGPT — Less pattern matching. More actual hacking.">
+  <meta property="og:description" content="A human-first, minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challenges.">
   <meta property="og:url" content="https://aleff-github.github.io/NiceTryGPT/">
   <meta property="og:image" content="https://opengraph.githubassets.com/1/aleff-github/NiceTryGPT">
+  <meta property="og:image:alt" content="NiceTryGPT project social preview">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NiceTryGPT">
-  <meta name="twitter:description" content="A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challenges.">
+  <meta name="twitter:description" content="Human-first CTF design for the LLM era.">
   <meta name="twitter:image" content="https://opengraph.githubassets.com/1/aleff-github/NiceTryGPT">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareSourceCode",
-    "name": "NiceTryGPT",
-    "description": "A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challenges while preserving the human learning objective.",
-    "codeRepository": "https://github.com/aleff-github/NiceTryGPT",
-    "url": "https://aleff-github.github.io/NiceTryGPT/",
-    "license": "https://www.gnu.org/licenses/gpl-3.0.html",
-    "programmingLanguage": "Python",
-    "version": "0.2.0",
-    "author": {
-      "@type": "Person",
-      "url": "https://github.com/aleff-github"
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "NiceTryGPT",
+      "description": "A minimal-diff workflow for reducing cheap LLM shortcuts in existing, authorized CTF challenges while preserving the human learning objective.",
+      "codeRepository": "https://github.com/aleff-github/NiceTryGPT",
+      "url": "https://aleff-github.github.io/NiceTryGPT/",
+      "license": "https://spdx.org/licenses/GPL-3.0-only.html",
+      "programmingLanguage": "Python",
+      "version": "0.2.0",
+      "datePublished": "2026-09-20",
+      "author": {
+        "@type": "Person",
+        "name": "Aleff",
+        "url": "https://github.com/aleff-github"
+      },
+      "citation": "https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff",
+      "keywords": ["CTF", "Capture the Flag", "cybersecurity", "LLM security", "AI security", "challenge design", "security education"]
     },
-    "keywords": ["CTF", "cybersecurity", "LLM", "AI security", "challenge design", "security education"]
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does LLM-resistant mean in NiceTryGPT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It means reducing an identified cheap model shortcut while preserving the intended challenge. NiceTryGPT does not claim that a challenge is AI-proof."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does NiceTryGPT make CTFs harder for humans?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The method explicitly tries to keep additional human effort small through a Human Cost Gate and by preserving the vulnerability class, learning objective, and prerequisite knowledge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is NiceTryGPT a CTF solver or anti-cheat system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is a transformation and validation workflow for existing authorized CTF challenges, not a solver benchmark, AI detector, or anti-cheat platform."
+          }
+        }
+      ]
+    }
+  ]
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="nav-wrap">
-    <nav class="nav shell" aria-label="Primary">
+    <nav class="nav shell" aria-label="Primary navigation">
       <a class="brand" href="./" aria-label="NiceTryGPT home"><span class="mark">NT</span><span>NiceTryGPT</span></a>
       <div class="nav-links">
         <a href="#method">Method</a>
         <a href="#examples">Examples</a>
         <a href="#evidence">Evidence</a>
+        <a href="#faq">FAQ</a>
+        <a href="#cite">Cite</a>
         <a class="button ghost" href="https://github.com/aleff-github/NiceTryGPT">GitHub ↗</a>
       </div>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero shell">
-      <div class="eyebrow">CTF DESIGN × LLM RESILIENCE</div>
+      <div class="eyebrow">OPEN SOURCE · CTF DESIGN · LLM-AWARE</div>
       <h1>Less pattern matching.<br><span>More actual hacking.</span></h1>
-      <p class="lead">NiceTryGPT helps CTF authors reduce cheap LLM shortcuts with the smallest useful change — while preserving the vulnerability, learning objective and human difficulty band.</p>
+      <p class="lead">NiceTryGPT helps CTF authors remove cheap model shortcuts with the smallest useful change — without changing what the challenge is supposed to teach.</p>
       <div class="actions">
         <a class="button primary" href="https://github.com/aleff-github/NiceTryGPT">View repository</a>
         <a class="button secondary" href="#quickstart">Try the workflow</a>
       </div>
 
-      <div class="terminal" role="img" aria-label="NiceTryGPT workflow preview">
-        <div class="terminal-top"><span></span><span></span><span></span><code>nice-try-gpt</code></div>
-        <pre><span class="muted">$</span> Use NiceTryGPT on this CTF.
+      <div class="hero-grid" aria-label="NiceTryGPT overview">
+        <div class="terminal">
+          <div class="terminal-top"><span></span><span></span><span></span><code>nice-try-gpt</code></div>
+          <pre><span class="muted">$</span> Use NiceTryGPT on this CTF.
 
 <span class="step">UNDERSTAND</span> → <span class="step">SOLVE ORIGINAL</span> → <span class="step">FIND SHORTCUT</span>
       → <span class="step">SMALL CHANGE</span> → <span class="step">SOLVE AGAIN</span> → <span class="step">REPORT</span>
 
-<span class="ok">✓</span> Same vulnerability class
-<span class="ok">✓</span> Same learning objective
-<span class="ok">✓</span> Bounded human cost</pre>
+<span class="ok">✓</span> same vulnerability
+<span class="ok">✓</span> same learning objective
+<span class="ok">✓</span> bounded human cost</pre>
+        </div>
+        <aside class="principle-card">
+          <span class="mini-label">DESIGN RULE</span>
+          <strong>Increase uncertainty,<br>not complexity.</strong>
+          <p>A stronger challenge should require authentic observation and reasoning, not arbitrary friction.</p>
+          <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/nice-try-gpt/references/resistance-patterns.md">Explore resistance patterns →</a>
+        </aside>
       </div>
     </section>
 
-    <section class="strip">
+    <section class="strip" aria-label="Project snapshot">
       <div class="shell stats">
         <div><strong>3</strong><span>demo vulnerability classes</span></div>
         <div><strong>0–2</strong><span>small changes by default</span></div>
-        <div><strong>1</strong><span>human experience first</span></div>
+        <div><strong>0</strong><span>third-party Python dependencies</span></div>
         <div><strong>v0.2.0</strong><span>current release</span></div>
       </div>
     </section>
 
     <section class="section shell" id="method">
       <div class="section-kicker">THE METHOD</div>
-      <h2>Increase uncertainty, not complexity.</h2>
-      <p class="section-intro">The goal is not to make a challenge annoying. It is to remove the cheapest shortcut that lets a model jump directly to the intended exploit path.</p>
+      <h2>A baseline-first workflow, not a bag of anti-AI tricks.</h2>
+      <p class="section-intro">NiceTryGPT only changes a challenge after reproducing the original solve. The goal is to identify one shortcut, make one defensible change, and verify the challenge again end-to-end.</p>
       <div class="cards three">
-        <article class="card"><div class="num">01</div><h3>Reproduce first</h3><p>Solve the original challenge end-to-end before changing anything. If the baseline cannot be reproduced, stop.</p></article>
-        <article class="card"><div class="num">02</div><h3>Change less</h3><p>Apply one resistance pattern where possible: runtime discovery, context split, state dependency or a small semantic decoy.</p></article>
-        <article class="card"><div class="num">03</div><h3>Verify again</h3><p>Confirm the shortcut is gone, normal behavior still works and the intended vulnerability still reaches success.</p></article>
+        <article class="card"><div class="num">01</div><h3>Reproduce</h3><p>Solve the original challenge first. If the baseline cannot be reproduced, the transformation stops.</p></article>
+        <article class="card"><div class="num">02</div><h3>Reduce one shortcut</h3><p>Prefer runtime discovery, context split, state dependency, pattern break, or one shallow semantic decoy.</p></article>
+        <article class="card"><div class="num">03</div><h3>Re-verify</h3><p>Prove normal behavior still works and the intended vulnerability still reaches the runtime flag or success condition.</p></article>
+      </div>
+
+      <div class="gate">
+        <div>
+          <span class="mini-label">HUMAN COST GATE</span>
+          <h3>The human player wins every trade-off.</h3>
+        </div>
+        <div class="gate-grid">
+          <span>Same vulnerability class</span>
+          <span>Same learning objective</span>
+          <span>Same prerequisite knowledge</span>
+          <span>Roughly the same difficulty band</span>
+        </div>
       </div>
     </section>
 
     <section class="section shell" id="examples">
       <div class="section-kicker">CURRENT DEMOS</div>
-      <h2>Three small examples. Three different shortcuts.</h2>
+      <h2>Different vulnerabilities. Different shortcuts. Same acceptance contract.</h2>
       <div class="cards three">
-        <article class="card demo"><span class="tag">IDOR</span><h3>mini-idor</h3><p>Replace an adjacent-ID shortcut with one runtime observation. The vulnerability remains IDOR.</p><div class="meta">Human cost: +1 request</div></article>
-        <article class="card demo"><span class="tag">PATH TRAVERSAL</span><h3>mini-traversal</h3><p>Move one solve-relevant fact from a static path into ordinary runtime behavior — no honeypot required.</p><div class="meta">Human cost: +1 request</div></article>
-        <article class="card demo"><span class="tag">SQL INJECTION</span><h3>mini-sqli</h3><p>Split one privileged identity clue across two normal application surfaces while keeping the vulnerable query unchanged.</p><div class="meta">Human cost: +2 requests</div></article>
+        <article class="card demo"><span class="tag">IDOR</span><h3>mini-idor</h3><p>An adjacent-ID guess stops working. The player observes one runtime activity request instead.</p><div class="meta"><span>Primary move</span><strong>Runtime discovery</strong></div><div class="meta"><span>Human cost</span><strong>+1 request</strong></div></article>
+        <article class="card demo"><span class="tag">PATH TRAVERSAL</span><h3>mini-traversal</h3><p>A static export path becomes per-run state exposed through normal application behavior.</p><div class="meta"><span>Primary move</span><strong>Runtime discovery</strong></div><div class="meta"><span>Human cost</span><strong>+1 request</strong></div></article>
+        <article class="card demo"><span class="tag">SQL INJECTION</span><h3>mini-sqli</h3><p>A privileged identity is no longer handed to the player and must be reconstructed from two nearby clues.</p><div class="meta"><span>Primary move</span><strong>Context split</strong></div><div class="meta"><span>Human cost</span><strong>+2 requests</strong></div></article>
       </div>
     </section>
 
@@ -111,39 +174,87 @@
       <div>
         <div class="section-kicker">EVIDENCE DISCIPLINE</div>
         <h2>No “AI-proof” claims.</h2>
-        <p>NiceTryGPT distinguishes deterministic regression testing from independent model evaluation. A same-model self-review is not treated as evidence of resistance.</p>
+        <p>Version 0.2.0 demonstrates deterministic before/after properties. Independent model evaluation is deliberately separated from same-context self-review, and raw cross-model results are not claimed until they are actually collected.</p>
+        <div class="inline-links">
+          <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/evals/protocol.md">Evaluation protocol →</a>
+          <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/docs/related-work.md">Related work →</a>
+        </div>
       </div>
       <div class="panel">
         <div class="panel-row"><span>Current</span><strong>v0.2.0</strong></div>
-        <div class="panel-row"><span>Next milestone</span><strong>v0.3.0</strong></div>
+        <div class="panel-row"><span>Next evidence milestone</span><strong>v0.3.0</strong></div>
         <div class="panel-row"><span>Planned pilot</span><strong>60 fresh-context runs</strong></div>
-        <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/evals/protocol.md">Read the evaluation protocol →</a>
+        <div class="panel-row"><span>Model families</span><strong>Claude · GPT · Gemini</strong></div>
       </div>
     </section>
 
     <section class="section shell" id="quickstart">
       <div class="section-kicker">QUICK START</div>
-      <h2>Project-local skill. Minimal setup.</h2>
+      <h2>Small enough to inspect before you use it.</h2>
+      <p class="section-intro">NiceTryGPT is one Agent Skill plus references and reproducible demos. No framework and no runtime service are required.</p>
       <div class="codeblock"><pre><code>.claude/skills/nice-try-gpt/
 └── SKILL.md</code></pre></div>
-      <p>Copy the skill into an authorized CTF project, then ask your compatible coding agent to solve the baseline, identify the cheapest shortcut, make the smallest useful change and verify the result end-to-end.</p>
-      <div class="actions">
+      <div class="prompt-card">
+        <span class="mini-label">PROMPT</span>
+        <p>Use NiceTryGPT on this CTF. Solve it first, identify the cheapest LLM shortcut, make the smallest useful change, and verify the result end-to-end.</p>
+      </div>
+      <div class="actions left">
         <a class="button primary" href="https://github.com/aleff-github/NiceTryGPT#try-it-in-30-seconds">Installation details</a>
-        <a class="button secondary" href="https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml">CTF author feedback</a>
+        <a class="button secondary" href="https://github.com/aleff-github/NiceTryGPT/releases">Releases</a>
+      </div>
+    </section>
+
+    <section class="section shell" id="faq">
+      <div class="section-kicker">FAQ</div>
+      <h2>What NiceTryGPT means by “LLM-resistant”.</h2>
+      <div class="faq">
+        <details open><summary>Does NiceTryGPT make a CTF AI-proof?</summary><p>No. It reduces an identified cheap shortcut and verifies the transformed challenge. A capable model may still solve the challenge, especially with enough tools, time, or context.</p></details>
+        <details><summary>Does it intentionally make challenges harder for humans?</summary><p>No. The Human Cost Gate exists specifically to reject transformations that add too much friction or change the intended learning objective.</p></details>
+        <details><summary>Is this a CTF solver, benchmark, or anti-cheat system?</summary><p>No. NiceTryGPT transforms and validates existing authorized challenges. It does not detect AI use, rank models, or decide whether competitors should use AI.</p></details>
+        <details><summary>What evidence exists today?</summary><p>The repository contains three reproducible before/after examples with deterministic regression tests. Independent fresh-context cross-model evaluation is planned for v0.3.0.</p></details>
+      </div>
+    </section>
+
+    <section class="section shell split citation-section" id="cite">
+      <div>
+        <div class="section-kicker">CITATION</div>
+        <h2>Research-friendly metadata is built in.</h2>
+        <p>GitHub can generate APA and BibTeX citations directly from the repository's <code>CITATION.cff</code>. CodeMeta metadata is also available for software indexing and research tooling.</p>
+        <div class="inline-links">
+          <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff">CITATION.cff →</a>
+          <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md">How to cite →</a>
+          <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/codemeta.json">CodeMeta →</a>
+        </div>
+      </div>
+      <div class="citation-card">
+        <span class="mini-label">CURRENT RELEASE</span>
+        <p>Aleff. (2026). <em>NiceTryGPT</em> (Version 0.2.0) [Computer software].</p>
+        <code>github.com/aleff-github/NiceTryGPT</code>
+      </div>
+    </section>
+
+    <section class="section shell resources">
+      <div class="section-kicker">PROJECT RESOURCES</div>
+      <h2>Inspect the method, evidence, and governance.</h2>
+      <div class="resource-grid">
+        <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/ROADMAP.md"><strong>Roadmap</strong><span>Evidence-driven milestones, not feature count.</span></a>
+        <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CONTRIBUTING.md"><strong>Contributing</strong><span>Small PRs and explicit human-cost checks.</span></a>
+        <a href="https://github.com/aleff-github/NiceTryGPT/security/policy"><strong>Security</strong><span>Responsible reporting and intentional-demo scope.</span></a>
+        <a href="https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml"><strong>CTF author feedback</strong><span>Structured feedback on fairness and usefulness.</span></a>
       </div>
     </section>
 
     <section class="cta">
       <div class="shell cta-inner">
-        <div><div class="section-kicker">OPEN SOURCE</div><h2>Build harder shortcuts, not worse challenges.</h2></div>
+        <div><div class="section-kicker">OPEN SOURCE · GPL-3.0</div><h2>Make shortcuts harder, not challenges worse.</h2></div>
         <a class="button primary" href="https://github.com/aleff-github/NiceTryGPT">Explore NiceTryGPT ↗</a>
       </div>
     </section>
   </main>
 
   <footer class="shell footer">
-    <span>NiceTryGPT · GPL-3.0</span>
-    <span>Maintained by <a href="https://github.com/aleff-github">@aleff-github</a></span>
+    <span>NiceTryGPT · v0.2.0 · GPL-3.0-only</span>
+    <div><a href="https://github.com/aleff-github/NiceTryGPT">GitHub</a><a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md">Cite</a><a href="https://github.com/aleff-github/NiceTryGPT/blob/main/SECURITY.md">Security</a></div>
   </footer>
 </body>
 </html>
