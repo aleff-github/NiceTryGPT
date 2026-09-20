@@ -19,87 +19,43 @@ The first release established the core method:
 - verify the transformed challenge end-to-end;
 - report fresh-solver results only when they were actually tested.
 
-It currently demonstrates two vulnerability classes:
+It demonstrated two vulnerability classes:
 
 - IDOR;
 - path traversal.
 
-Both examples are dependency-free and tested in CI.
+## v0.2.0 — variety without bloat ✅
 
-## v0.2.0 — variety without bloat
+Released on 2026-09-20.
 
-### Goal
+v0.2.0 showed that the method can generalize beyond one transformation recipe without turning NiceTryGPT into a framework.
 
-Show that the NiceTryGPT method generalizes beyond one transformation recipe.
+It adds:
 
-v0.2.0 is **not** about adding a dashboard, database, orchestration layer, or large benchmark suite.
+- SQL injection as a third vulnerability class;
+- context split as a primary non-runtime resistance pattern;
+- three demonstrated resistance patterns across the examples:
+  - runtime discovery;
+  - semantic decoy;
+  - context split;
+- a shared report template;
+- CI enforcement for the example acceptance contract.
 
-It is about adding a small amount of carefully chosen variety.
+Every example now provides:
 
-### Release criteria
+- a reproducible `before`;
+- a reproducible `after`;
+- a short NiceTryGPT report;
+- a test proving the original solve works;
+- a test proving the identified shortcut is reduced;
+- a test proving the intended vulnerability still works;
+- a human-cost estimate using meaningful actions.
 
-v0.2.0 should ship only when all of the following are true:
+No new infrastructure dependency was introduced.
 
-- at least three vulnerability classes are represented;
-- at least three resistance patterns are demonstrated across the examples;
-- at least one example does **not** rely on runtime discovery;
-- every example has:
-  - a reproducible `before`;
-  - a reproducible `after`;
-  - a short NiceTryGPT report;
-  - a test proving the original solve works;
-  - a test proving the identified shortcut is reduced;
-  - a test proving the intended vulnerability still works;
-- human-cost estimates use the same definition of meaningful action;
-- no new infrastructure dependency is introduced without a demonstrated need.
+### Explicit non-goals preserved
 
-### Planned work
-
-#### 1. Add a mini SQL injection example
-
-Preferred direction:
-
-- Python standard library;
-- `sqlite3`;
-- easy human difficulty;
-- same SQL injection before and after;
-- transformed version should use **context split** or **pattern break**, not another runtime-randomized identifier.
-
-The purpose is to test the methodology, not to create a clever SQLi challenge.
-
-#### 2. Standardize example acceptance checks
-
-Every example should answer the same five questions:
-
-1. Can the original challenge be solved end-to-end?
-2. What exact cheap shortcut was identified?
-3. Does the transformed challenge remove or reduce that shortcut?
-4. Does the original vulnerability class still produce the flag?
-5. What is the additional human cost in meaningful actions?
-
-The answers should remain readable by humans and directly testable where possible.
-
-#### 3. Exercise a third resistance pattern
-
-The current examples mainly demonstrate runtime discovery, with one shallow semantic decoy.
-
-v0.2.0 should deliberately exercise a different primary pattern such as:
-
-- context split;
-- pattern break;
-- state dependency.
-
-Do not add a pattern merely to satisfy the count. The challenge must justify it.
-
-#### 4. Keep the installable skill small
-
-Changes to `SKILL.md` require evidence from an example or evaluation.
-
-Avoid adding rules for hypothetical edge cases.
-
-### Explicit non-goals
-
-The following are out of scope for v0.2.0:
+v0.2.0 still does not add:
 
 - autonomous multi-model evaluation infrastructure;
 - a hosted SaaS;
@@ -113,7 +69,7 @@ The following are out of scope for v0.2.0:
 
 ## v0.3.0 — evaluation
 
-The evaluation infrastructure already exists under `evals/`, but raw model results are intentionally empty.
+The evaluation infrastructure exists under `evals/`, but raw model results are intentionally empty.
 
 v0.3.0 is the evidence milestone.
 

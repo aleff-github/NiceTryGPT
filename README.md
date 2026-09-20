@@ -4,7 +4,7 @@
 
 [![Tests](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml/badge.svg)](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![Version: v0.1.0](https://img.shields.io/badge/version-v0.1.0-orange.svg)](#project-status)
+[![Version: v0.2.0](https://img.shields.io/badge/version-v0.2.0-orange.svg)](#project-status)
 
 ### Your CTF got one-shot by an LLM? Nice try.
 
@@ -133,7 +133,7 @@ python scripts/package_skill.py
 Output:
 
 ```text
-dist/nice-try-gpt-v0.1.0.zip
+dist/nice-try-gpt-v0.2.0.zip
 ```
 
 The ZIP keeps `nice-try-gpt/` as its root directory, so it can be inspected or copied directly into a compatible Agent Skills location.
@@ -159,9 +159,9 @@ See [`evals/protocol.md`](evals/protocol.md).
 
 ## Roadmap
 
-The next engineering milestone is **v0.2.0 — variety without bloat**: add another vulnerability class and demonstrate a primary resistance pattern that is not runtime discovery.
+**v0.2.0 — variety without bloat** is complete: the method now spans three vulnerability classes and includes a non-runtime primary resistance pattern.
 
-Actual multi-model results remain a separate evidence milestone rather than a release blocker.
+The next evidence milestone is **v0.3.0 — independent multi-model evaluation**.
 
 See [`ROADMAP.md`](ROADMAP.md).
 
@@ -207,7 +207,7 @@ If LLM resistance and human experience conflict, **the human player wins**.
 
 NiceTryGPT does **not** claim to prove that a challenge is AI-proof.
 
-In v0.1.0, “resistance” means reducing an identified cheap shortcut while preserving the intended challenge. A same-model self-review is not evidence of resistance; fresh-context or cross-model solving is reported separately when actually performed.
+In v0.2.0, “resistance” means reducing an identified cheap shortcut while preserving the intended challenge. A same-model self-review is not evidence of resistance; fresh-context or cross-model solving is reported separately when actually performed.
 
 ## Repository layout
 
@@ -242,9 +242,9 @@ NiceTryGPT/
 
 ## Project status
 
-**v0.1.0 — first public proof of concept. Tiny on purpose.**
+**v0.2.0 — variety without bloat.**
 
-The method is now demonstrated across IDOR, path traversal, and SQL injection, including a non-runtime primary resistance pattern. v0.2.0 still requires the acceptance checks to be standardized across examples; cross-model evaluation remains the later evidence milestone.
+The method is demonstrated across IDOR, path traversal, and SQL injection. Example reports now follow one CI-enforced acceptance contract, and context split is demonstrated as a primary non-runtime resistance pattern. Independent cross-model evaluation remains the next evidence milestone.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
