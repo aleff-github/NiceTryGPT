@@ -12,13 +12,15 @@ All notable changes to NiceTryGPT are documented here.
 - `llms.txt` as a concise machine-readable project guide;
 - structured bug and methodology-proposal issue forms;
 - Dependabot updates for GitHub Actions;
-- automated Software Heritage archival requests and preservation/DOI guidance.
+- automated Software Heritage archival requests and preservation/DOI guidance;
+- Zenodo archival metadata and version-specific DOI `10.5281/zenodo.22858477` for v0.2.0.
 
 ### Changed
 
 - release checks now enforce version/date consistency across citation, CodeMeta, website, and machine-readable project metadata;
 - release checks now detect broken local Markdown links in the README;
-- contribution guidance now documents metadata synchronization and issue-routing expectations.
+- contribution guidance now documents metadata synchronization and issue-routing expectations;
+- canonical author metadata now identifies Alessandro Greco while retaining `@aleff-github` as the public GitHub alias.
 
 ## [0.2.0] — 2026-09-20
 
