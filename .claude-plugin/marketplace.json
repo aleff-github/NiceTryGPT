@@ -1,0 +1,32 @@
+{
+  "name": "nicetrygpt",
+  "owner": {
+    "name": "Alessandro Greco",
+    "url": "https://github.com/aleff-github"
+  },
+  "description": "NiceTryGPT plugin marketplace for Claude Code.",
+  "plugins": [
+    {
+      "name": "nice-try-gpt",
+      "displayName": "NiceTryGPT",
+      "source": "./",
+      "description": "Reduce cheap LLM shortcuts in authorized CTF challenges while preserving the intended vulnerability, learning objective, and human difficulty band.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Alessandro Greco",
+        "url": "https://github.com/aleff-github"
+      },
+      "homepage": "https://aleff-github.github.io/NiceTryGPT/",
+      "repository": "https://github.com/aleff-github/NiceTryGPT",
+      "license": "GPL-3.0-only",
+      "category": "security",
+      "tags": [
+        "ctf",
+        "cybersecurity",
+        "llm",
+        "ai-security",
+        "security-education"
+      ]
+    }
+  ]
+}
