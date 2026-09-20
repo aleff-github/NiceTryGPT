@@ -25,5 +25,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run NiceTryGPT E2E demo
+      - name: Run NiceTryGPT E2E demos
         run: python tests/test_demo.py
+      - name: Run release and eval checks
+        run: python tests/test_release.py
