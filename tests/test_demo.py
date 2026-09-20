@@ -177,6 +177,82 @@ def test_traversal_after():
         assert second_runtime_path != first_runtime_path
 
 
+
+def test_sqli_before():
+    with run_server("examples/mini-sqli/before") as base:
+        status, home = get(base + "/")
+        assert status == 200
+        assert "admin@tinysql.local" in home
+        assert FLAG not in home
+
+        status, guest = get(
+            base + "/login?email=guest%40tinysql.local&password=guest"
+        )
+        assert status == 200
+        assert "role=guest" in guest
+        assert FLAG not in guest
+
+        injected_email = quote("admin@tinysql.local' --", safe="")
+        status, admin = get(
+            base + f"/login?email={injected_email}&password=x"
+        )
+        assert status == 200
+        assert "role=admin" in admin
+        assert FLAG in admin
+
+
+def test_sqli_after():
+    with run_server("examples/mini-sqli/after") as base:
+        status, home = get(base + "/")
+        assert status == 200
+        assert "admin@tinysql.local" not in home
+        assert "nightshift@staff.tinysql.local" not in home
+        assert "/team" in home
+        assert "/help" in home
+        assert FLAG not in home
+
+        status, guest = get(
+            base + "/login?email=guest%40tinysql.local&password=guest"
+        )
+        assert status == 200
+        assert "role=guest" in guest
+        assert FLAG not in guest
+
+        old_email = quote("admin@tinysql.local' --", safe="")
+        status, old = get(
+            base + f"/login?email={old_email}&password=x"
+        )
+        assert status == 401
+        assert FLAG not in old
+
+        generic = quote("' OR 1=1 --", safe="")
+        status, generic_result = get(
+            base + f"/login?email={generic}&password=x"
+        )
+        assert status == 200
+        assert "role=guest" in generic_result
+        assert FLAG not in generic_result
+
+        status, team = get(base + "/team")
+        assert status == 200
+        assert "Administrator handle: nightshift" in team
+        assert FLAG not in team
+
+        status, help_text = get(base + "/help")
+        assert status == 200
+        assert "<handle>@staff.tinysql.local" in help_text
+        assert FLAG not in help_text
+
+        admin_email = "nightshift@staff.tinysql.local"
+        assert admin_email not in home
+        injected_email = quote(admin_email + "' --", safe="")
+        status, admin = get(
+            base + f"/login?email={injected_email}&password=x"
+        )
+        assert status == 200
+        assert "role=admin" in admin
+        assert FLAG in admin
+
 def test_skill_metadata():
     skill = (ROOT / "nice-try-gpt" / "SKILL.md").read_text(encoding="utf-8")
     assert skill.startswith("---\n")
@@ -207,6 +283,8 @@ def main():
         ("IDOR after", test_idor_after),
         ("traversal before", test_traversal_before),
         ("traversal after", test_traversal_after),
+        ("SQLi before", test_sqli_before),
+        ("SQLi after", test_sqli_after),
     ]
     failed = 0
 
