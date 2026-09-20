@@ -10,8 +10,9 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Version: v0.2.0](https://img.shields.io/badge/version-v0.2.0-orange.svg)](#project-status)
 [![Website](https://img.shields.io/badge/website-GitHub%20Pages-ffb347.svg)](https://aleff-github.github.io/NiceTryGPT/)
+[![Cite](https://img.shields.io/badge/cite-CITATION.cff-8fe3b4.svg)](CITATION.cff)
 
-[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
+[**Website**](https://aleff-github.github.io/NiceTryGPT/) · [**Method**](#how-it-works) · [**Evaluation**](evals/protocol.md) · [**Citation**](#citation) · [**Roadmap**](ROADMAP.md) · [**CTF author feedback**](https://github.com/aleff-github/NiceTryGPT/issues/new?template=ctf-author-feedback.yml)
 
 </div>
 
@@ -195,6 +196,12 @@ NiceTryGPT is neither a CTF-solving benchmark nor an anti-cheat system. Its narr
 
 See [`docs/related-work.md`](docs/related-work.md) for the current positioning against CTF-agent benchmarks and recent LLM-aware challenge-design work.
 
+## Citation
+
+NiceTryGPT ships with machine-readable [`CITATION.cff`](CITATION.cff) metadata, so GitHub can expose **Cite this repository** with generated APA and BibTeX formats.
+
+For research or evaluation work, cite the release or commit you actually used and record the model version, tool access, run count, and evaluation protocol. See [`CITING.md`](CITING.md) for the current human-readable citation and [`codemeta.json`](codemeta.json) for CodeMeta software metadata.
+
 ## What NiceTryGPT will not do
 
 It will not intentionally make a challenge annoying just to slow down an AI.
@@ -226,6 +233,9 @@ NiceTryGPT/
 ├── CHANGELOG.md
 ├── VERSION
 ├── LICENSE
+├── CITATION.cff
+├── CITING.md
+├── codemeta.json
 ├── SECURITY.md
 ├── CONTRIBUTING.md
 ├── nice-try-gpt/
