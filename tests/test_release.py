@@ -86,7 +86,8 @@ def test_claude_plugin():
 
     skill_text = (plugin_skill / "SKILL.md").read_text(encoding="utf-8")
     assert "name: nice-try-gpt" in skill_text
-    assert f"version: {VERSION}" in skill_text
+    assert "license: GPL-3.0-only" in skill_text
+    assert f'metadata:\n  author: aleff-github\n  version: "{VERSION}"' in skill_text
 
     marketplace_path = ROOT / ".claude-plugin" / "marketplace.json"
     marketplace = json.loads(marketplace_path.read_text(encoding="utf-8"))
