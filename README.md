@@ -14,7 +14,7 @@
 
 > **Increase uncertainty, not complexity.**
 
-NiceTryGPT is intentionally small: one skill, two tiny demos, one E2E test suite, no framework.
+NiceTryGPT is intentionally small: one skill, three tiny demos, one E2E test suite, no framework.
 
 ## Try it in 30 seconds
 
@@ -66,14 +66,15 @@ The default is **one resistance change**. A second change is justified only when
 
 ## Before / after
 
-NiceTryGPT currently ships with two deliberately tiny examples:
+NiceTryGPT currently ships with three deliberately tiny examples:
 
 | Example | Before | After | Human cost |
 |---|---|---|---|
 | `mini-idor` | adjacent order ID gives the flag | foreign order ID must be observed at runtime | +1 request |
 | `mini-traversal` | static export path is immediately reusable | export filename changes each run and is exposed by normal activity | +1 request |
+| `mini-sqli` | privileged identity is handed to the player | identity must be reconstructed from two normal app surfaces | +2 requests |
 
-Both keep the original vulnerability class and learning objective.
+All keep the original vulnerability class and learning objective.
 
 ### mini-idor
 
@@ -96,6 +97,19 @@ Both keep the original vulnerability class and learning objective.
 | Decoy | None | None |
 
 The traversal example is intentionally useful as a generalization check: it uses **no honeypot**. The only change is moving one solve-relevant fact from static behavior into ordinary runtime behavior.
+
+### mini-sqli
+
+| | Before | After |
+|---|---|---|
+| Vulnerability | SQL injection | SQL injection |
+| Cheap shortcut | Admin identity shown directly | Old identity fails |
+| Needed observation | None | Connect handle + staff email format |
+| Primary pattern | None | Context split |
+| Human difficulty | Easy | Still easy |
+| Runtime randomization | None | None |
+
+The SQLi example deliberately avoids runtime randomization. The vulnerable query is unchanged; the player simply has to connect two nearby, static application clues before applying the same injection primitive.
 
 ## Run the demos
 
@@ -211,7 +225,8 @@ NiceTryGPT/
 │       └── resistance-patterns.md
 ├── examples/
 │   ├── mini-idor/
-│   └── mini-traversal/
+│   ├── mini-traversal/
+│   └── mini-sqli/
 ├── evals/
 │   ├── README.md
 │   ├── protocol.md
@@ -229,7 +244,7 @@ NiceTryGPT/
 
 **v0.1.0 — first public proof of concept. Tiny on purpose.**
 
-The method is demonstrated across IDOR and path traversal, with automated checks for solvability, shortcut reduction, and packaging. The next engineering milestone is v0.2.0 variety; cross-model evaluation remains the later evidence milestone.
+The method is now demonstrated across IDOR, path traversal, and SQL injection, including a non-runtime primary resistance pattern. v0.2.0 still requires the acceptance checks to be standardized across examples; cross-model evaluation remains the later evidence milestone.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
