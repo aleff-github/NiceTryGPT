@@ -1,6 +1,7 @@
 ---
 name: nice-try-gpt
 description: Analyze an authorized CTF challenge, reproduce its intended solve, identify cheap LLM shortcuts, apply minimal human-friendly transformations, and verify the result end-to-end. Use when reviewing or adapting CTFs to reduce pattern-matching shortcuts without materially increasing human difficulty.
+version: 0.2.0
 ---
 
 # NiceTryGPT
