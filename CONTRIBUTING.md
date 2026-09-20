@@ -12,12 +12,32 @@ NiceTryGPT is intentionally small. Contributions should preserve that property.
 
 ```bash
 python tests/test_demo.py
+python tests/test_release.py
 ```
 
 6. If you add or change a resistance pattern, explain:
    - which cheap shortcut it targets;
    - the expected additional human actions;
    - why an existing pattern is insufficient.
+
+## Adding an example
+
+Every challenge under `examples/` must include:
+
+```text
+example-name/
+├── before/
+│   ├── README.md
+│   └── server.py
+├── after/
+│   ├── README.md
+│   └── server.py
+└── nicetrygpt-report.md
+```
+
+Use [`examples/REPORT_TEMPLATE.md`](examples/REPORT_TEMPLATE.md) for the report.
+
+The CI checks that each example records the same acceptance evidence: baseline, learning objective, cheap shortcut, transformation, human cost, shortcut reduction, post-change E2E result, and fresh-solver status.
 
 ## What a good change looks like
 

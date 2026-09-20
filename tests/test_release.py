@@ -22,6 +22,21 @@ EXPECTED_EVAL_HEADER = [
     "stop_reason",
     "notes",
 ]
+REQUIRED_REPORT_FIELDS = [
+    "Final status",
+    "Baseline result",
+    "Vulnerability class",
+    "Learning objective",
+    "Cheap shortcut",
+    "Transformation",
+    "Human cost",
+    "Original difficulty band",
+    "Post-change difficulty band",
+    "Shortcut reduction check",
+    "Post-change E2E result",
+    "Fresh-solver result",
+    "Files changed",
+]
 
 
 def test_package():
@@ -60,9 +75,37 @@ def test_eval_schema():
     assert "No evaluation results recorded yet." in completed.stdout
 
 
+def test_example_contract():
+    examples = ROOT / "examples"
+    challenge_dirs = sorted(path for path in examples.iterdir() if path.is_dir())
+    assert challenge_dirs
+
+    for challenge in challenge_dirs:
+        for relative in [
+            Path("before/README.md"),
+            Path("before/server.py"),
+            Path("after/README.md"),
+            Path("after/server.py"),
+            Path("nicetrygpt-report.md"),
+        ]:
+            assert (challenge / relative).is_file(), f"{challenge.name}: missing {relative}"
+
+        report = (challenge / "nicetrygpt-report.md").read_text(encoding="utf-8")
+        assert report.startswith(f"# NiceTryGPT report — {challenge.name}\n")
+        for field in REQUIRED_REPORT_FIELDS:
+            assert f"- {field}:" in report, f"{challenge.name}: missing report field {field}"
+
+        assert "- Baseline result: PASS" in report
+        assert "- Shortcut reduction check: PASS" in report
+        assert "- Post-change E2E result: PASS" in report
+        assert "- Fresh-solver result: `NOT TESTED`" in report or "- Fresh-solver result: NOT TESTED" in report
+
+
 def test_release_docs():
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    notes = (ROOT / ".github" / "release-notes" / "v0.1.0.md").read_text(encoding="utf-8")
+    notes = (
+        ROOT / ".github" / "release-notes" / f"v{VERSION}.md"
+    ).read_text(encoding="utf-8")
     assert f"## [{VERSION}]" in changelog
     assert f"NiceTryGPT v{VERSION}" in notes
 
@@ -71,6 +114,7 @@ def main():
     tests = [
         ("release package", test_package),
         ("evaluation schema", test_eval_schema),
+        ("example contract", test_example_contract),
         ("release docs", test_release_docs),
     ]
     failed = 0
