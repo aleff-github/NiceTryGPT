@@ -1,0 +1,22 @@
+# NiceTryGPT
+
+> NiceTryGPT is an open-source minimal-diff workflow for reducing cheap LLM shortcuts in existing, authorized CTF challenges without intentionally increasing human difficulty.
+
+Canonical website: https://aleff-github.github.io/NiceTryGPT/
+Source repository: https://github.com/aleff-github/NiceTryGPT
+Current release: 0.2.0
+License: GPL-3.0-only
+
+## Core resources
+
+- README: https://github.com/aleff-github/NiceTryGPT/blob/main/README.md
+- Skill: https://github.com/aleff-github/NiceTryGPT/blob/main/nice-try-gpt/SKILL.md
+- Resistance patterns: https://github.com/aleff-github/NiceTryGPT/blob/main/nice-try-gpt/references/resistance-patterns.md
+- Evaluation protocol: https://github.com/aleff-github/NiceTryGPT/blob/main/evals/protocol.md
+- Related work: https://github.com/aleff-github/NiceTryGPT/blob/main/docs/related-work.md
+- Roadmap: https://github.com/aleff-github/NiceTryGPT/blob/main/ROADMAP.md
+- Citation metadata: https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff
+
+## Evidence boundary
+
+NiceTryGPT does not claim that transformed challenges are AI-proof. Version 0.2.0 demonstrates deterministic before/after regression properties. Independent fresh-context, cross-model evaluation is the next evidence milestone.
