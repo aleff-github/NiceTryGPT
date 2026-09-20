@@ -142,6 +142,15 @@ The protocol fixes isolation, tool parity, prompt, stop conditions, and raw resu
 
 See [`evals/protocol.md`](evals/protocol.md).
 
+
+## Roadmap
+
+The next engineering milestone is **v0.2.0 — variety without bloat**: add another vulnerability class and demonstrate a primary resistance pattern that is not runtime discovery.
+
+Actual multi-model results remain a separate evidence milestone rather than a release blocker.
+
+See [`ROADMAP.md`](ROADMAP.md).
+
 ## Resistance patterns
 
 NiceTryGPT currently uses a deliberately small menu:
@@ -155,6 +164,13 @@ NiceTryGPT currently uses a deliberately small menu:
 These are options, not a checklist. Most challenges should need zero or one.
 
 See [`resistance-patterns.md`](nice-try-gpt/references/resistance-patterns.md).
+
+
+## Related work
+
+NiceTryGPT is neither a CTF-solving benchmark nor an anti-cheat system. Its narrow focus is **minimal transformation of an existing, verified challenge** while preserving its learning objective and bounding additional human effort.
+
+See [`docs/related-work.md`](docs/related-work.md) for the current positioning against CTF-agent benchmarks and recent LLM-aware challenge-design work.
 
 ## What NiceTryGPT will not do
 
@@ -213,7 +229,7 @@ NiceTryGPT/
 
 **v0.1.0 — first public proof of concept. Tiny on purpose.**
 
-The method is demonstrated across IDOR and path traversal, with automated checks for solvability, shortcut reduction, and packaging. Cross-model evaluation is the next evidence milestone.
+The method is demonstrated across IDOR and path traversal, with automated checks for solvability, shortcut reduction, and packaging. The next engineering milestone is v0.2.0 variety; cross-model evaluation remains the later evidence milestone.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
