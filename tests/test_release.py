@@ -88,6 +88,17 @@ def test_claude_plugin():
     assert "name: nice-try-gpt" in skill_text
     assert f"version: {VERSION}" in skill_text
 
+    marketplace_path = ROOT / ".claude-plugin" / "marketplace.json"
+    marketplace = json.loads(marketplace_path.read_text(encoding="utf-8"))
+    assert marketplace["name"] == "nicetrygpt"
+    assert marketplace["owner"]["name"] == "Alessandro Greco"
+    assert len(marketplace["plugins"]) == 1
+    entry = marketplace["plugins"][0]
+    assert entry["name"] == "nice-try-gpt"
+    assert entry["source"] == "./"
+    assert entry["version"] == VERSION
+    assert entry["license"] == "GPL-3.0-only"
+
 
 def test_eval_schema():
     results = ROOT / "evals" / "results.csv"

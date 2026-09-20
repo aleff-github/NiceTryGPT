@@ -16,7 +16,8 @@ All notable changes to NiceTryGPT are documented here.
 - Zenodo archival metadata and version-specific DOI `10.5281/zenodo.22858477` for v0.2.0;
 - Google Search Console ownership-verification metadata for the GitHub Pages site;
 - native Claude Code plugin manifest and auto-discovered `skills/nice-try-gpt/` layout;
-- a synchronization helper and CI checks that keep standalone and plugin skill copies identical.
+- a synchronization helper and CI checks that keep standalone and plugin skill copies identical;
+- standalone Claude Code marketplace metadata for direct repository installation.
 
 ### Changed
 

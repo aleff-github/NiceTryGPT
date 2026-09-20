@@ -5,7 +5,7 @@ NiceTryGPT is available in two compatible forms in this repository:
 - `nice-try-gpt/` — the standalone Agent Skill source and ZIP-packaging source;
 - `skills/nice-try-gpt/` — the Claude Code plugin copy discovered automatically from the repository root.
 
-The plugin manifest lives at `.claude-plugin/plugin.json`.
+The plugin manifest lives at `.claude-plugin/plugin.json`. A standalone marketplace catalog can live alongside it at `.claude-plugin/marketplace.json`.
 
 ## Local test
 
@@ -16,6 +16,19 @@ claude --plugin-dir /path/to/NiceTryGPT
 ```
 
 Then ask Claude to review an authorized CTF challenge with NiceTryGPT, or invoke the skill directly if your Claude Code version exposes installed skills as slash commands.
+
+## Install from the repository marketplace
+
+Once `.claude-plugin/marketplace.json` is present on the default branch, users can add this repository as a marketplace and install NiceTryGPT directly:
+
+```text
+/plugin marketplace add aleff-github/NiceTryGPT
+/plugin install nice-try-gpt@nicetrygpt
+```
+
+Claude Code resolves the plugin's relative marketplace source from the repository root. The marketplace name is `nicetrygpt`, while the plugin identifier remains `nice-try-gpt`.
+
+This direct-install path is independent of the Anthropic community marketplace review process.
 
 ## Keep the two skill layouts synchronized
 

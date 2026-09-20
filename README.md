@@ -55,6 +55,13 @@ For local plugin testing:
 claude --plugin-dir /path/to/NiceTryGPT
 ```
 
+A standalone marketplace manifest is also prepared so users can add the repository directly and install the plugin with:
+
+```text
+/plugin marketplace add aleff-github/NiceTryGPT
+/plugin install nice-try-gpt@nicetrygpt
+```
+
 The original standalone skill layout remains available under `nice-try-gpt/`, so existing ZIP/project-local installation workflows continue to work. See [`docs/claude-plugin.md`](docs/claude-plugin.md) for plugin structure, synchronization, and distribution notes.
 
 ## How it works
@@ -262,7 +269,8 @@ NiceTryGPT/
 ├── SECURITY.md
 ├── CONTRIBUTING.md
 ├── .claude-plugin/
-│   └── plugin.json
+│   ├── plugin.json
+│   └── marketplace.json
 ├── skills/
 │   └── nice-try-gpt/
 │       ├── SKILL.md
