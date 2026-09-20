@@ -73,7 +73,7 @@ The evaluation infrastructure exists under `evals/`, but raw model results are i
 
 v0.3.0 is the evidence milestone.
 
-In addition to the built-in regression fixtures, v0.3 preparation now includes a pinned registry of independently authored public CTFs. Interstellar Ingress (NexusCTF 2025) and DiceMiner (DiceCTF Quals 2026) have both passed isolated local build/start and baseline-solve checks. They enter the model matrix only after a NiceTryGPT-transformed variant also passes end-to-end verification.
+In addition to the built-in regression fixtures, v0.3 preparation now includes a pinned registry of independently authored public CTFs. Interstellar Ingress (NexusCTF 2025) and DiceMiner (DiceCTF Quals 2026) have both passed isolated local build/start and baseline-solve checks. Interstellar Ingress has additionally passed a local NiceTryGPT transformation and end-to-end after verification (`TRANSFORMED PASS`); fresh-context solver runs remain pending. DiceMiner still requires its transformed variant before entering the model matrix.
 
 Planned pilot:
 
