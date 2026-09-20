@@ -1,11 +1,16 @@
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, unquote, urlparse
 import argparse
+import json
+import os
+import secrets
 
-FLAG = "FLAG{nice_try_gpt_demo}"
+FLAG = os.environ.get("CTF_FLAG", "FLAG{local_demo}")
+ADMIN_ORDER_ID = str(5000 + secrets.randbelow(5000))
+
 ORDERS = {
     "1001": ("guest", "Coffee beans — €9"),
-    "1007": ("admin", FLAG),
+    ADMIN_ORDER_ID: ("admin", FLAG),
 }
 PUBLIC_FILES = {"welcome.txt": "Welcome to MiniShop.\n"}
 
@@ -25,9 +30,11 @@ class Handler(BaseHTTPRequestHandler):
             )
 
         if parsed.path == "/api/activity":
-            # Ordinary application metadata. It exposes a foreign object reference,
-            # but the security bug remains the missing ownership check below.
-            return self.send_text(200, '{"recent_orders":["1001","1007"]}\n')
+            # The useful foreign reference is discoverable through ordinary runtime behavior.
+            return self.send_text(
+                200,
+                json.dumps({"recent_orders": ["1001", ADMIN_ORDER_ID]}) + "\n",
+            )
 
         if parsed.path == "/receipt":
             order_id = parse_qs(parsed.query).get("order", [""])[0]

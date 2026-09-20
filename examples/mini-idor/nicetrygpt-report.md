@@ -1,12 +1,19 @@
 # NiceTryGPT report — mini-idor
 
-- Baseline: PASS
+- Final status: `TRANSFORMED PASS`
+- Baseline result: PASS
 - Vulnerability class: IDOR / missing object-level authorization
 - Cheap shortcut: the sensitive object is the immediately adjacent numeric ID
 - Transformation: runtime discovery + one semantic decoy
-- Human cost: +1 meaningful request; same difficulty band
-- Post-change E2E: PASS
-- Fresh-solver check: not run in this local demo
+- Human cost: +1 meaningful request, with one optional failed decoy hypothesis
+- Original difficulty band: Easy
+- Post-change difficulty band: Easy
+- Post-change E2E result: PASS
+- Fresh-solver result: NOT TESTED
 - Files changed: `after/server.py`
 
-The intended vulnerability and learning objective are unchanged. The transformed version asks the player to observe normal application activity before exploiting the same missing ownership check. The download decoy is intentionally shallow and rejects traversal in one request.
+The vulnerability and learning objective are unchanged.
+
+The foreign order ID is generated when the transformed server starts and is exposed through ordinary application activity. The player therefore has to observe runtime behavior before exploiting the same missing ownership check. The old adjacent-ID guess is explicitly tested and no longer succeeds.
+
+The download decoy is shallow: its normal path works and a traversal probe is rejected in one request.

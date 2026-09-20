@@ -4,10 +4,16 @@ Briefly describe the change.
 
 ## Why?
 
-Explain why it improves NiceTryGPT without adding unnecessary complexity.
+Which problem or cheap shortcut does this address?
 
 ## Human-cost check
 
-- [ ] Same vulnerability/learning objective where applicable
+- [ ] Same vulnerability / learning objective where applicable
+- [ ] Same prerequisite knowledge
 - [ ] No unnecessary complexity added for human players
+- [ ] Shortcut reduction is tested where applicable
 - [ ] `python tests/test_demo.py` passes
+
+## Evidence
+
+Add the smallest useful evidence: test output, before/after behavior, or a short explanation.

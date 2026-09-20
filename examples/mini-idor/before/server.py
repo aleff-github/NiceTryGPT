@@ -1,8 +1,9 @@
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 import argparse
+import os
 
-FLAG = "FLAG{nice_try_gpt_demo}"
+FLAG = os.environ.get("CTF_FLAG", "FLAG{local_demo}")
 ORDERS = {
     "1001": ("guest", "Coffee beans — €9"),
     "1002": ("admin", FLAG),
@@ -12,6 +13,7 @@ ORDERS = {
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
+
         if parsed.path == "/":
             return self.send_text(
                 200,
