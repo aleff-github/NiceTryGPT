@@ -20,7 +20,13 @@ The repository includes `.github/workflows/archive.yml`. It requests archival fr
 
 The archival workflow is intentionally separate from tests and releases so a temporary third-party archive outage cannot block normal project development.
 
-Once the archive visit succeeds, a stable SWHID can be recorded here and, if useful, in `CITATION.cff` or release documentation.
+The first Save Code Now request completed successfully on 2026-09-20 with a full visit. Its archived snapshot is:
+
+- **SWHID:** `swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf`
+- **Save request:** [#2485366](https://archive.softwareheritage.org/api/1/origin/save/2485366/)
+- **Snapshot API:** [6c77799e7623abf2653ab9363d3e2f57899174cf](https://archive.softwareheritage.org/api/1/snapshot/6c77799e7623abf2653ab9363d3e2f57899174cf/)
+
+This SWHID identifies the archived repository snapshot independently of GitHub. Future release-triggered archive visits can produce newer snapshots while this identifier remains stable for the preserved object.
 
 ## Zenodo and DOI
 
