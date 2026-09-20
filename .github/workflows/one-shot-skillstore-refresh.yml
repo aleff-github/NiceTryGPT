@@ -1,0 +1,49 @@
+name: One-shot Skillstore metadata refresh
+
+on:
+  push:
+    branches:
+      - ops/marketplace-submissions
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Refresh NiceTryGPT metadata in Skillstore
+        shell: python
+        run: |
+          import json
+          import urllib.request
+          import urllib.error
+
+          payload = {
+              "github_url": "https://github.com/aleff-github/NiceTryGPT/tree/main/skills/nice-try-gpt",
+              "notes": "Metadata refresh for NiceTryGPT v0.2.0 after Agent Skills frontmatter alignment. Canonical license: GPL-3.0-only. Canonical source: https://github.com/aleff-github/NiceTryGPT. DOI: 10.5281/zenodo.22858477."
+          }
+
+          req = urllib.request.Request(
+              "https://skillstore.io/api/submit",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={
+                  "Content-Type": "application/json",
+                  "Accept": "application/json",
+                  "User-Agent": "NiceTryGPT-metadata-refresh/1.0",
+              },
+              method="POST",
+          )
+
+          try:
+              with urllib.request.urlopen(req, timeout=30) as response:
+                  body = response.read().decode("utf-8", errors="ignore")
+                  print(f"HTTP {response.status}")
+                  print(body)
+                  if not 200 <= response.status < 300:
+                      raise SystemExit(1)
+          except urllib.error.HTTPError as exc:
+              print(f"HTTP {exc.code}")
+              print(exc.read().decode("utf-8", errors="ignore"))
+              raise
