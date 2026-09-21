@@ -80,7 +80,7 @@ Planned pilot:
 ```text
 2+ challenges
 × before / after
-× Claude / GPT / Gemini
+× Claude / GPT
 × 5 fresh-context runs
 ```
 
