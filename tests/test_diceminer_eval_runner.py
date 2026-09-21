@@ -26,6 +26,10 @@ summary = load_module(
     "summarize",
     ROOT / "evals" / "summarize.py",
 )
+recover = load_module(
+    "recover_diceminer_run",
+    ROOT / "evals" / "recover_diceminer_run.py",
+)
 
 
 class DiceMinerRunnerTests(unittest.TestCase):
@@ -70,6 +74,16 @@ class DiceMinerRunnerTests(unittest.TestCase):
         self.assertIsNone(runner.numeric_x(float("inf")))
         self.assertIsNone(runner.numeric_x(float("-inf")))
         self.assertIsNone(runner.numeric_x("1e309"))
+
+    def test_recovery_extracts_flag(self):
+        actions = [
+            {"response_body": json.dumps({"success": True, "flag": "dice{example}"})}
+        ]
+        self.assertEqual(recover.extract_flag(actions), "dice{example}")
+
+    def test_recovery_ignores_malformed_response(self):
+        actions = [{"response_body": "not-json"}, {"body": "{}"}]
+        self.assertIsNone(recover.extract_flag(actions))
 
     def test_manifest_verification(self):
         with tempfile.TemporaryDirectory() as tmp:
