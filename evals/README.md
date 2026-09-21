@@ -18,13 +18,13 @@ The first pilot uses:
 
 - challenges: `mini-idor`, `mini-traversal`;
 - variants: `before`, `after`;
-- model families: Claude, GPT, Gemini;
+- model families: Claude, GPT;
 - independent runs per cell: 5.
 
 That is:
 
 ```text
-2 challenges × 2 variants × 3 model families × 5 runs = 60 runs
+2 challenges × 2 variants × 2 model families × 5 runs = 40 runs
 ```
 
 Exact model/version identifiers must be recorded for every run.
