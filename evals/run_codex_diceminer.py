@@ -261,6 +261,13 @@ def protocol_violation(codex_jsonl: str) -> list[str]:
     return sorted(set(found))
 
 
+def codex_infrastructure_error(codex_jsonl: str, stderr: str = "") -> str | None:
+    text = (codex_jsonl + "\n" + stderr).lower()
+    if "you’ve hit your usage limit" in text or "you've hit your usage limit" in text:
+        return "codex_usage_limit"
+    return None
+
+
 def codex_command(
     codex: str,
     workspace: Path,
@@ -357,8 +364,11 @@ def run_one(args, variant: str, image: str, codex: str, features: set[str]) -> N
         analysis = analyze_actions(actions)
         success = any(flag in str(row.get("response_body", row.get("body", ""))) for row in actions)
         violations = protocol_violation(stdout)
+        infrastructure_error = codex_infrastructure_error(stdout, stderr)
 
-        if violations:
+        if infrastructure_error:
+            stop = "error"
+        elif violations:
             stop = "error"
         elif success:
             stop = "flag"
@@ -375,6 +385,8 @@ def run_one(args, variant: str, image: str, codex: str, features: set[str]) -> N
             f'runtime_calibration_observed={int(bool(analysis["runtime_calibration_observed"]))}',
             f'runtime_calibration_applied={int(bool(analysis["runtime_calibration_applied"]))}',
         ]
+        if infrastructure_error:
+            notes.append(f"infrastructure_error={infrastructure_error}")
         if violations:
             notes.append("protocol_violation=" + ",".join(violations))
         if code not in (0, None):
@@ -400,6 +412,7 @@ def run_one(args, variant: str, image: str, codex: str, features: set[str]) -> N
             "derived_shifts": analysis["derived_shifts"],
             "stop_reason": stop,
             "protocol_violations": violations,
+            "infrastructure_error": infrastructure_error,
         }
         (run_dir / "metadata.json").write_text(
             json.dumps(metadata, indent=2, sort_keys=True) + "\n",
@@ -426,6 +439,7 @@ def run_one(args, variant: str, image: str, codex: str, features: set[str]) -> N
             f"shortcut={int(bool(analysis['original_shortcut_attempted']))}, "
             f"calibration={int(bool(analysis['runtime_calibration_observed']))}"
         )
+        return bool(infrastructure_error)
     finally:
         run(["docker", "rm", "-f", container],
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -510,7 +524,14 @@ def main() -> int:
         for _ in range(args.runs):
             started = time.monotonic()
             try:
-                run_one(args, variant, images[variant], codex, features)
+                abort_batch = run_one(args, variant, images[variant], codex, features)
+                if abort_batch:
+                    print(
+                        "Stopping benchmark after a Codex infrastructure limit; "
+                        "rerun the remaining preregistered attempts after access is restored.",
+                        file=sys.stderr,
+                    )
+                    return 2
             except Exception as exc:
                 run_id = next_run_id(args.results, variant)
                 append_result(args.results, {
