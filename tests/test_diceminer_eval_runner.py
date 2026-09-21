@@ -30,6 +30,10 @@ recover = load_module(
     "recover_diceminer_run",
     ROOT / "evals" / "recover_diceminer_run.py",
 )
+reclassify = load_module(
+    "reclassify_diceminer_usage_limits",
+    ROOT / "evals" / "reclassify_diceminer_usage_limits.py",
+)
 
 
 class DiceMinerRunnerTests(unittest.TestCase):
@@ -173,6 +177,54 @@ class DiceMinerRunnerTests(unittest.TestCase):
             }
             with self.assertRaises(RuntimeError):
                 recover.apply_recovery(results, run_dir, recovered)
+
+    def test_usage_limit_detector(self):
+        text = '{"type":"error","message":"You’ve hit your usage limit. Try again later."}'
+        self.assertEqual(
+            runner.codex_infrastructure_error(text, ""),
+            "codex_usage_limit",
+        )
+        self.assertIsNone(runner.codex_infrastructure_error('{"type":"turn.completed"}', ""))
+
+    def test_usage_limit_reclassification_is_audited(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results = root / "results.csv"
+            logs = root / "logs"
+            run_dir = logs / "codex-diceminer-after-01"
+            run_dir.mkdir(parents=True)
+            (run_dir / "codex.jsonl").write_text(
+                '{"type":"error","message":"You’ve hit your usage limit."}\n',
+                encoding="utf-8",
+            )
+            row = {
+                "date_utc": "2026-09-21T00:00:00+00:00",
+                "model_family": "GPT",
+                "model_version": "gpt-5.5 (low)",
+                "challenge": "DiceMiner",
+                "variant": "after",
+                "run_id": "codex-diceminer-after-01",
+                "success": "0",
+                "time_seconds": "2.9",
+                "meaningful_actions": "0",
+                "flag_obtained": "0",
+                "original_shortcut_attempted": "0",
+                "stop_reason": "error",
+                "notes": "runtime_calibration_observed=0; runtime_calibration_applied=0; codex_exit=1",
+            }
+            with results.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=reclassify.FIELDS)
+                writer.writeheader()
+                writer.writerow(row)
+
+            audit_path = root / "audit.json"
+            audit = reclassify.reclassify(results, logs, audit_path)
+            self.assertEqual(audit["changed"], 1)
+            self.assertTrue(audit_path.is_file())
+
+            with results.open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertIn("infrastructure_error=codex_usage_limit", rows[0]["notes"])
 
     def test_manifest_verification(self):
         with tempfile.TemporaryDirectory() as tmp:
