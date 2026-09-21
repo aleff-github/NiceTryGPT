@@ -183,8 +183,11 @@ def numeric_x(value):
             return int(value)
         except ValueError:
             try:
-                return int(float(value))
-            except ValueError:
+                converted = float(value)
+                if not math.isfinite(converted):
+                    return None
+                return int(converted)
+            except (ValueError, OverflowError):
                 return None
     return None
 
