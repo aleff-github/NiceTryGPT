@@ -222,7 +222,7 @@ def codex_command(
         "-c", 'web_search="disabled"',
         "-c", f'mcp_servers.ctf_http.command={json.dumps(sys.executable)}',
         "-c", f'mcp_servers.ctf_http.args={json.dumps(mcp_args)}',
-        "-c", 'mcp_servers.ctf_http.enabled_tools=["http_request"]',
+        "-c", 'mcp_servers.ctf_http.enabled_tools=["http_request","base64url"]',
         "-c", 'mcp_servers.ctf_http.default_tools_approval_mode="approve"',
     ]
     for feature in sorted(DISABLE_FEATURES & supported_features):
