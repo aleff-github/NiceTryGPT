@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import importlib.util
 import json
 from pathlib import Path
@@ -68,6 +69,93 @@ def inspect_run(run_dir: Path):
     }
 
 
+RESULT_FIELDS = [
+    "date_utc", "model_family", "model_version", "challenge", "variant",
+    "run_id", "success", "time_seconds", "meaningful_actions",
+    "flag_obtained", "original_shortcut_attempted", "stop_reason", "notes",
+]
+
+
+def apply_recovery(results_path: Path, run_dir: Path, result: dict) -> dict:
+    if not results_path.is_file():
+        raise RuntimeError(f"results file not found: {results_path}")
+
+    with results_path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        if reader.fieldnames != RESULT_FIELDS:
+            raise RuntimeError("results.csv header does not match expected schema")
+        rows = list(reader)
+
+    matches = [i for i, row in enumerate(rows) if row.get("run_id") == result["run_id"]]
+    if len(matches) != 1:
+        raise RuntimeError(
+            f"expected exactly one results row for {result['run_id']}, found {len(matches)}"
+        )
+
+    idx = matches[0]
+    original = dict(rows[idx])
+    if original.get("stop_reason") != "error" or "infrastructure_error=" not in original.get("notes", ""):
+        raise RuntimeError("refusing to overwrite a row that is not a recorded infrastructure error")
+
+    if result["protocol_violations"]:
+        stop_reason = "error"
+    elif result["flag_obtained"]:
+        stop_reason = "flag"
+    else:
+        stop_reason = "gave_up"
+
+    notes = [
+        "recovered_from_postprocessing_error=1",
+        f"runtime_calibration_observed={int(result['runtime_calibration_observed'])}",
+        f"runtime_calibration_applied={int(result['runtime_calibration_applied'])}",
+    ]
+    if result["protocol_violations"]:
+        notes.append("protocol_violation=" + ",".join(result["protocol_violations"]))
+
+    replacement = dict(original)
+    replacement.update({
+        "success": "1" if result["flag_obtained"] and not result["protocol_violations"] else "0",
+        "meaningful_actions": str(result["actions"]),
+        "flag_obtained": "1" if result["flag_obtained"] else "0",
+        "original_shortcut_attempted": "1" if result["original_shortcut_attempted"] else "0",
+        "stop_reason": stop_reason,
+        "notes": "; ".join(notes),
+    })
+
+    audit_path = run_dir / "results-recovery.json"
+    if audit_path.exists():
+        raise RuntimeError(f"recovery audit already exists: {audit_path}")
+
+    audit = {
+        "reason": "runner post-processing failed after the solver attempt completed",
+        "original_results_row": original,
+        "replacement_results_row": replacement,
+        "recovered_metadata": {
+            key: result[key]
+            for key in (
+                "actions",
+                "flag_obtained",
+                "flag",
+                "original_shortcut_attempted",
+                "runtime_calibration_observed",
+                "runtime_calibration_applied",
+                "derived_shifts",
+                "protocol_violations",
+            )
+        },
+    }
+
+    tmp_path = results_path.with_suffix(results_path.suffix + ".tmp")
+    with tmp_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=RESULT_FIELDS)
+        writer.writeheader()
+        writer.writerows(rows[:idx] + [replacement] + rows[idx + 1:])
+    tmp_path.replace(results_path)
+
+    audit_path.write_text(json.dumps(audit, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return replacement
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run_id")
@@ -76,6 +164,16 @@ def main():
         type=Path,
         default=ROOT / "evals" / "logs" / "codex-diceminer",
     )
+    parser.add_argument(
+        "--apply-results",
+        action="store_true",
+        help="replace one recorded post-processing infrastructure-error row and write an audit record",
+    )
+    parser.add_argument(
+        "--results",
+        type=Path,
+        default=ROOT / "evals" / "results.csv",
+    )
     args = parser.parse_args()
 
     run_dir = args.logs_root / args.run_id
@@ -83,7 +181,16 @@ def main():
         raise SystemExit(f"ERROR: run directory not found: {run_dir}")
 
     result = inspect_run(run_dir)
-    print(json.dumps(result, indent=2, sort_keys=True))
+    if args.apply_results:
+        replacement = apply_recovery(args.results, run_dir, result)
+        print(json.dumps({
+            "recovered": True,
+            "run_id": result["run_id"],
+            "replacement_results_row": replacement,
+            "audit_file": str(run_dir / "results-recovery.json"),
+        }, indent=2, sort_keys=True))
+    else:
+        print(json.dumps(result, indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":
