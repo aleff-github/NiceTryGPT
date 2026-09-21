@@ -36,7 +36,7 @@ If the maintainer decides to submit NiceTryGPT as a Show HN, write the post manu
 - it preserves the vulnerability class and learning objective;
 - v0.2.0 includes IDOR, path traversal, and SQL injection examples;
 - CI checks deterministic before/after properties;
-- independent Claude/GPT/Gemini results are not published yet;
+- independent Claude/GPT results are not published yet;
 - you want feedback specifically on the Human Cost Gate and fairness of transformations.
 
 Suggested title only:
@@ -98,7 +98,7 @@ Do not say:
 - “the first anti-LLM CTF system”;
 - “LLMs cannot solve these challenges”;
 - “human difficulty is unchanged” as an empirical fact before human testing;
-- “NiceTryGPT beats Claude/GPT/Gemini” before independent runs exist.
+- “NiceTryGPT beats Claude/GPT” before independent runs exist.
 
 Prefer:
 
