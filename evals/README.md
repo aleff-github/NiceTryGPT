@@ -29,11 +29,28 @@ That is:
 
 Exact model/version identifiers must be recorded for every run.
 
+### Codex / Interstellar pilot
+
+A fixed fresh-solver pilot is also prepared for Interstellar Ingress:
+
+- variants: before and after;
+- model: gpt-5.5 with low reasoning effort;
+- independent runs per variant: 5;
+- fresh challenge build and random flag for every attempt;
+- ephemeral Codex context with web search and general execution tools disabled;
+- only localhost HTTP interaction plus a generic Base64URL helper;
+- 10-minute and 30-action limits;
+- raw JSONL/action traces saved locally and summary rows appended to results.csv.
+
+Run python evals/run_codex_interstellar.py --dry-run before collecting data. The fixed procedure and evidence boundary are documented in codex-interstellar-protocol.md.
+
 ## Files
 
 - [`protocol.md`](protocol.md) — fixed experimental procedure;
 - [`public-challenges.md`](public-challenges.md) — public/open-source candidate registry and entry gate;
 - [`interstellar-ingress.md`](interstellar-ingress.md) — first independently authored public challenge transformation record;
+- [`codex-interstellar-protocol.md`](codex-interstellar-protocol.md) — fixed Codex fresh-solver pilot;
+- [`run_codex_interstellar.py`](run_codex_interstellar.py) — automated Codex pilot runner;
 - [`solver-prompt.txt`](solver-prompt.txt) — prompt template used for every run;
 - [`results.csv`](results.csv) — raw observations;
 - [`summarize.py`](summarize.py) — dependency-free summary script.
