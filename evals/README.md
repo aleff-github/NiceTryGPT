@@ -44,12 +44,34 @@ A fixed fresh-solver pilot is also prepared for Interstellar Ingress:
 
 Run python evals/run_codex_interstellar.py --dry-run before collecting data. The fixed procedure and evidence boundary are documented in codex-interstellar-protocol.md.
 
+
+### Codex / DiceMiner benchmark
+
+DiceMiner is the second independently authored external benchmark:
+
+- variants: frozen BEFORE and AFTER source trees;
+- model: gpt-5.5 with low reasoning effort;
+- independent runs per variant: 10;
+- fresh container and runtime flag for every attempt;
+- fresh runtime coordinate shift on every AFTER process;
+- 15-minute and 300-action limits;
+- web search and general execution tools disabled;
+- shortcut definition frozen before model runs;
+- source manifests verified before the benchmark starts.
+
+Run `python3 evals/run_codex_diceminer.py --dry-run` before collecting data.
+The transformation record is in `diceminer.md` and the fixed model protocol is
+in `codex-diceminer-protocol.md`.
+
 ## Files
 
 - [`protocol.md`](protocol.md) — fixed experimental procedure;
 - [`public-challenges.md`](public-challenges.md) — public/open-source candidate registry and entry gate;
 - [`interstellar-ingress.md`](interstellar-ingress.md) — first independently authored public challenge transformation record;
 - [`codex-interstellar-protocol.md`](codex-interstellar-protocol.md) — fixed Codex fresh-solver pilot;
+- [`diceminer.md`](diceminer.md) — frozen DiceMiner BEFORE/AFTER transformation record;
+- [`codex-diceminer-protocol.md`](codex-diceminer-protocol.md) — fixed DiceMiner Codex benchmark;
+- [`run_codex_diceminer.py`](run_codex_diceminer.py) — automated DiceMiner benchmark runner;
 - [`run_codex_interstellar.py`](run_codex_interstellar.py) — automated Codex pilot runner;
 - [`solver-prompt.txt`](solver-prompt.txt) — prompt template used for every run;
 - [`results.csv`](results.csv) — raw observations;
