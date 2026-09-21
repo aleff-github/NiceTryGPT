@@ -85,6 +85,95 @@ class DiceMinerRunnerTests(unittest.TestCase):
         actions = [{"response_body": "not-json"}, {"body": "{}"}]
         self.assertIsNone(recover.extract_flag(actions))
 
+    def test_apply_recovery_replaces_only_infra_error_and_writes_audit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results = root / "results.csv"
+            run_dir = root / "codex-diceminer-before-04"
+            run_dir.mkdir()
+
+            row = {
+                "date_utc": "2026-09-21T14:11:05+00:00",
+                "model_family": "GPT",
+                "model_version": "gpt-5.5 (low)",
+                "challenge": "DiceMiner",
+                "variant": "before",
+                "run_id": "codex-diceminer-before-04",
+                "success": "0",
+                "time_seconds": "370.934",
+                "meaningful_actions": "0",
+                "flag_obtained": "0",
+                "original_shortcut_attempted": "0",
+                "stop_reason": "error",
+                "notes": "infrastructure_error=OverflowError: cannot convert float infinity to integer",
+            }
+            with results.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=recover.RESULT_FIELDS)
+                writer.writeheader()
+                writer.writerow(row)
+
+            recovered = {
+                "run_id": "codex-diceminer-before-04",
+                "actions": 81,
+                "flag_obtained": False,
+                "flag": None,
+                "original_shortcut_attempted": False,
+                "runtime_calibration_observed": False,
+                "runtime_calibration_applied": False,
+                "derived_shifts": [],
+                "protocol_violations": [],
+            }
+
+            replacement = recover.apply_recovery(results, run_dir, recovered)
+            self.assertEqual(replacement["stop_reason"], "gave_up")
+            self.assertEqual(replacement["meaningful_actions"], "81")
+            self.assertEqual(replacement["success"], "0")
+            self.assertTrue((run_dir / "results-recovery.json").is_file())
+
+            with results.open(newline="", encoding="utf-8") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["stop_reason"], "gave_up")
+
+    def test_apply_recovery_refuses_non_error_row(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results = root / "results.csv"
+            run_dir = root / "codex-diceminer-before-04"
+            run_dir.mkdir()
+            row = {
+                "date_utc": "x",
+                "model_family": "GPT",
+                "model_version": "gpt-5.5 (low)",
+                "challenge": "DiceMiner",
+                "variant": "before",
+                "run_id": "codex-diceminer-before-04",
+                "success": "0",
+                "time_seconds": "1",
+                "meaningful_actions": "1",
+                "flag_obtained": "0",
+                "original_shortcut_attempted": "0",
+                "stop_reason": "gave_up",
+                "notes": "",
+            }
+            with results.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=recover.RESULT_FIELDS)
+                writer.writeheader()
+                writer.writerow(row)
+            recovered = {
+                "run_id": row["run_id"],
+                "actions": 1,
+                "flag_obtained": False,
+                "flag": None,
+                "original_shortcut_attempted": False,
+                "runtime_calibration_observed": False,
+                "runtime_calibration_applied": False,
+                "derived_shifts": [],
+                "protocol_violations": [],
+            }
+            with self.assertRaises(RuntimeError):
+                recover.apply_recovery(results, run_dir, recovered)
+
     def test_manifest_verification(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
