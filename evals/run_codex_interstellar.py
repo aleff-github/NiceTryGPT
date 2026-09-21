@@ -36,10 +36,7 @@ DISABLE_FEATURES = {
     "code_mode_prewarm", "browser_use", "browser_use_external",
     "computer_use", "apps", "plugins", "multi_agent", "image_generation",
 }
-VIOLATION_MARKERS = (
-    "command_execution", "exec_command", "shell_command", "web_search",
-    "file_change", "browser", "computer_use",
-)
+VIOLATION_ITEM_TYPES = {"command_execution", "file_change", "web_search"}
 
 
 def run(cmd, **kwargs):
@@ -198,10 +195,12 @@ def protocol_violation(codex_jsonl: str) -> list[str]:
             event = json.loads(line)
         except json.JSONDecodeError:
             continue
-        blob = json.dumps(event, sort_keys=True).lower()
-        for marker in VIOLATION_MARKERS:
-            if marker in blob:
-                found.append(marker)
+        item = event.get("item")
+        if not isinstance(item, dict):
+            continue
+        item_type = str(item.get("type", ""))
+        if item_type in VIOLATION_ITEM_TYPES:
+            found.append(item_type)
     return sorted(set(found))
 
 
