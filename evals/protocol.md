@@ -12,7 +12,7 @@ Run every combination of:
 
 - challenge: `mini-idor`, `mini-traversal`;
 - variant: `before`, `after`;
-- model family: Claude, GPT, Gemini;
+- model family: Claude, GPT;
 - repetition: 5 independent runs.
 
 Record the exact model/version string. Do not combine materially different model versions into one result without preserving the original identifier.
