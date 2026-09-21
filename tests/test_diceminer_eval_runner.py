@@ -66,6 +66,11 @@ class DiceMinerRunnerTests(unittest.TestCase):
         self.assertTrue(analysis["original_shortcut_attempted"])
         self.assertTrue(analysis["runtime_calibration_observed"])
 
+    def test_non_finite_coordinates_are_ignored(self):
+        self.assertIsNone(runner.numeric_x(float("inf")))
+        self.assertIsNone(runner.numeric_x(float("-inf")))
+        self.assertIsNone(runner.numeric_x("1e309"))
+
     def test_manifest_verification(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
