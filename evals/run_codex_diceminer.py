@@ -177,6 +177,8 @@ def numeric_x(value):
     if isinstance(value, bool):
         return None
     if isinstance(value, (int, float)):
+        if isinstance(value, float) and not math.isfinite(value):
+            return None
         return int(value)
     if isinstance(value, str):
         try:
