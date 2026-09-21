@@ -383,7 +383,28 @@ def main() -> int:
     args.logs_dir = args.logs_dir.resolve()
     for variant in variants:
         for _ in range(args.runs):
-            run_one(args, variant, sources[variant], codex, features)
+            started = time.monotonic()
+            try:
+                run_one(args, variant, sources[variant], codex, features)
+            except Exception as exc:
+                run_id = next_run_id(args.results, variant)
+                append_result(args.results, {
+                    "date_utc": utc_now(),
+                    "model_family": "GPT",
+                    "model_version": f"{args.model} ({args.effort})",
+                    "challenge": "Interstellar Ingress",
+                    "variant": variant,
+                    "run_id": run_id,
+                    "success": 0,
+                    "time_seconds": round(time.monotonic() - started, 3),
+                    "meaningful_actions": 0,
+                    "flag_obtained": 0,
+                    "original_shortcut_attempted": 0,
+                    "stop_reason": "error",
+                    "notes": f"infrastructure_error={type(exc).__name__}: {exc}",
+                })
+                print(f"{run_id}: infrastructure error recorded: {exc}", file=sys.stderr)
+                raise
     return 0
 
 
