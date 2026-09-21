@@ -180,9 +180,12 @@ def numeric_x(value):
         return int(value)
     if isinstance(value, str):
         try:
-            return int(float(value))
+            return int(value)
         except ValueError:
-            return None
+            try:
+                return int(float(value))
+            except ValueError:
+                return None
     return None
 
 
