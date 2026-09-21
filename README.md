@@ -202,9 +202,9 @@ The first planned pilot is:
 ```text
 2 challenges
 × 2 variants
-× 3 model families
+× 2 model families
 × 5 fresh-context runs
-= 60 runs
+= 40 runs
 ```
 
 The protocol fixes isolation, tool parity, prompt, stop conditions, and raw result fields. **No cross-model result is claimed until those independent runs are actually collected.**
