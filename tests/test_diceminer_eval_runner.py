@@ -268,6 +268,38 @@ class DiceMinerRunnerTests(unittest.TestCase):
 
             self.assertEqual(resume.valid_counts(path), {"before": 1, "after": 1})
 
+    def test_next_run_id_skips_existing_log_directory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results = root / "results.csv"
+            logs = root / "logs"
+            logs.mkdir()
+            (logs / "codex-diceminer-before-17").mkdir()
+
+            with results.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=runner.RESULT_FIELDS)
+                writer.writeheader()
+                writer.writerow({
+                    "date_utc": "x",
+                    "model_family": "GPT",
+                    "model_version": "gpt-5.5 (low)",
+                    "challenge": "DiceMiner",
+                    "variant": "before",
+                    "run_id": "codex-diceminer-before-16",
+                    "success": "0",
+                    "time_seconds": "1",
+                    "meaningful_actions": "1",
+                    "flag_obtained": "0",
+                    "original_shortcut_attempted": "0",
+                    "stop_reason": "gave_up",
+                    "notes": "",
+                })
+
+            self.assertEqual(
+                runner.next_run_id(results, logs, "before"),
+                "codex-diceminer-before-18",
+            )
+
     def test_manifest_verification(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
