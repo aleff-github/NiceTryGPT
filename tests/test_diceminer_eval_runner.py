@@ -34,6 +34,10 @@ reclassify = load_module(
     "reclassify_diceminer_usage_limits",
     ROOT / "evals" / "reclassify_diceminer_usage_limits.py",
 )
+resume = load_module(
+    "resume_diceminer_benchmark",
+    ROOT / "evals" / "resume_diceminer_benchmark.py",
+)
 
 
 class DiceMinerRunnerTests(unittest.TestCase):
@@ -225,6 +229,44 @@ class DiceMinerRunnerTests(unittest.TestCase):
             with results.open(newline="", encoding="utf-8") as handle:
                 rows = list(csv.DictReader(handle))
             self.assertIn("infrastructure_error=codex_usage_limit", rows[0]["notes"])
+
+    def test_resume_counts_only_non_infrastructure_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "results.csv"
+            fields = [
+                "date_utc", "model_family", "model_version", "challenge", "variant",
+                "run_id", "success", "time_seconds", "meaningful_actions",
+                "flag_obtained", "original_shortcut_attempted", "stop_reason", "notes",
+            ]
+            rows = [
+                {
+                    "date_utc": "x", "model_family": "GPT", "model_version": "gpt-5.5 (low)",
+                    "challenge": "DiceMiner", "variant": "before", "run_id": "b1",
+                    "success": "0", "time_seconds": "1", "meaningful_actions": "1",
+                    "flag_obtained": "0", "original_shortcut_attempted": "0",
+                    "stop_reason": "gave_up", "notes": "",
+                },
+                {
+                    "date_utc": "x", "model_family": "GPT", "model_version": "gpt-5.5 (low)",
+                    "challenge": "DiceMiner", "variant": "before", "run_id": "b2",
+                    "success": "0", "time_seconds": "1", "meaningful_actions": "0",
+                    "flag_obtained": "0", "original_shortcut_attempted": "0",
+                    "stop_reason": "error", "notes": "infrastructure_error=codex_usage_limit",
+                },
+                {
+                    "date_utc": "x", "model_family": "GPT", "model_version": "gpt-5.5 (low)",
+                    "challenge": "DiceMiner", "variant": "after", "run_id": "a1",
+                    "success": "0", "time_seconds": "1", "meaningful_actions": "1",
+                    "flag_obtained": "0", "original_shortcut_attempted": "0",
+                    "stop_reason": "error", "notes": "protocol_violation=web_search",
+                },
+            ]
+            with path.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=fields)
+                writer.writeheader()
+                writer.writerows(rows)
+
+            self.assertEqual(resume.valid_counts(path), {"before": 1, "after": 1})
 
     def test_manifest_verification(self):
         with tempfile.TemporaryDirectory() as tmp:
