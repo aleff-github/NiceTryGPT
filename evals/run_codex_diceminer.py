@@ -125,19 +125,33 @@ def feature_names(codex: str) -> set[str]:
     return names
 
 
-def next_run_id(results: Path, variant: str) -> str:
+def next_run_id(results: Path, logs_dir: Path, variant: str) -> str:
     prefix = f"codex-diceminer-{variant}-"
-    highest = 0
+    used: set[int] = set()
+
     if results.is_file():
         with results.open(newline="", encoding="utf-8") as handle:
             for row in csv.DictReader(handle):
                 value = row.get("run_id", "")
                 if value.startswith(prefix):
                     try:
-                        highest = max(highest, int(value[len(prefix):]))
+                        used.add(int(value[len(prefix):]))
                     except ValueError:
                         pass
-    return f"{prefix}{highest + 1:02d}"
+
+    if logs_dir.is_dir():
+        for entry in logs_dir.iterdir():
+            if not entry.is_dir():
+                continue
+            value = entry.name
+            if value.startswith(prefix):
+                try:
+                    used.add(int(value[len(prefix):]))
+                except ValueError:
+                    pass
+
+    next_id = max(used, default=0) + 1
+    return f"{prefix}{next_id:02d}"
 
 
 def append_result(path: Path, row: dict[str, object]) -> None:
@@ -339,7 +353,7 @@ def start_container(container: str, image: str, port: int, flag: str) -> None:
 
 
 def run_one(args, variant: str, image: str, codex: str, features: set[str]) -> None:
-    run_id = next_run_id(args.results, variant)
+    run_id = next_run_id(args.results, args.logs_dir, variant)
     run_dir = args.logs_dir / run_id
     run_dir.mkdir(parents=True, exist_ok=False)
     action_log = run_dir / "http-actions.jsonl"
@@ -533,7 +547,7 @@ def main() -> int:
                     )
                     return 2
             except Exception as exc:
-                run_id = next_run_id(args.results, variant)
+                run_id = next_run_id(args.results, args.logs_dir, variant)
                 append_result(args.results, {
                     "date_utc": utc_now(),
                     "model_family": "GPT",
