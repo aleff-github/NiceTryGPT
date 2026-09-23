@@ -82,6 +82,17 @@ for a larger multi-model benchmark.
 A result is reported only if actually executed. Missing runs are not imputed.
 No GPT-to-Claude equivalence claim is made from 3+3 observations.
 
+## Execution status
+
+The first attempted run terminated after approximately 1.2 seconds with zero
+meaningful actions because of an infrastructure/access-limit condition. Under
+the evaluation rules this is an infrastructure failure, not a solver result.
+
+No valid Claude observation was collected, no missing run was imputed, and the
+current v0.3 evidence does not claim cross-model replication. The protocol is
+preserved for future reproduction if additional inference resources become
+available.
+
 ## Running
 
 Preflight:
