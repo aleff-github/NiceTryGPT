@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "challenge": {
+    "name": "mini-sqli",
+    "source_type": "bundled_demo"
+  },
+  "final_status": "TRANSFORMED PASS",
+  "baseline": {
+    "reproduced": true,
+    "vulnerability_class": "SQL injection",
+    "learning_objective": "identify and exploit unsafe SQL string interpolation to authenticate as a privileged user",
+    "prerequisite_knowledge": "basic HTTP requests and comment-based SQL injection",
+    "difficulty_band": "Easy"
+  },
+  "shortcut": {
+    "description": "the privileged email address is printed directly on the home page, making an exact-account comment injection immediate",
+    "reduction_check": "the old privileged identity fails and the current identity must be reconstructed from the team and help surfaces before using the same injection primitive"
+  },
+  "transformation": {
+    "patterns": [
+      "context_split"
+    ],
+    "summary": "split the privileged identity into a staff handle and a nearby email-format clue without changing the vulnerable query",
+    "files_changed": [
+      "after/server.py"
+    ]
+  },
+  "human_cost": {
+    "added_required_meaningful_actions": 2,
+    "added_optional_meaningful_actions": 0,
+    "post_change_difficulty_band": "Easy",
+    "new_exploit_primitive": false,
+    "brute_force_required": false,
+    "human_verification_required": false,
+    "external_trivia_required": false,
+    "artificial_multistage_chain": false
+  },
+  "verification": {
+    "baseline_solve": true,
+    "shortcut_reduced": true,
+    "transformed_e2e": true,
+    "vulnerability_preserved": true,
+    "learning_objective_preserved": true,
+    "prerequisite_knowledge_preserved": true,
+    "flag_semantics_preserved": true
+  },
+  "evidence": {
+    "deterministic_validation": true,
+    "fresh_solver_status": "NOT_TESTED",
+    "evaluation_refs": []
+  }
+}

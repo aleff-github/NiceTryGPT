@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "challenge": {
+    "name": "mini-traversal",
+    "source_type": "bundled_demo"
+  },
+  "final_status": "TRANSFORMED PASS",
+  "baseline": {
+    "reproduced": true,
+    "vulnerability_class": "Path traversal",
+    "learning_objective": "identify and exploit unsafe path joining to escape the public download directory",
+    "prerequisite_knowledge": "basic HTTP requests and path traversal",
+    "difficulty_band": "Easy"
+  },
+  "shortcut": {
+    "description": "a static export path makes ../exports/latest.txt an immediate one-shot candidate",
+    "reduction_check": "the old static traversal path returns no flag while the runtime activity path can be traversed with the same primitive"
+  },
+  "transformation": {
+    "patterns": [
+      "runtime_discovery"
+    ],
+    "summary": "replace the reusable static export path with a runtime-specific export path exposed through normal application activity",
+    "files_changed": [
+      "after/server.py"
+    ]
+  },
+  "human_cost": {
+    "added_required_meaningful_actions": 1,
+    "added_optional_meaningful_actions": 0,
+    "post_change_difficulty_band": "Easy",
+    "new_exploit_primitive": false,
+    "brute_force_required": false,
+    "human_verification_required": false,
+    "external_trivia_required": false,
+    "artificial_multistage_chain": false
+  },
+  "verification": {
+    "baseline_solve": true,
+    "shortcut_reduced": true,
+    "transformed_e2e": true,
+    "vulnerability_preserved": true,
+    "learning_objective_preserved": true,
+    "prerequisite_knowledge_preserved": true,
+    "flag_semantics_preserved": true
+  },
+  "evidence": {
+    "deterministic_validation": true,
+    "fresh_solver_status": "NOT_TESTED",
+    "evaluation_refs": []
+  }
+}

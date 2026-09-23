@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "challenge": {
+    "name": "mini-idor",
+    "source_type": "bundled_demo"
+  },
+  "final_status": "TRANSFORMED PASS",
+  "baseline": {
+    "reproduced": true,
+    "vulnerability_class": "IDOR / missing object-level authorization",
+    "learning_objective": "identify and exploit a missing ownership check on an object reference",
+    "prerequisite_knowledge": "basic HTTP requests and object-reference authorization reasoning",
+    "difficulty_band": "Easy"
+  },
+  "shortcut": {
+    "description": "the sensitive object is the immediately adjacent numeric ID",
+    "reduction_check": "the adjacent-ID guess fails after transformation while a runtime-observed foreign order reference still reaches the vulnerable receipt"
+  },
+  "transformation": {
+    "patterns": [
+      "runtime_discovery",
+      "semantic_decoy"
+    ],
+    "summary": "move the foreign object reference into ordinary runtime activity and keep one cheaply falsifiable download decoy",
+    "files_changed": [
+      "after/server.py"
+    ]
+  },
+  "human_cost": {
+    "added_required_meaningful_actions": 1,
+    "added_optional_meaningful_actions": 1,
+    "post_change_difficulty_band": "Easy",
+    "new_exploit_primitive": false,
+    "brute_force_required": false,
+    "human_verification_required": false,
+    "external_trivia_required": false,
+    "artificial_multistage_chain": false
+  },
+  "verification": {
+    "baseline_solve": true,
+    "shortcut_reduced": true,
+    "transformed_e2e": true,
+    "vulnerability_preserved": true,
+    "learning_objective_preserved": true,
+    "prerequisite_knowledge_preserved": true,
+    "flag_semantics_preserved": true
+  },
+  "evidence": {
+    "deterministic_validation": true,
+    "fresh_solver_status": "NOT_TESTED",
+    "evaluation_refs": []
+  }
+}
