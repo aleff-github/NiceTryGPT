@@ -70,7 +70,9 @@ def build_report(rows: list[dict[str, str]], target_diceminer: int = 10) -> str:
         "",
         f"- raw recorded attempts: **{total_raw}**;",
         f"- valid solver attempts: **{total_valid}**;",
-        f"- infrastructure failures retained for audit but excluded from solver denominators: **{total_infra}**.",
+        f"- infrastructure failures retained for audit but excluded from solver denominators: **{total_infra}**;",
+        f"- valid-attempt share of all recorded attempts: **{pct(total_valid, total_raw)}**;",
+        f"- infrastructure-failure share of all recorded attempts: **{pct(total_infra, total_raw)}**.",
         "",
         "## Observed evidence",
         "",
@@ -101,6 +103,35 @@ def build_report(rows: list[dict[str, str]], target_diceminer: int = 10) -> str:
                 "shortcuts": sum(r.get("original_shortcut_attempted") == "1" for r in valid),
                 "solves": sum(r.get("success") == "1" for r in valid),
             }
+
+    lines += [
+        "",
+        "## Observed effect-size snapshot",
+        "",
+        "| challenge | solve-rate change AFTER − BEFORE | shortcut-rate change AFTER − BEFORE | status |",
+        "|---|---:|---:|---|",
+    ]
+
+    for challenge in ("Interstellar Ingress", "DiceMiner"):
+        cells = {}
+        for key, group in groups.items():
+            model, version, name, variant = key
+            if model != "GPT" or name != challenge or variant not in {"before", "after"}:
+                continue
+            valid = [r for r in group if not is_infra(r)]
+            cells[variant] = {
+                "n": len(valid),
+                "solve": sum(r.get("success") == "1" for r in valid),
+                "shortcut": sum(r.get("original_shortcut_attempted") == "1" for r in valid),
+            }
+        if all(v in cells and cells[v]["n"] for v in ("before", "after")):
+            b, a = cells["before"], cells["after"]
+            solve_delta = 100 * (a["solve"]/a["n"] - b["solve"]/b["n"])
+            shortcut_delta = 100 * (a["shortcut"]/a["n"] - b["shortcut"]/b["n"])
+            status = "complete" if challenge == "Interstellar Ingress" else "AFTER partial"
+            lines.append(
+                f"| {challenge} | {solve_delta:+.1f} pp | {shortcut_delta:+.1f} pp | {status} |"
+            )
 
     lines += [
         "",
