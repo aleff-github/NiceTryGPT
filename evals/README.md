@@ -1,124 +1,65 @@
 # NiceTryGPT evaluations
 
-This directory defines a small, reproducible way to test the claim that a NiceTryGPT transformation reduces a **specific cheap shortcut** without materially increasing human-facing challenge complexity.
+This directory contains the reproducible evaluation layer for NiceTryGPT. It
+tests a narrow question: whether a minimal transformation reduces a specific,
+pre-identified shortcut while preserving the intended challenge.
 
 It is intentionally not a large benchmark framework.
 
-## Current status
+## v0.3 observed evidence
 
-Fresh-context external evaluation is now in progress and is reported with a strict
-observed-evidence boundary.
+The published raw dataset is results.csv. Its collection plan and status are
+machine-readable in experiment-manifest.json.
 
-- **Interstellar Ingress / GPT** completed the fixed 5 BEFORE + 5 AFTER pilot.
-- **DiceMiner / GPT** completed all 10 valid BEFORE runs and a resource-bounded
-  partial AFTER sample before further repetitions became impractical under the
-  available inference/usage budget.
-- infrastructure and usage-limit failures remain in the raw accounting but are
-  excluded from solver-performance denominators;
-- missing runs are never converted into synthetic successes or failures;
-- any completion projection is labeled **illustrative** and kept out of
-  `results.csv`.
+- Interstellar Ingress / GPT-5.5 low: 5 valid BEFORE + 5 valid AFTER
+  observations; 5/5 solves in both cells; shortcut attempts 5/5 to 0/5.
+- DiceMiner / GPT-5.5 low: 10 valid BEFORE + 3 valid AFTER observations;
+  0 solves in both observed cells; shortcut attempts 3/10 to 0/3.
+- Interstellar Ingress / Claude Sonnet 4.6: one recorded attempt, zero valid
+  solver observations because it ended as infrastructure/access failure before
+  meaningful action.
 
-Run `python3 evals/analyze_evidence.py --write evals/evidence-status.md` to
-generate the current observed-vs-projected report directly from the local
-dataset.
+Infrastructure failures remain in raw accounting and are excluded from solver
+denominators only through the explicit classification contract in protocol.md.
+The missing DiceMiner AFTER observations remain missing. No synthetic rows are
+created.
 
-A curated set of independently authored, open-source CTF candidates is tracked
-in [`public-challenges.md`](public-challenges.md). Public challenges enter the
-model-evaluation matrix only after their local baseline and transformed solve
-have both been reproduced.
+## Reproduce the evidence snapshot
 
-## Pilot matrix
+Validate raw data and targets:
 
-The first pilot uses:
+    python3 evals/analyze_evidence.py --validate-only
 
-- challenges: `mini-idor`, `mini-traversal`;
-- variants: `before`, `after`;
-- model families: Claude, GPT;
-- independent runs per cell: 5.
+Regenerate the committed evidence report:
 
-That is:
+    python3 evals/analyze_evidence.py --write evals/evidence-status.md
 
-```text
-2 challenges × 2 variants × 2 model families × 5 runs = 40 runs
-```
+Print the compact summary:
 
-Exact model/version identifiers must be recorded for every run.
+    python3 evals/summarize.py
 
-### Codex / Interstellar pilot
+## Experiment registry
 
-A fixed fresh-solver pilot is also prepared for Interstellar Ingress:
+experiment-manifest.json is the dataset-level source of truth for study
+identity, exact model/version, frozen protocol path, target valid runs,
+collection status, and whether an illustrative projection is allowed.
 
-- variants: before and after;
-- model: gpt-5.5 with low reasoning effort;
-- independent runs per variant: 5;
-- fresh challenge build and random flag for every attempt;
-- ephemeral Codex context with web search and general execution tools disabled;
-- only localhost HTTP interaction plus a generic Base64URL helper;
-- 10-minute and 30-action limits;
-- raw JSONL/action traces saved locally and summary rows appended to results.csv.
+This removes challenge-specific target counts from analysis code.
 
-Run python evals/run_codex_interstellar.py --dry-run before collecting data. The fixed procedure and evidence boundary are documented in codex-interstellar-protocol.md.
+## Transformation evidence
 
-### Claude / Interstellar cross-model replication
+Machine-readable external transformation records live under
+evals/transformations/. They encode deterministic preservation checks
+separately from fresh-solver evidence.
 
-A deliberately small 3+3 Claude replication was preregistered to add a second
-model family without repeating the expensive DiceMiner workload.
+## Main files
 
-The first execution attempt terminated after 1.2 seconds with **0 meaningful
-actions** because of an infrastructure/access-limit condition. It is retained
-as an infrastructure failure, not a solver observation. No valid Claude run is
-counted in the evidence and v0.3 therefore makes **no cross-model replication
-claim**.
+- protocol.md: common evaluation and classification contract;
+- experiment-manifest.json: study registry and targets;
+- results.csv: raw attempts;
+- analyze_evidence.py: validation, intervals, effects, and projections;
+- evidence-status.md: generated snapshot;
+- summarize.py: dependency-free console summary;
+- public-challenges.md: external candidate registry.
 
-The frozen replication procedure remains documented in
-[`claude-interstellar-protocol.md`](claude-interstellar-protocol.md) for
-future reproduction when resources permit.
-
-
-### Codex / DiceMiner benchmark
-
-DiceMiner is the second independently authored external benchmark:
-
-- variants: frozen BEFORE and AFTER source trees;
-- model: gpt-5.5 with low reasoning effort;
-- independent runs per variant: 10;
-- fresh container and runtime flag for every attempt;
-- fresh runtime coordinate shift on every AFTER process;
-- 15-minute and 300-action limits;
-- web search and general execution tools disabled;
-- shortcut definition frozen before model runs;
-- source manifests verified before the benchmark starts.
-
-Run `python3 evals/run_codex_diceminer.py --dry-run` before collecting data.
-The transformation record is in `diceminer.md` and the fixed model protocol is
-in `codex-diceminer-protocol.md`.
-
-## Files
-
-- [`protocol.md`](protocol.md) — fixed experimental procedure;
-- [`public-challenges.md`](public-challenges.md) — public/open-source candidate registry and entry gate;
-- [`interstellar-ingress.md`](interstellar-ingress.md) — first independently authored public challenge transformation record;
-- [`codex-interstellar-protocol.md`](codex-interstellar-protocol.md) — fixed Codex fresh-solver pilot;
-- [`diceminer.md`](diceminer.md) — frozen DiceMiner BEFORE/AFTER transformation record;
-- [`codex-diceminer-protocol.md`](codex-diceminer-protocol.md) — fixed DiceMiner Codex benchmark;
-- [`run_codex_diceminer.py`](run_codex_diceminer.py) — automated DiceMiner benchmark runner;
-- [`run_codex_interstellar.py`](run_codex_interstellar.py) — automated Codex pilot runner;
-- [`run_claude_interstellar.py`](run_claude_interstellar.py) — low-cost Claude cross-model replication runner;
-- [`resume_claude_interstellar.py`](resume_claude_interstellar.py) — count-aware 3+3 replication resume helper;
-- [`claude-interstellar-protocol.md`](claude-interstellar-protocol.md) — frozen 3+3 Claude replication protocol;
-- [`solver-prompt.txt`](solver-prompt.txt) — prompt template used for every run;
-- [`results.csv`](results.csv) — raw observations;
-- [`summarize.py`](summarize.py) — dependency-free summary script;
-- [`analyze_evidence.py`](analyze_evidence.py) — observed/projection separation, Wilson intervals, and resource-bounded status report;
-- [`evidence-status.md`](evidence-status.md) — generated evidence snapshot (regenerate after new valid runs).
-
-## Summarize collected results
-
-```bash
-python evals/summarize.py
-```
-
-The primary metric is solve rate. Secondary descriptive metrics are time, meaningful actions, and whether the original cheap shortcut was attempted.
-
-Do not turn a tiny pilot into claims of universal LLM resistance.
+The current evidence supports preliminary / proof-of-concept claims only.

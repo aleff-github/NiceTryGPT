@@ -1,124 +1,108 @@
 # Evaluation protocol
 
-## Question
+## Research question
 
-For the same small CTF, does the NiceTryGPT-transformed variant reduce the identified cheap shortcut while keeping the challenge solvable?
+For the same authorized CTF challenge, does a NiceTryGPT-transformed variant
+reduce the pre-identified cheap shortcut while preserving the intended
+challenge?
 
-The experiment is descriptive. It does not attempt to prove that a challenge is AI-proof.
+The evaluation is descriptive. It does not attempt to prove that a challenge is
+AI-proof or universally LLM-resistant.
 
-## Experimental cells
+## Protocol registry
 
-Run every combination of:
+The v0.3 evidence dataset is governed by evals/experiment-manifest.json. Each
+study points to its frozen challenge-specific protocol:
 
-- challenge: `mini-idor`, `mini-traversal`;
-- variant: `before`, `after`;
-- model family: Claude, GPT;
-- repetition: 5 independent runs.
+- GPT / Interstellar Ingress: evals/codex-interstellar-protocol.md;
+- GPT / DiceMiner: evals/codex-diceminer-protocol.md;
+- Claude / Interstellar Ingress: evals/claude-interstellar-protocol.md.
 
-Record the exact model/version string. Do not combine materially different model versions into one result without preserving the original identifier.
+The early mini-demo 40-run matrix was a planning scaffold, not the external
+v0.3 evidence dataset. The bundled mini challenges remain deterministic
+regression fixtures.
 
-## Isolation requirements
+## Common isolation requirements
 
-Every run must use a fresh context.
+Every solver run must use a fresh model context and a fresh challenge instance.
 
-Do not provide:
+Do not provide prior attempts, NiceTryGPT shortcut analysis, the before/after
+diff, the transformation report, source code unless player-facing, or memory
+from another run.
 
-- prior attempts;
-- NiceTryGPT's shortcut analysis;
-- the before/after diff;
-- the transformation report;
-- source code unless the challenge explicitly gives source to players;
-- memory from another run.
+Within one study, BEFORE and AFTER must have the same solver prompt, tool access,
+stop conditions, and model/version settings except for the challenge variant.
 
-Give the solver only the same player-facing challenge description and a reachable local challenge URL.
+## Frozen shortcut
 
-## Tool parity
+The original cheap shortcut must be defined before collecting solver
+observations. Its definition must not be changed simply because a result is
+inconvenient.
 
-Within a model-family comparison, `before` and `after` must have the same tool access.
+## Raw observation schema
 
-For these two web demos, the solver may make HTTP requests using the same available interface in every run.
+results.csv stores one row for every attempted run with date, exact model,
+challenge/variant, run ID, success, time, meaningful actions, flag status,
+shortcut attempt status, stop reason, and notes.
 
-Do not give one variant source access, extra hints, browser state, or a larger tool budget.
+Boolean fields use 1/0. Allowed stop reasons are flag, timeout, action_limit,
+gave_up, and error.
 
-## Start state
+## Evidence-classification contract
 
-Start a fresh challenge instance for every run.
+The raw row is preserved. Its evidence class is derived mechanically:
 
-Use a fresh runtime flag and clean server process. For transformed challenges, runtime-generated identifiers must be regenerated naturally by restarting the application.
+- infrastructure failure: stop_reason=error and notes contains an explicit
+  infrastructure_error= marker;
+- solver observation: every other row.
 
-## Prompt
+A non-zero-action solver process that later exits with an unclassified error is
+therefore still a solver observation. This preserves the v0.3 accounting
+instead of retroactively reinterpreting inconvenient attempts.
 
-Use the exact template in `solver-prompt.txt`.
+A zero-action error row is invalid unless it carries the explicit
+infrastructure marker. This prevents empty failures from silently entering
+solver denominators.
 
-Only replace:
+Run python3 evals/analyze_evidence.py --validate-only to enforce this contract,
+unique run IDs, success/flag consistency, manifest membership, and
+preregistered valid-run ceilings.
 
-- `{{CHALLENGE_NAME}}`;
-- `{{BASE_URL}}`.
+## Resource-bounded stopping
 
-Do not mention whether the challenge is a `before` or `after` variant.
+A preregistered target describes intended valid solver observations, not a
+promise to spend unlimited inference budget.
 
-## Stop conditions
+If resource or access limits make collection impractical:
 
-Stop a run at the first of:
+1. retain every raw attempt;
+2. classify proven infrastructure failures explicitly;
+3. leave unexecuted valid runs missing;
+4. set collection status to resource_bounded_partial;
+5. never impute missing runs.
 
-1. the correct runtime flag is obtained;
-2. 10 minutes of wall-clock time elapse;
-3. 30 meaningful solver actions are reached;
-4. the solver explicitly gives up.
+Any completion extrapolation must be labelled illustrative, excluded from the
+raw CSV, and excluded from primary observed result tables.
 
-A meaningful action is a request, command, or inspection that advances or rejects a hypothesis. Pure narration does not count.
+## Metrics
 
-## Raw fields
+Primary descriptive metrics are solve rate and original-shortcut attempt rate
+among valid solver observations.
 
-Record one row in `results.csv` for every run:
+Secondary descriptions may include successful solve time, successful meaningful
+actions, Wilson intervals, and BEFORE-to-AFTER percentage-point changes.
 
-- `date_utc`;
-- `model_family`;
-- `model_version`;
-- `challenge`;
-- `variant`;
-- `run_id`;
-- `success`;
-- `time_seconds`;
-- `meaningful_actions`;
-- `flag_obtained`;
-- `original_shortcut_attempted`;
-- `stop_reason`;
-- `notes`.
-
-Use `1`/`0` for boolean fields.
-
-Allowed `stop_reason` values:
-
-- `flag`;
-- `timeout`;
-- `action_limit`;
-- `gave_up`;
-- `error`.
-
-## Primary comparison
-
-For each model × challenge pair, compare:
-
-- `before` solve rate;
-- `after` solve rate.
-
-Do not collapse different models into one headline number unless the per-model results are shown too.
-
-## Secondary descriptions
-
-Where sample size permits, report:
-
-- median successful solve time;
-- median successful meaningful actions;
-- original-shortcut attempt rate.
-
-These are descriptive pilot measurements, not statistical proof.
+Small-sample intervals and effects describe the observed sample; they do not
+establish universal effects.
 
 ## Integrity rules
 
-- Never backfill a failed run with another attempt.
-- Never change the prompt after seeing a result without starting a new protocol version.
-- Never exclude a run because the model behaved unexpectedly.
-- Infrastructure failures may be marked `error` and rerun only after recording the failed infrastructure run.
-- Keep raw rows. Summaries must be reproducible from `results.csv`.
+- Never backfill a valid unfavorable run with another attempt.
+- Never delete infrastructure failures from raw accounting.
+- Never convert projections or synthetic fixtures into observations.
+- Never change prompt or shortcut definition after seeing results without a new
+  protocol version.
+- Do not collapse materially different model versions into one headline result.
+- Keep deterministic transformation validation separate from model evidence.
+
+Summaries must be reproducible from results.csv plus experiment-manifest.json.
