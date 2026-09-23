@@ -6,10 +6,10 @@ NiceTryGPT has one canonical source:
 - Website: https://aleff-github.github.io/NiceTryGPT/
 - Canonical Agent Skill: https://github.com/aleff-github/NiceTryGPT/tree/main/skills/nice-try-gpt
 - Standalone mirror: https://github.com/aleff-github/NiceTryGPT/tree/main/nice-try-gpt
-- Current release: v0.3.0
+- Current release: v0.4.0
 - License: GPL-3.0-only
 - Archived v0.2.0 DOI: https://doi.org/10.5281/zenodo.22858477
-- v0.3.0 DOI: pending Zenodo release deposit
+- v0.4.0 DOI: pending Zenodo release deposit
 
 ## Install
 
@@ -80,7 +80,7 @@ The canonical repository remains the source of truth for current content, licens
 
 Distribution copy should not claim that NiceTryGPT makes challenges AI-proof or universally LLM-resistant.
 
-For v0.3.0, supported claims are limited to:
+For v0.4.0, supported claims are limited to:
 
 - three reproducible demonstration vulnerability classes;
 - deterministic before/after regression checks;
@@ -89,6 +89,9 @@ For v0.3.0, supported claims are limited to:
 - completed GPT fresh-context evidence on Interstellar Ingress (5 BEFORE + 5 AFTER valid runs);
 - resource-bounded GPT evidence on DiceMiner (10 BEFORE + 3 AFTER valid runs);
 - transparent infrastructure-failure accounting and observed-vs-projected separation;
-- no claim of universal LLM resistance or completed cross-model replication.
+- no claim of universal LLM resistance or completed cross-model replication;
+- machine-readable transformation reports with a derived Human Cost Gate;
+- manifest-driven reproduction of the unchanged v0.3 empirical accounting;
+- no new paid model observations in v0.4.0.
 
 See [the evaluation protocol](../evals/protocol.md) and [related work](related-work.md).

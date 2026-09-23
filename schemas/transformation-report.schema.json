@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aleff-github/NiceTryGPT/blob/main/schemas/transformation-report.schema.json",
+  "title": "NiceTryGPT transformation report",
+  "description": "Machine-readable companion to nicetrygpt-report.md. Semantic Human Cost Gate rules are additionally enforced by scripts/validate_transformation_reports.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "challenge",
+    "final_status",
+    "baseline",
+    "shortcut",
+    "transformation",
+    "human_cost",
+    "verification",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "challenge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "source_type"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "source_type": {"enum": ["bundled_demo", "external"]},
+        "upstream_repository": {"type": "string"},
+        "upstream_commit": {"type": "string"}
+      }
+    },
+    "final_status": {
+      "enum": ["BASELINE FAILED", "NO CHANGE NEEDED", "TRANSFORMED PASS", "TRANSFORMED FAILED"]
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reproduced", "vulnerability_class", "learning_objective", "prerequisite_knowledge", "difficulty_band"],
+      "properties": {
+        "reproduced": {"type": "boolean"},
+        "vulnerability_class": {"type": "string", "minLength": 1},
+        "learning_objective": {"type": "string", "minLength": 1},
+        "prerequisite_knowledge": {"type": "string", "minLength": 1},
+        "difficulty_band": {"type": "string", "minLength": 1}
+      }
+    },
+    "shortcut": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "reduction_check"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "reduction_check": {"type": "string", "minLength": 1}
+      }
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["patterns", "summary", "files_changed"],
+      "properties": {
+        "patterns": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 2,
+          "items": {
+            "enum": ["pattern_break", "runtime_discovery", "context_split", "state_dependency", "semantic_decoy"]
+          }
+        },
+        "summary": {"type": "string", "minLength": 1},
+        "files_changed": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "human_cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "added_required_meaningful_actions",
+        "added_optional_meaningful_actions",
+        "post_change_difficulty_band",
+        "new_exploit_primitive",
+        "brute_force_required",
+        "human_verification_required",
+        "external_trivia_required",
+        "artificial_multistage_chain"
+      ],
+      "properties": {
+        "added_required_meaningful_actions": {"type": "integer", "minimum": 0},
+        "added_optional_meaningful_actions": {"type": "integer", "minimum": 0},
+        "post_change_difficulty_band": {"type": "string", "minLength": 1},
+        "new_exploit_primitive": {"type": "boolean"},
+        "brute_force_required": {"type": "boolean"},
+        "human_verification_required": {"type": "boolean"},
+        "external_trivia_required": {"type": "boolean"},
+        "artificial_multistage_chain": {"type": "boolean"}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseline_solve",
+        "shortcut_reduced",
+        "transformed_e2e",
+        "vulnerability_preserved",
+        "learning_objective_preserved",
+        "prerequisite_knowledge_preserved",
+        "flag_semantics_preserved"
+      ],
+      "properties": {
+        "baseline_solve": {"type": "boolean"},
+        "shortcut_reduced": {"type": "boolean"},
+        "transformed_e2e": {"type": "boolean"},
+        "vulnerability_preserved": {"type": "boolean"},
+        "learning_objective_preserved": {"type": "boolean"},
+        "prerequisite_knowledge_preserved": {"type": "boolean"},
+        "flag_semantics_preserved": {"type": "boolean"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deterministic_validation", "fresh_solver_status", "evaluation_refs"],
+      "properties": {
+        "deterministic_validation": {"type": "boolean"},
+        "fresh_solver_status": {"enum": ["NOT_TESTED", "OBSERVED", "NO_VALID_OBSERVATIONS"]},
+        "evaluation_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@ description: Analyzes authorized CTF challenges by reproducing intended solves, 
 license: GPL-3.0-only
 metadata:
   author: aleff-github
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # NiceTryGPT
@@ -177,20 +177,23 @@ Never claim that self-review proves LLM resistance.
 
 ## 9. Report
 
-Create or update `nicetrygpt-report.md` in the challenge root.
+Create or update both `nicetrygpt-report.md` and `nicetrygpt-report.json` in the challenge root.
 
-Keep it short and include:
+Read `references/report-format.md` before writing the final artifacts. The Markdown report is the concise human-readable explanation. The JSON sidecar is the machine-readable evidence contract used to validate preservation invariants, the Human Cost Gate, verification results, and fresh-solver evidence status.
+
+Keep both reports aligned. Do not encode a Human Cost Gate `PASS` as an assertion: the gate is derived from the recorded fields.
+
+The reports must include:
 
 - final status;
 - baseline result;
-- vulnerability class;
-- shortcut identified;
+- vulnerability class and learning objective;
+- shortcut identified and its operational reduction check;
 - transformation used, or `NO CHANGE NEEDED`;
-- human-cost estimate in additional meaningful actions;
-- original difficulty band;
-- post-change difficulty band;
-- post-change E2E result;
-- fresh-solver result or `NOT TESTED`;
+- required and optional added meaningful actions;
+- original and post-change difficulty bands;
+- preservation and post-change E2E checks;
+- fresh-solver status or `NOT_TESTED`;
 - files changed.
 
 ## Success rule

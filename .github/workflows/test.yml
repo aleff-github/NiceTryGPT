@@ -15,9 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  demo:
+  research-artifact:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -25,15 +25,5 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - name: Run NiceTryGPT E2E demos
-        run: python tests/test_demo.py
-      - name: Run release and eval checks
-        run: python tests/test_release.py
-      - name: Run Codex evaluation harness checks
-        run: python tests/test_codex_eval_runner.py
-      - name: Run DiceMiner evaluation harness checks
-        run: python tests/test_diceminer_eval_runner.py
-      - name: Run evidence analysis checks
-        run: python tests/test_evidence_analysis.py
-      - name: Run Claude replication harness checks
-        run: python tests/test_claude_interstellar_runner.py
+      - name: Verify complete research artifact
+        run: python scripts/verify_research_artifact.py

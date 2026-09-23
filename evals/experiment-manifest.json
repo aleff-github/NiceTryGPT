@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "dataset": "evals/results.csv",
+  "studies": [
+    {
+      "id": "interstellar-gpt-5.5-low",
+      "challenge": "Interstellar Ingress",
+      "model_family": "GPT",
+      "model_version": "gpt-5.5 (low)",
+      "protocol": "evals/codex-interstellar-protocol.md",
+      "target_valid_runs": {
+        "before": 5,
+        "after": 5
+      },
+      "collection_status": "complete",
+      "projection": {
+        "enabled": false
+      }
+    },
+    {
+      "id": "diceminer-gpt-5.5-low",
+      "challenge": "DiceMiner",
+      "model_family": "GPT",
+      "model_version": "gpt-5.5 (low)",
+      "protocol": "evals/codex-diceminer-protocol.md",
+      "target_valid_runs": {
+        "before": 10,
+        "after": 10
+      },
+      "collection_status": "resource_bounded_partial",
+      "projection": {
+        "enabled": true,
+        "variant": "after"
+      }
+    },
+    {
+      "id": "interstellar-claude-sonnet-4.6-low",
+      "challenge": "Interstellar Ingress",
+      "model_family": "Claude",
+      "model_version": "claude-sonnet-4-6 (low)",
+      "protocol": "evals/claude-interstellar-protocol.md",
+      "target_valid_runs": {
+        "before": 3,
+        "after": 3
+      },
+      "collection_status": "no_valid_observations",
+      "projection": {
+        "enabled": false
+      }
+    }
+  ],
+  "dataset_version": "v0.3.0",
+  "dataset_git_blob_sha1": "657e0ac60589db002a7f44f3b4b354d8e46a0593"
+}

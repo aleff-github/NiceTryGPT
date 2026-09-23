@@ -60,6 +60,25 @@ The 2026 preprint *AI In Cybersecurity Education — Scalable Agentic CTF Design
 
 This reinforces the importance of separating competition goals, learning outcomes, and agent capability measurements.
 
+### CTFusion and contamination-aware evaluation
+
+The 2026 work *CTFusion: A CTF-based Benchmark for LLM Agent Evaluation* argues
+that static CTF benchmarks built from already published challenges are exposed
+to training-data contamination and retrieval of known solutions. It evaluates
+agents on live CTF events to reduce those threats.
+
+- Paper: https://arxiv.org/abs/2605.11504
+- Repository: https://github.com/kaist-hacking/CTFusion
+
+**Different question:** CTFusion improves capability measurement by changing
+where benchmark tasks come from. NiceTryGPT transforms an existing challenge
+while preserving its learning objective. For NiceTryGPT evaluations on public
+archived CTFs, contamination remains a stated limitation; adding more runs on
+the same public tasks does not remove it.
+
+This is one reason v0.4 prioritizes auditable evidence contracts over simply
+increasing inference volume.
+
 ## NiceTryGPT's narrow position
 
 A useful description is:

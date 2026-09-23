@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "challenge": {
+    "name": "Interstellar Ingress",
+    "source_type": "external",
+    "upstream_repository": "https://github.com/michaeldaltonau/sydney-university-nexusctf-2025-web-challenges",
+    "upstream_commit": "ac450407fcdae9057a2063477e751a7b414a9cdd"
+  },
+  "final_status": "TRANSFORMED PASS",
+  "baseline": {
+    "reproduced": true,
+    "vulnerability_class": "JWT/session authentication bypass via unsecured token verification",
+    "learning_objective": "forge an unsecured JWT to reach the privileged application view",
+    "prerequisite_knowledge": "JWT structure and alg:none token forgery",
+    "difficulty_band": "Original published challenge band"
+  },
+  "shortcut": {
+    "description": "the observed guest token exposes the privilege claim name, type, and obvious winning value",
+    "reduction_check": "the zero-observation privilege recipe fails after transformation while observing the runtime clearance and forging the same unsecured token reaches the flag"
+  },
+  "transformation": {
+    "patterns": [
+      "runtime_discovery"
+    ],
+    "summary": "replace the self-describing static privilege value with a runtime warden clearance exposed through the normal login surface",
+    "files_changed": [
+      "four upstream challenge source files; see evals/interstellar-ingress.md"
+    ]
+  },
+  "human_cost": {
+    "added_required_meaningful_actions": 1,
+    "added_optional_meaningful_actions": 0,
+    "post_change_difficulty_band": "Original published challenge band",
+    "new_exploit_primitive": false,
+    "brute_force_required": false,
+    "human_verification_required": false,
+    "external_trivia_required": false,
+    "artificial_multistage_chain": false
+  },
+  "verification": {
+    "baseline_solve": true,
+    "shortcut_reduced": true,
+    "transformed_e2e": true,
+    "vulnerability_preserved": true,
+    "learning_objective_preserved": true,
+    "prerequisite_knowledge_preserved": true,
+    "flag_semantics_preserved": true
+  },
+  "evidence": {
+    "deterministic_validation": true,
+    "fresh_solver_status": "OBSERVED",
+    "evaluation_refs": [
+      "evals/interstellar-ingress.md",
+      "evals/codex-interstellar-protocol.md",
+      "evals/results.csv"
+    ]
+  }
+}

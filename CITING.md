@@ -6,9 +6,9 @@ For work that depends on a specific NiceTryGPT release, cite the release version
 
 The canonical citation for the current release is:
 
-> Greco, A. (2026). *NiceTryGPT* (Version 0.3.0) [Computer software]. GitHub. https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.3.0
+> Greco, A. (2026). *NiceTryGPT* (Version 0.4.0) [Computer software]. GitHub. https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.4.0
 
-A version-specific Zenodo DOI for v0.3.0 should be substituted once the release deposit is minted. Until then, do not reuse the v0.2.0 DOI as if it identified v0.3.0.
+A version-specific Zenodo DOI for v0.4.0 should be substituted once the release deposit is minted. Until then, do not reuse the v0.2.0 DOI as if it identified v0.4.0.
 
 The archived Zenodo record for v0.2.0 remains available at https://zenodo.org/records/22858477 with DOI https://doi.org/10.5281/zenodo.22858477.
 
