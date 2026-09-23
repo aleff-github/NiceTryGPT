@@ -104,9 +104,9 @@ the project does not claim cross-model replication for v0.3.0.
 Illustrative projections are kept separate from observed results and are never
 inserted into the raw dataset.
 
-## v0.4.0 — reproducible transformation artifacts
+## v0.4.0 — reproducible transformation artifacts ✅
 
-Release target: 2026-09-23.
+Acceptance criteria validated in PR #35 CI on 2026-09-23.
 
 ### Theme
 
