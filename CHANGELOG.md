@@ -2,7 +2,7 @@
 
 All notable changes to NiceTryGPT are documented here.
 
-## [Unreleased]
+## [0.3.0] — 2026-09-23
 
 ### Added
 
@@ -33,6 +33,20 @@ All notable changes to NiceTryGPT are documented here.
 - release checks now detect broken local Markdown links in the README;
 - contribution guidance now documents metadata synchronization and issue-routing expectations;
 - canonical author metadata now identifies Alessandro Greco while retaining `@aleff-github` as the public GitHub alias.
+
+### v0.3.0 evidence boundary
+
+This release adds the first external fresh-context empirical evidence for NiceTryGPT.
+
+Observed evidence includes:
+
+- Interstellar Ingress: 5 valid GPT BEFORE + 5 valid GPT AFTER runs, with 5/5 solves in both variants and shortcut attempts changing from 5/5 to 0/5;
+- DiceMiner: 10 valid GPT BEFORE + 3 valid GPT AFTER runs, with 0 solves in both observed conditions and shortcut attempts changing from 3/10 to 0/3;
+- infrastructure and usage-limit failures retained for audit but excluded from solver-performance denominators;
+- Wilson confidence intervals and descriptive effect-size reporting generated from the raw CSV;
+- explicit separation of observed evidence from illustrative projections.
+
+The DiceMiner AFTER cell is incomplete and is reported as partial directional evidence only. A preregistered Claude replication produced no valid solver observation because its first attempt ended before any meaningful action due to an infrastructure/access-limit condition. v0.3.0 therefore makes no cross-model replication claim and no universal LLM-resistance claim.
 
 ## [0.2.0] — 2026-09-20
 
