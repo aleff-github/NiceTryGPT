@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -56,6 +57,15 @@ def row(run_id, variant, shortcut="0", stop="gave_up", actions="1", notes=""):
 
 
 class EvidenceAnalysisTests(unittest.TestCase):
+    def test_git_blob_identity_matches_known_fixture(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "fixture.txt"
+            path.write_bytes(b"hello\n")
+            self.assertEqual(
+                evidence.git_blob_sha1(path),
+                "ce013625030ba8dba906f756967f9e9ca394464a",
+            )
+
     def test_wilson_zero_of_three_is_wide(self):
         low, high = evidence.wilson(0, 3)
         self.assertAlmostEqual(low, 0.0, places=6)

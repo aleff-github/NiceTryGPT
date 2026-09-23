@@ -79,8 +79,9 @@ def scalar_or_dash(value):
 
 
 def main():
-    rows = evidence.load_rows(RESULTS)
     manifest = evidence.load_manifest(MANIFEST)
+    evidence.validate_dataset_identity(RESULTS, manifest)
+    rows = evidence.load_rows(RESULTS)
     evidence.validate_rows(rows, manifest)
     if not rows:
         print("No evaluation results recorded yet.")

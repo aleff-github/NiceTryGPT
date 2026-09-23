@@ -9,7 +9,9 @@ It is intentionally not a large benchmark framework.
 ## v0.3 observed evidence
 
 The published raw dataset is results.csv. Its collection plan and status are
-machine-readable in experiment-manifest.json.
+machine-readable in experiment-manifest.json. The manifest also pins the v0.3.0
+raw dataset by its Git blob SHA-1, so CI detects byte-level changes to the
+published observation table.
 
 - Interstellar Ingress / GPT-5.5 low: 5 valid BEFORE + 5 valid AFTER
   observations; 5/5 solves in both cells; shortcut attempts 5/5 to 0/5.

@@ -106,3 +106,6 @@ establish universal effects.
 - Keep deterministic transformation validation separate from model evidence.
 
 Summaries must be reproducible from results.csv plus experiment-manifest.json.
+The manifest pins the released raw dataset by Git blob SHA-1; a content change
+therefore requires an explicit dataset-version update rather than silently
+changing historical observations.

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import math
 from collections import defaultdict
@@ -85,6 +86,11 @@ def load_manifest(path: Path) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     if data.get("schema_version") != "1.0":
         raise EvidenceContractError("unsupported experiment manifest schema")
+    if not data.get("dataset_version"):
+        raise EvidenceContractError("experiment manifest needs dataset_version")
+    dataset_sha = data.get("dataset_git_blob_sha1", "")
+    if len(dataset_sha) != 40 or any(ch not in "0123456789abcdef" for ch in dataset_sha):
+        raise EvidenceContractError("experiment manifest needs a valid dataset_git_blob_sha1")
     studies = data.get("studies")
     if not isinstance(studies, list) or not studies:
         raise EvidenceContractError("experiment manifest must contain studies")
@@ -122,6 +128,21 @@ def load_manifest(path: Path) -> dict:
                 f"{sid}: enabled projection needs before/after variant"
             )
     return data
+
+
+def git_blob_sha1(path: Path) -> str:
+    data = path.read_bytes()
+    header = f"blob {len(data)}\0".encode("ascii")
+    return hashlib.sha1(header + data).hexdigest()
+
+
+def validate_dataset_identity(path: Path, manifest: dict) -> None:
+    actual = git_blob_sha1(path)
+    expected = manifest["dataset_git_blob_sha1"]
+    if actual != expected:
+        raise EvidenceContractError(
+            f"dataset content changed: expected Git blob {expected}, got {actual}"
+        )
 
 
 def study_index(manifest: dict) -> dict[tuple[str, str, str], dict]:
@@ -450,8 +471,10 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    rows = load_rows(args.results.resolve())
+    results_path = args.results.resolve()
     manifest = load_manifest(args.manifest.resolve())
+    validate_dataset_identity(results_path, manifest)
+    rows = load_rows(results_path)
     validate_rows(rows, manifest)
 
     if args.validate_only:
