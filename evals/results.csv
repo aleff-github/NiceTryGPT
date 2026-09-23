@@ -54,3 +54,4 @@ Run 'docker run --help' for more information"
 2026-09-23T07:18:08.376002+00:00,GPT,gpt-5.5 (low),DiceMiner,after,codex-diceminer-after-13,0,764.593,223,0,0,gave_up,runtime_calibration_observed=1; runtime_calibration_applied=0
 2026-09-23T07:30:56.344832+00:00,GPT,gpt-5.5 (low),DiceMiner,after,codex-diceminer-after-14,0,900.015,199,0,0,timeout,runtime_calibration_observed=1; runtime_calibration_applied=0
 2026-09-23T07:46:00.167007+00:00,GPT,gpt-5.5 (low),DiceMiner,after,codex-diceminer-after-15,0,608.217,147,0,0,error,runtime_calibration_observed=1; runtime_calibration_applied=0; infrastructure_error=codex_usage_limit; codex_exit=1
+2026-09-23T12:25:59.697335+00:00,Claude,claude-sonnet-4-6 (low),Interstellar Ingress,before,claude-interstellar-before-01,0,1.196,0,0,0,error,infrastructure_error=claude_authentication; claude_exit=1

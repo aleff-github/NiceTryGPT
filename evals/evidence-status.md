@@ -6,11 +6,11 @@ Projected values are never inserted into `results.csv` and are never counted as 
 
 ## Collection accounting
 
-- raw recorded attempts: **49**;
+- raw recorded attempts: **50**;
 - valid solver attempts: **23**;
-- infrastructure failures retained for audit but excluded from solver denominators: **26**;
-- valid-attempt share of all recorded attempts: **46.9%**;
-- infrastructure-failure share of all recorded attempts: **53.1%**.
+- infrastructure failures retained for audit but excluded from solver denominators: **27**;
+- valid-attempt share of all recorded attempts: **46.0%**;
+- infrastructure-failure share of all recorded attempts: **54.0%**.
 
 ## Observed evidence
 
@@ -18,6 +18,7 @@ Projected values are never inserted into `results.csv` and are never counted as 
 |---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
 | GPT | gpt-5.5 (low) | DiceMiner | after | 15 | 3 | 12 | 0/3 | 0.0% | 0/3 | 0.0% | 0.0%–56.1% |
 | GPT | gpt-5.5 (low) | DiceMiner | before | 23 | 10 | 13 | 0/10 | 0.0% | 3/10 | 30.0% | 10.8%–60.3% |
+| Claude | claude-sonnet-4-6 (low) | Interstellar Ingress | before | 1 | 0 | 1 | 0/0 | - | 0/0 | - | - |
 | GPT | gpt-5.5 (low) | Interstellar Ingress | after | 5 | 5 | 0 | 5/5 | 100.0% | 0/5 | 0.0% | 0.0%–43.4% |
 | GPT | gpt-5.5 (low) | Interstellar Ingress | before | 6 | 5 | 1 | 5/5 | 100.0% | 5/5 | 100.0% | 56.6%–100.0% |
 
