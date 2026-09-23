@@ -6,11 +6,27 @@ It is intentionally not a large benchmark framework.
 
 ## Current status
 
-The evaluation infrastructure is ready, but **no cross-model results are committed yet**.
+Fresh-context external evaluation is now in progress and is reported with a strict
+observed-evidence boundary.
 
-That is deliberate. Same-context self-review is not counted as evidence.
+- **Interstellar Ingress / GPT** completed the fixed 5 BEFORE + 5 AFTER pilot.
+- **DiceMiner / GPT** completed all 10 valid BEFORE runs and a resource-bounded
+  partial AFTER sample before further repetitions became impractical under the
+  available inference/usage budget.
+- infrastructure and usage-limit failures remain in the raw accounting but are
+  excluded from solver-performance denominators;
+- missing runs are never converted into synthetic successes or failures;
+- any completion projection is labeled **illustrative** and kept out of
+  `results.csv`.
 
-A curated set of independently authored, open-source CTF candidates is tracked in [`public-challenges.md`](public-challenges.md). Interstellar Ingress now has a locally verified `TRANSFORMED PASS` experiment; its fresh-context solver runs are still pending. Public challenges enter the model-evaluation matrix only after their local baseline and transformed solve have both been reproduced.
+Run `python3 evals/analyze_evidence.py --write evals/evidence-status.md` to
+generate the current observed-vs-projected report directly from the local
+dataset.
+
+A curated set of independently authored, open-source CTF candidates is tracked
+in [`public-challenges.md`](public-challenges.md). Public challenges enter the
+model-evaluation matrix only after their local baseline and transformed solve
+have both been reproduced.
 
 ## Pilot matrix
 
@@ -75,7 +91,9 @@ in `codex-diceminer-protocol.md`.
 - [`run_codex_interstellar.py`](run_codex_interstellar.py) — automated Codex pilot runner;
 - [`solver-prompt.txt`](solver-prompt.txt) — prompt template used for every run;
 - [`results.csv`](results.csv) — raw observations;
-- [`summarize.py`](summarize.py) — dependency-free summary script.
+- [`summarize.py`](summarize.py) — dependency-free summary script;
+- [`analyze_evidence.py`](analyze_evidence.py) — observed/projection separation, Wilson intervals, and resource-bounded status report;
+- [`evidence-status.md`](evidence-status.md) — generated evidence snapshot (regenerate after new valid runs).
 
 ## Summarize collected results
 
