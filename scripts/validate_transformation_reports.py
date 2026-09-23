@@ -32,6 +32,34 @@ PRESERVATION_CHECKS = (
     "prerequisite_knowledge_preserved",
     "flag_semantics_preserved",
 )
+TOP_LEVEL_KEYS = {
+    "schema_version", "challenge", "final_status", "baseline", "shortcut",
+    "transformation", "human_cost", "verification", "evidence",
+}
+SECTION_KEYS = {
+    "baseline": {
+        "reproduced", "vulnerability_class", "learning_objective",
+        "prerequisite_knowledge", "difficulty_band",
+    },
+    "shortcut": {"description", "reduction_check"},
+    "transformation": {"patterns", "summary", "files_changed"},
+    "human_cost": {
+        "added_required_meaningful_actions",
+        "added_optional_meaningful_actions",
+        "post_change_difficulty_band",
+        "new_exploit_primitive",
+        "brute_force_required",
+        "human_verification_required",
+        "external_trivia_required",
+        "artificial_multistage_chain",
+    },
+    "verification": set(PRESERVATION_CHECKS),
+    "evidence": {
+        "deterministic_validation", "fresh_solver_status", "evaluation_refs",
+    },
+}
+CHALLENGE_REQUIRED = {"name", "source_type"}
+CHALLENGE_OPTIONAL = {"upstream_repository", "upstream_commit"}
 
 
 class ReportError(ValueError):
@@ -51,9 +79,32 @@ def require_bool(mapping: dict, key: str, where: str) -> bool:
     return value
 
 
+def require_exact_keys(
+    mapping: dict,
+    required: set[str],
+    where: str,
+    optional: set[str] | None = None,
+) -> None:
+    optional = optional or set()
+    missing = required - set(mapping)
+    unknown = set(mapping) - required - optional
+    if missing:
+        raise ReportError(f"{where}: missing fields {sorted(missing)}")
+    if unknown:
+        raise ReportError(f"{where}: unknown fields {sorted(unknown)}")
+
+
+def require_text(mapping: dict, key: str, where: str) -> str:
+    value = require(mapping, key, where)
+    if not isinstance(value, str) or not value.strip():
+        raise ReportError(f"{where}.{key}: must be a non-empty string")
+    return value.strip()
+
+
 def validate_report(data: dict, source: str = "<memory>") -> dict:
     if not isinstance(data, dict):
         raise ReportError(f"{source}: report must be an object")
+    require_exact_keys(data, TOP_LEVEL_KEYS, source)
     if data.get("schema_version") != "1.0":
         raise ReportError(f"{source}: unsupported schema_version")
 
@@ -74,12 +125,45 @@ def validate_report(data: dict, source: str = "<memory>") -> dict:
         if not isinstance(value, dict):
             raise ReportError(f"{source}.{name}: must be an object")
 
+    require_exact_keys(
+        challenge, CHALLENGE_REQUIRED, f"{source}.challenge", CHALLENGE_OPTIONAL
+    )
+    for section_name, expected_keys in SECTION_KEYS.items():
+        require_exact_keys(
+            data[section_name], expected_keys, f"{source}.{section_name}"
+        )
+
     if status not in ALLOWED_STATUSES:
         raise ReportError(f"{source}: invalid final_status {status!r}")
     if challenge.get("source_type") not in {"bundled_demo", "external"}:
         raise ReportError(f"{source}.challenge.source_type: invalid")
-    if not str(challenge.get("name", "")).strip():
-        raise ReportError(f"{source}.challenge.name: required")
+    require_text(challenge, "name", f"{source}.challenge")
+    for optional_key in CHALLENGE_OPTIONAL:
+        if optional_key in challenge:
+            require_text(challenge, optional_key, f"{source}.challenge")
+
+    for key in (
+        "vulnerability_class",
+        "learning_objective",
+        "prerequisite_knowledge",
+        "difficulty_band",
+    ):
+        require_text(baseline, key, f"{source}.baseline")
+    require_text(shortcut, "description", f"{source}.shortcut")
+    require_text(shortcut, "reduction_check", f"{source}.shortcut")
+    require_text(transformation, "summary", f"{source}.transformation")
+
+    files_changed = require(
+        transformation, "files_changed", f"{source}.transformation"
+    )
+    if (
+        not isinstance(files_changed, list)
+        or len(files_changed) != len(set(files_changed))
+        or any(not isinstance(item, str) or not item.strip() for item in files_changed)
+    ):
+        raise ReportError(
+            f"{source}.transformation.files_changed: expected unique non-empty strings"
+        )
 
     reproduced = require_bool(baseline, "reproduced", f"{source}.baseline")
     original_band = str(require(baseline, "difficulty_band", f"{source}.baseline")).strip()
