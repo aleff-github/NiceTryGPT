@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/archive.yml"
+      - "scripts/request_swh_archive.py"
   release:
     types: [published]
   workflow_dispatch:
@@ -17,30 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
       - name: Request Software Heritage archival
-        shell: bash
-        env:
-          ORIGIN_URL: https://github.com/${{ github.repository }}
-        run: |
-          set -euo pipefail
-          url="$(python - <<'PY'
-          import os
-          from urllib.parse import urlencode
-
-          params = urlencode({"visit_type": "git", "origin_url": os.environ["ORIGIN_URL"]})
-          print("https://archive.softwareheritage.org/api/1/origin/save/?" + params)
-          PY
-          )"
-          response="$(curl --fail-with-body --silent --show-error --retry 3 --retry-all-errors -X POST "$url")"
-          printf "%s\n" "$response"
-          RESPONSE="$response" python - <<'PY'
-          import json
-          import os
-
-          data = json.loads(os.environ["RESPONSE"])
-          request_status = data.get("save_request_status")
-          task_status = data.get("save_task_status")
-          print(f"Software Heritage request: {request_status}; task: {task_status}")
-          if request_status not in {"accepted", "pending"}:
-              raise SystemExit(f"Unexpected archival request status: {request_status}")
-          PY
+        run: python3 scripts/request_swh_archive.py

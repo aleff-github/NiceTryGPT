@@ -59,3 +59,8 @@ jobs:
         shell: bash
         run: |
           gh release create "$TAG" "dist/nice-try-gpt-v$VERSION.zip" --target "$GITHUB_SHA" --title "NiceTryGPT $TAG ☕🤖" --notes-file ".github/release-notes/$TAG.md"
+
+      - name: Request Software Heritage archival
+        if: steps.existing.outputs.exists == 'false'
+        continue-on-error: true
+        run: python scripts/request_swh_archive.py

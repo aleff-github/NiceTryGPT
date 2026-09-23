@@ -12,13 +12,17 @@ Current public release: **v0.4.0**.
 
 Software Heritage preserves public source code independently of GitHub and can assign Software Heritage persistent identifiers (SWHIDs) to archived objects.
 
-The repository includes `.github/workflows/archive.yml`. It requests archival from the official Software Heritage Save Code Now API when:
+The repository includes `.github/workflows/archive.yml` and a dependency-free archival helper at `scripts/request_swh_archive.py`.
 
-- the archival workflow is first merged to `main`;
-- a GitHub release is published; or
+The independent archive workflow requests preservation from the official Software Heritage Save Code Now API when:
+
+- the archival workflow/helper changes on `main`;
+- a GitHub release event is observed; or
 - the workflow is started manually.
 
-The archival workflow is intentionally separate from tests and releases so a temporary third-party archive outage cannot block normal project development.
+The release workflow also makes a direct **best-effort** archival request immediately after it creates a new GitHub release. This avoids relying on a downstream `release: published` workflow event, which may not be emitted when the release itself is created with the repository `GITHUB_TOKEN`.
+
+Archival remains non-blocking for release publication: a temporary Software Heritage outage is visible in the release job but does not invalidate an otherwise successful GitHub release.
 
 The first Save Code Now request completed successfully on 2026-09-20 with a full visit. Its archived snapshot is:
 
