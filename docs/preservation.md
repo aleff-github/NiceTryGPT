@@ -6,7 +6,7 @@ NiceTryGPT uses separate mechanisms for source preservation, versioned releases,
 
 GitHub releases are the project's versioned distribution point. Research or evaluation work should cite the exact NiceTryGPT release or commit used rather than the moving `main` branch.
 
-Current public release: **v0.3.0**.
+Current public release: **v0.4.0**.
 
 ## Software Heritage
 
@@ -34,7 +34,7 @@ NiceTryGPT v0.2.0 is archived on Zenodo as record [22858477](https://zenodo.org/
 
 The repository uses `CITATION.cff` as its canonical software citation metadata. A `.zenodo.json` file is deliberately not included because Zenodo gives it precedence over `CITATION.cff`, and the project does not currently need Zenodo-specific grant, community, or relationship metadata.
 
-The maintainer's GitHub account and `aleff-github/NiceTryGPT` repository are connected to Zenodo. The v0.3.0 release metadata intentionally does not reuse the v0.2.0 DOI. Once Zenodo mints the v0.3.0 deposit, its version-specific DOI should be added to `CITATION.cff`, CodeMeta, the website, and citation guidance in one synchronization update.
+The maintainer's GitHub account and `aleff-github/NiceTryGPT` repository are connected to Zenodo. The v0.4.0 release metadata intentionally does not reuse the v0.2.0 DOI. Once Zenodo mints the v0.4.0 deposit, its version-specific DOI should be added to `CITATION.cff`, CodeMeta, the website, and citation guidance in one synchronization update.
 
 The DOI above identifies the archived v0.2.0 release only.
 
