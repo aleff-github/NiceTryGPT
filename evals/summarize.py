@@ -1,6 +1,11 @@
 from collections import defaultdict
 from pathlib import Path
 import statistics
+import sys
+
+EVALS_DIR = Path(__file__).resolve().parent
+if str(EVALS_DIR) not in sys.path:
+    sys.path.insert(0, str(EVALS_DIR))
 
 import analyze_evidence as evidence
 
