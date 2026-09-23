@@ -14,7 +14,7 @@ NiceTryGPT is a small Agent Skill for CTF authors. It first solves a challenge e
 
 > ☕ Your CTF got one-shot by an LLM? Nice try.
 >
-> I released **NiceTryGPT v0.2.0**: a tiny Agent Skill that solves an existing CTF first, identifies cheap LLM shortcuts, then applies the smallest useful transformation while preserving the vulnerability and keeping human cost bounded.
+> I released **NiceTryGPT v0.3.0**: a tiny Agent Skill that solves an existing CTF first, identifies cheap LLM shortcuts, then applies the smallest useful transformation while preserving the vulnerability and keeping human cost bounded.
 >
 > Three reproducible before/after demos are included: IDOR, path traversal, and SQL injection. The suite checks both shortcut reduction and preservation of the intended vulnerability.
 >
@@ -34,9 +34,9 @@ If the maintainer decides to submit NiceTryGPT as a Show HN, write the post manu
 - it requires a baseline solve before any transformation;
 - it tries to remove one cheap shortcut with the smallest useful change;
 - it preserves the vulnerability class and learning objective;
-- v0.2.0 includes IDOR, path traversal, and SQL injection examples;
+- v0.3.0 includes IDOR, path traversal, and SQL injection demos plus external GPT evaluation;
 - CI checks deterministic before/after properties;
-- independent Claude/GPT results are not published yet;
+- fresh-context GPT results are published for Interstellar Ingress and DiceMiner; no cross-model replication claim is made;
 - you want feedback specifically on the Human Cost Gate and fairness of transformations.
 
 Suggested title only:
@@ -54,7 +54,7 @@ Before posting, re-read:
 >
 > Instead of making challenges broadly harder, it requires a verified baseline solve and then tries to remove one cheap model shortcut with a minimal change. The original vulnerability and learning objective should remain intact.
 >
-> I’ve published v0.2.0 with three tiny reproducible examples and would be interested in feedback from challenge authors on whether the methodology matches real CTF design constraints:
+> I’ve published v0.3.0 with three tiny reproducible examples and preliminary external GPT evidence and would be interested in feedback from challenge authors on whether the methodology matches real CTF design constraints:
 >
 > https://github.com/aleff-github/NiceTryGPT
 >
@@ -85,7 +85,7 @@ Lead with concrete evidence:
 - green E2E tests;
 - the CI-enforced report contract;
 - the Human Cost Gate;
-- the downloadable v0.2.0 release;
+- the downloadable v0.3.0 release;
 - the structured CTF-author feedback form.
 
 A short terminal recording or GIF can be added later, but it is not required for the first public post.
@@ -98,14 +98,14 @@ Do not say:
 - “the first anti-LLM CTF system”;
 - “LLMs cannot solve these challenges”;
 - “human difficulty is unchanged” as an empirical fact before human testing;
-- “NiceTryGPT beats Claude/GPT” before independent runs exist.
+- “NiceTryGPT beats Claude/GPT” or any universal resistance claim.
 
 Prefer:
 
 - “reduces an identified cheap shortcut”;
 - “designed to keep human cost small”;
 - “same vulnerability and learning objective”;
-- “fresh-model evaluation is planned.”
+- “fresh-context GPT evaluation is published with explicit limitations.”
 
 ## When evaluation results arrive
 

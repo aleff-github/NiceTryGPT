@@ -67,7 +67,9 @@ v0.2.0 still does not add:
 - model-specific adversarial prompt tricks;
 - claims that a transformed challenge is AI-proof.
 
-## v0.3.0 — external empirical evaluation
+## v0.3.0 — external empirical evaluation ✅
+
+Released on 2026-09-23.
 
 v0.3.0 is the first external evidence milestone.
 

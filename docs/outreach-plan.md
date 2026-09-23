@@ -26,7 +26,7 @@ This is the default destination.
 
 Use:
 
-- the v0.2.0 release;
+- the v0.3.0 release;
 - README before/after tables;
 - the Human Cost Gate;
 - the feedback issue form.

@@ -4,10 +4,11 @@
 
 Canonical website: https://aleff-github.github.io/NiceTryGPT/
 Source repository: https://github.com/aleff-github/NiceTryGPT
-Current release: 0.2.0
+Current release: 0.3.0
 Author: Alessandro Greco (@aleff-github)
-DOI: 10.5281/zenodo.22858477
-Zenodo record: https://zenodo.org/records/22858477
+Current release DOI: pending Zenodo deposit
+Archived v0.2.0 DOI: 10.5281/zenodo.22858477
+Archived v0.2.0 record: https://zenodo.org/records/22858477
 License: GPL-3.0-only
 
 ## Core resources
@@ -36,4 +37,4 @@ Keywords: CTF, cybersecurity, Agent Skills, LLM, AI security, challenge design, 
 
 ## Evidence boundary
 
-NiceTryGPT does not claim that transformed challenges are AI-proof. Version 0.2.0 demonstrates deterministic before/after regression properties. Independent fresh-context, cross-model evaluation is the next evidence milestone.
+NiceTryGPT does not claim that transformed challenges are AI-proof. Version 0.3.0 adds preliminary fresh-context GPT evidence on two independently authored public CTFs. Interstellar Ingress has a completed 5+5 BEFORE/AFTER cell; DiceMiner has 10 valid BEFORE and 3 valid AFTER observations. The incomplete DiceMiner cell is reported as partial evidence, and no cross-model replication claim is made.

@@ -4,7 +4,7 @@ description: Analyzes authorized CTF challenges by reproducing intended solves, 
 license: GPL-3.0-only
 metadata:
   author: aleff-github
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # NiceTryGPT

@@ -37,16 +37,16 @@
       "url": "https://aleff-github.github.io/NiceTryGPT/",
       "license": "https://spdx.org/licenses/GPL-3.0-only.html",
       "programmingLanguage": "Python",
-      "version": "0.2.0",
-      "datePublished": "2026-09-20",
+      "version": "0.3.0",
+      "datePublished": "2026-09-23",
       "author": {
         "@type": "Person",
         "name": "Alessandro Greco",
         "url": "https://github.com/aleff-github"
       },
-      "identifier": "https://doi.org/10.5281/zenodo.22858477",
-      "sameAs": "https://zenodo.org/records/22858477",
-      "citation": "https://doi.org/10.5281/zenodo.22858477",
+      "identifier": "https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.3.0",
+      "sameAs": "https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.3.0",
+      "citation": "https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md",
       "keywords": ["CTF", "Capture the Flag", "cybersecurity", "LLM security", "AI security", "challenge design", "security education"]
     },
     {
@@ -135,7 +135,7 @@
         <div><strong>3</strong><span>demo vulnerability classes</span></div>
         <div><strong>0–2</strong><span>small changes by default</span></div>
         <div><strong>0</strong><span>third-party Python dependencies</span></div>
-        <div><strong>v0.2.0</strong><span>current release</span></div>
+        <div><strong>v0.3.0</strong><span>current release</span></div>
       </div>
     </section>
 
@@ -177,17 +177,17 @@
       <div>
         <div class="section-kicker">EVIDENCE DISCIPLINE</div>
         <h2>No “AI-proof” claims.</h2>
-        <p>Version 0.2.0 demonstrates deterministic before/after properties. Independent model evaluation is deliberately separated from same-context self-review, and raw cross-model results are not claimed until they are actually collected.</p>
+        <p>Version 0.3.0 adds preliminary fresh-context GPT evidence on two independently authored public CTFs. Interstellar Ingress completed 5 BEFORE + 5 AFTER valid runs with solve rate preserved at 5/5 while shortcut attempts changed from 5/5 to 0/5. DiceMiner collected 10 valid BEFORE + 3 valid AFTER runs and is reported as resource-bounded partial evidence.</p>
         <div class="inline-links">
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/evals/protocol.md">Evaluation protocol →</a>
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/docs/related-work.md">Related work →</a>
         </div>
       </div>
       <div class="panel">
-        <div class="panel-row"><span>Current</span><strong>v0.2.0</strong></div>
-        <div class="panel-row"><span>Next evidence milestone</span><strong>v0.3.0</strong></div>
-        <div class="panel-row"><span>Planned pilot</span><strong>40 fresh-context runs</strong></div>
-        <div class="panel-row"><span>Model families</span><strong>Claude · GPT</strong></div>
+        <div class="panel-row"><span>Current</span><strong>v0.3.0</strong></div>
+        <div class="panel-row"><span>Completed Interstellar cell</span><strong>5 BEFORE · 5 AFTER</strong></div>
+        <div class="panel-row"><span>DiceMiner valid runs</span><strong>10 BEFORE · 3 AFTER</strong></div>
+        <div class="panel-row"><span>Claim boundary</span><strong>Preliminary evidence</strong></div>
       </div>
     </section>
 
@@ -214,7 +214,7 @@
         <details open><summary>Does NiceTryGPT make a CTF AI-proof?</summary><p>No. It reduces an identified cheap shortcut and verifies the transformed challenge. A capable model may still solve the challenge, especially with enough tools, time, or context.</p></details>
         <details><summary>Does it intentionally make challenges harder for humans?</summary><p>No. The Human Cost Gate exists specifically to reject transformations that add too much friction or change the intended learning objective.</p></details>
         <details><summary>Is this a CTF solver, benchmark, or anti-cheat system?</summary><p>No. NiceTryGPT transforms and validates existing authorized challenges. It does not detect AI use, rank models, or decide whether competitors should use AI.</p></details>
-        <details><summary>What evidence exists today?</summary><p>The repository contains three reproducible before/after examples with deterministic regression tests. Independent fresh-context cross-model evaluation is planned for v0.3.0.</p></details>
+        <details><summary>What evidence exists today?</summary><p>The repository contains three reproducible before/after examples plus fresh-context GPT evaluation on Interstellar Ingress and DiceMiner. Interstellar has a complete 5+5 BEFORE/AFTER cell; DiceMiner is explicitly reported as a partial resource-bounded sample. No cross-model replication claim is made.</p></details>
       </div>
     </section>
 
@@ -222,7 +222,7 @@
       <div>
         <div class="section-kicker">CITATION</div>
         <h2>Research-friendly metadata is built in.</h2>
-        <p>NiceTryGPT v0.2.0 is archived on Zenodo with DOI <a href="https://doi.org/10.5281/zenodo.22858477"><code>10.5281/zenodo.22858477</code></a>. GitHub can also generate APA and BibTeX citations from <code>CITATION.cff</code>, and CodeMeta metadata is available for software indexing and research tooling.</p>
+        <p>NiceTryGPT v0.3.0 is the current release. Its version-specific Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI <a href="https://doi.org/10.5281/zenodo.22858477"><code>10.5281/zenodo.22858477</code></a>. GitHub can generate citation formats from <code>CITATION.cff</code>, and CodeMeta metadata is available for software indexing and research tooling.</p>
         <div class="inline-links">
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff">CITATION.cff →</a>
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md">How to cite →</a>
@@ -232,8 +232,8 @@
       </div>
       <div class="citation-card">
         <span class="mini-label">CURRENT RELEASE</span>
-        <p>Greco, A. (2026). <em>NiceTryGPT</em> (Version 0.2.0) [Computer software]. Zenodo.</p>
-        <code>10.5281/zenodo.22858477</code>
+        <p>Greco, A. (2026). <em>NiceTryGPT</em> (Version 0.3.0) [Computer software]. GitHub.</p>
+        <code>github.com/aleff-github/NiceTryGPT/releases/tag/v0.3.0</code>
       </div>
     </section>
 
@@ -259,7 +259,7 @@
   </main>
 
   <footer class="shell footer">
-    <span>NiceTryGPT · v0.2.0 · GPL-3.0-only</span>
+    <span>NiceTryGPT · v0.3.0 · GPL-3.0-only</span>
     <div><a href="https://github.com/aleff-github/NiceTryGPT">GitHub</a><a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md">Cite</a><a href="https://github.com/aleff-github/NiceTryGPT/blob/main/SECURITY.md">Security</a></div>
   </footer>
 </body>
