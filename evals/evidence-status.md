@@ -18,7 +18,9 @@ Across the GPT external-challenge collection:
 - raw recorded attempts: **49**;
 - valid solver attempts: **23**;
 - infrastructure/usage-limit failures retained for audit but excluded from
-  solver-performance denominators: **26**.
+  solver-performance denominators: **26**;
+- valid-attempt share of all recorded attempts: **46.9%**;
+- infrastructure-failure share of all recorded attempts: **53.1%**.
 
 The valid observations cover 23 of the 30 originally targeted GPT solver runs
 across Interstellar Ingress and DiceMiner (**76.7%**).
@@ -33,6 +35,16 @@ across Interstellar Ingress and DiceMiner (**76.7%**).
 | GPT-5.5 low | DiceMiner | AFTER | 15 | 3 | 12 | 0/3 | 0% | 0/3 | 0% | 0%–56.1% |
 
 Infrastructure failures are not interpreted as solver failures.
+
+## Observed effect-size snapshot
+
+| challenge | solve-rate change AFTER − BEFORE | shortcut-rate change AFTER − BEFORE | status |
+|---|---:|---:|---|
+| Interstellar Ingress | +0.0 pp | -100.0 pp | complete |
+| DiceMiner | +0.0 pp | -30.0 pp | AFTER partial |
+
+The DiceMiner effect size is descriptive only because the AFTER denominator is
+3 rather than the preregistered 10.
 
 ## Resource-bounded DiceMiner collection
 
