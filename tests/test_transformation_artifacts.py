@@ -67,6 +67,22 @@ class TransformationArtifactTests(unittest.TestCase):
         with self.assertRaises(validator.ReportError):
             validator.validate_report(bad)
 
+    def test_unknown_field_is_rejected(self):
+        path = ROOT / "examples" / "mini-traversal" / "nicetrygpt-report.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        bad = copy.deepcopy(data)
+        bad["human_cost_gate_pass"] = True
+        with self.assertRaises(validator.ReportError):
+            validator.validate_report(bad)
+
+    def test_blank_learning_objective_is_rejected(self):
+        path = ROOT / "examples" / "mini-traversal" / "nicetrygpt-report.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        bad = copy.deepcopy(data)
+        bad["baseline"]["learning_objective"] = "  "
+        with self.assertRaises(validator.ReportError):
+            validator.validate_report(bad)
+
     def test_observed_fresh_solver_requires_evaluation_reference(self):
         path = ROOT / "evals" / "transformations" / "interstellar-ingress.json"
         data = json.loads(path.read_text(encoding="utf-8"))
