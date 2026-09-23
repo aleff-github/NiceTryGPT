@@ -59,7 +59,7 @@ Use the canonical repository URL rather than copying the skill into a new reposi
 
 ## Current ecosystem status
 
-Last verified: **2026-09-20**.
+Last verified: **2026-09-23**.
 
 | Channel | Status | Evidence / note |
 |---|---|---|
