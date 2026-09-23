@@ -205,8 +205,9 @@ The current evidence milestone combines:
 - a completed 5 BEFORE + 5 AFTER GPT pilot on **Interstellar Ingress**;
 - a larger GPT study on **DiceMiner**, with the full 10-run BEFORE cell and a
   resource-bounded partial AFTER cell;
-- a small cross-model replication pilot on Interstellar Ingress as the next
-  high-information, low-cost step.
+- a preregistered Claude cross-model replication attempt on Interstellar
+  Ingress that produced no valid solver run because of an infrastructure /
+  access-limit failure and is therefore **not counted as model evidence**.
 
 Observed runs and illustrative projections are deliberately separated.
 Infrastructure/usage-limit failures remain auditable but are excluded from
@@ -231,7 +232,7 @@ not establish universal or general LLM resistance.
 
 **v0.2.0 — variety without bloat** is complete: the method now spans three vulnerability classes and includes a non-runtime primary resistance pattern.
 
-The next evidence milestone is **v0.3.0 — independent multi-model evaluation**.
+The next evidence milestone is **v0.3.0 — external empirical evaluation**.
 
 See [`ROADMAP.md`](ROADMAP.md).
 
