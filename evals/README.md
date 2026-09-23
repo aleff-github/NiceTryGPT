@@ -109,6 +109,7 @@ in `codex-diceminer-protocol.md`.
 - [`run_codex_diceminer.py`](run_codex_diceminer.py) — automated DiceMiner benchmark runner;
 - [`run_codex_interstellar.py`](run_codex_interstellar.py) — automated Codex pilot runner;
 - [`run_claude_interstellar.py`](run_claude_interstellar.py) — low-cost Claude cross-model replication runner;
+- [`resume_claude_interstellar.py`](resume_claude_interstellar.py) — count-aware 3+3 replication resume helper;
 - [`claude-interstellar-protocol.md`](claude-interstellar-protocol.md) — frozen 3+3 Claude replication protocol;
 - [`solver-prompt.txt`](solver-prompt.txt) — prompt template used for every run;
 - [`results.csv`](results.csv) — raw observations;
