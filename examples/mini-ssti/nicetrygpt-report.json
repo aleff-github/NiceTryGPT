@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "challenge": {
+    "name": "mini-ssti",
+    "source_type": "bundled_demo"
+  },
+  "final_status": "TRANSFORMED PASS",
+  "baseline": {
+    "reproduced": true,
+    "vulnerability_class": "Server-side template injection against a restricted template context",
+    "learning_objective": "identify that attacker-controlled template expressions are evaluated against server-side context",
+    "prerequisite_knowledge": "basic HTTP requests and template-expression injection",
+    "difficulty_band": "Easy"
+  },
+  "shortcut": {
+    "description": "a stateless preview endpoint accepts the complete winning template expression in one request with no application state",
+    "reduction_check": "the old stateless preview request is rejected while a stored attacker-controlled draft using the same template expression still reaches the runtime flag"
+  },
+  "transformation": {
+    "patterns": [
+      "state_dependency"
+    ],
+    "summary": "require one ordinary draft-creation action before the same attacker-controlled template is rendered",
+    "files_changed": [
+      "after/server.py"
+    ]
+  },
+  "human_cost": {
+    "added_required_meaningful_actions": 1,
+    "added_optional_meaningful_actions": 0,
+    "post_change_difficulty_band": "Easy",
+    "new_exploit_primitive": false,
+    "brute_force_required": false,
+    "human_verification_required": false,
+    "external_trivia_required": false,
+    "artificial_multistage_chain": false
+  },
+  "verification": {
+    "baseline_solve": true,
+    "shortcut_reduced": true,
+    "transformed_e2e": true,
+    "vulnerability_preserved": true,
+    "learning_objective_preserved": true,
+    "prerequisite_knowledge_preserved": true,
+    "flag_semantics_preserved": true
+  },
+  "evidence": {
+    "deterministic_validation": true,
+    "fresh_solver_status": "NOT_TESTED",
+    "evaluation_refs": []
+  }
+}

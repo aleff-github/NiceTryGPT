@@ -6,10 +6,10 @@ NiceTryGPT has one canonical source:
 - Website: https://aleff-github.github.io/NiceTryGPT/
 - Canonical Agent Skill: https://github.com/aleff-github/NiceTryGPT/tree/main/skills/nice-try-gpt
 - Standalone mirror: https://github.com/aleff-github/NiceTryGPT/tree/main/nice-try-gpt
-- Current release: v0.4.0
+- Current release: v0.5.0
 - License: GPL-3.0-only
 - Archived v0.2.0 DOI: https://doi.org/10.5281/zenodo.22858477
-- v0.4.0 DOI: pending Zenodo release deposit
+- v0.5.0 DOI: pending Zenodo release deposit
 
 ## Install
 

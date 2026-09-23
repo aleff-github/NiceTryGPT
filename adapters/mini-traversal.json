@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "id": "mini-traversal",
+  "challenge_name": "mini-traversal",
+  "report_path": "examples/mini-traversal/nicetrygpt-report.json",
+  "runtime": {
+    "kind": "python_http",
+    "before_entrypoint": "examples/mini-traversal/before/server.py",
+    "after_entrypoint": "examples/mini-traversal/after/server.py",
+    "ready_path": "/"
+  },
+  "verification": {
+    "test_module": "tests/test_demo.py",
+    "before_test": "test_traversal_before",
+    "after_test": "test_traversal_after"
+  }
+}

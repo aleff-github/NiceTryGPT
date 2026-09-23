@@ -8,7 +8,7 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 
 [![Tests](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml/badge.svg)](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![Version: v0.4.0](https://img.shields.io/badge/version-v0.4.0-orange.svg)](#project-status)
+[![Version: v0.5.0](https://img.shields.io/badge/version-v0.5.0-orange.svg)](#project-status)
 [![Website](https://img.shields.io/badge/website-GitHub%20Pages-ffb347.svg)](https://aleff-github.github.io/NiceTryGPT/)
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-8fe3b4.svg)](CITATION.cff)
 [![Archived DOI: v0.2.0](https://img.shields.io/badge/Zenodo-v0.2.0%20archive-blue.svg)](https://doi.org/10.5281/zenodo.22858477)
@@ -25,7 +25,7 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 
 > **Increase uncertainty, not complexity.**
 
-NiceTryGPT is intentionally small: one skill, three tiny demos, reproducibility tooling, no framework.
+NiceTryGPT is intentionally small: one skill, five tiny demos, reproducibility tooling, no framework.
 
 ## Try it in 30 seconds
 
@@ -121,13 +121,15 @@ The default is **one resistance change**. A second change is justified only when
 
 ## Before / after
 
-NiceTryGPT currently ships with three deliberately tiny examples:
+NiceTryGPT currently ships with five deliberately tiny examples:
 
 | Example | Before | After | Human cost |
 |---|---|---|---|
 | `mini-idor` | adjacent order ID gives the flag | foreign order ID must be observed at runtime | +1 request |
 | `mini-traversal` | static export path is immediately reusable | export filename changes each run and is exposed by normal activity | +1 request |
 | `mini-sqli` | privileged identity is handed to the player | identity must be reconstructed from two normal app surfaces | +2 requests |
+| `mini-command-injection` | command-shaped input names the exploit surface | normal host input still reaches the same unsafe command context | +0 required actions |
+| `mini-ssti` | stateless preview accepts the winning expression directly | one normal draft must exist before the same template is rendered | +1 request |
 
 All keep the original vulnerability class and learning objective.
 
@@ -166,12 +168,37 @@ The traversal example is intentionally useful as a generalization check: it uses
 
 The SQLi example deliberately avoids runtime randomization. The vulnerable query is unchanged; the player simply has to connect two nearby, static application clues before applying the same injection primitive.
 
+### mini-command-injection
+
+| | Before | After |
+|---|---|---|
+| Vulnerability | Command injection | Command injection |
+| Cheap shortcut | Player-facing parameter is `cmd` | Normal diagnostic input is `host` |
+| Needed observation | None | Inspect the same diagnostic request |
+| Primary pattern | None | Pattern break |
+| Human difficulty | Easy | Still easy |
+
+The demo uses a deliberately restricted toy shell rather than operating-system command execution. The transformation changes the cue, not the injection primitive.
+
+### mini-ssti
+
+| | Before | After |
+|---|---|---|
+| Vulnerability | Server-side template injection | Server-side template injection |
+| Cheap shortcut | Stateless preview in one request | Preview requires an existing draft |
+| Needed setup | None | One normal draft creation |
+| Primary pattern | None | State dependency |
+| Human difficulty | Easy | Still easy |
+
+The template engine is intentionally restricted and does not evaluate arbitrary Python or operating-system code.
+
 ## Run the demos
 
 No third-party Python packages are required.
 
 ```bash
 python tests/test_demo.py
+python scripts/run_demo_adapters.py
 python tests/test_release.py
 ```
 
@@ -179,7 +206,7 @@ The suite verifies that each original challenge is solvable, the identified chea
 
 ## Reproducible transformation artifacts
 
-v0.4.0 adds a machine-readable companion to each transformation report. The
+The v0.4 artifact contract adds a machine-readable companion to each transformation report. The
 Markdown report explains the design decision; the JSON sidecar records the
 preservation checks, required human cost, evidence class, and transformation
 patterns in a form CI can validate.
@@ -195,6 +222,22 @@ benchmarks.
 
 See docs/methodology.md and schemas/transformation-report.schema.json.
 
+## Structural generalization
+
+v0.5.0 adds an executable adapter contract for every bundled demo and a generated structural-generalization matrix across all committed transformation reports.
+
+The current matrix contains **7 validated transformations**: **5 bundled deterministic demos** and **2 independently authored external transformations**, spanning **7 recorded vulnerability classes** and all **5 resistance patterns**. Every bundled demo has an executable adapter.
+
+This is intentionally a **coverage statement**, not a population-level model claim. Only Interstellar Ingress and DiceMiner currently contribute valid fresh-solver observations; the five bundled demos remain deterministic evidence only. Human difficulty remains a bounded structural criterion rather than a human-subject measurement.
+
+Regenerate the snapshot with:
+
+```bash
+python scripts/analyze_generalization.py > docs/generalization-status.md
+```
+
+See [`docs/generalization-status.md`](docs/generalization-status.md) and [`schemas/challenge-adapter.schema.json`](schemas/challenge-adapter.schema.json).
+
 ## Package the skill
 
 Build a deterministic ZIP containing only the installable skill:
@@ -206,7 +249,7 @@ python scripts/package_skill.py
 Output:
 
 ```text
-dist/nice-try-gpt-v0.4.0.zip
+dist/nice-try-gpt-v0.5.0.zip
 ```
 
 The ZIP keeps `nice-try-gpt/` as its root directory, so it can be inspected or copied directly into a compatible Agent Skills location.
@@ -248,7 +291,7 @@ not establish universal or general LLM resistance.
 
 ## Roadmap
 
-**v0.4.0 — reproducible transformation artifacts** formalizes the Human Cost Gate, machine-readable transformation evidence, experiment manifests, semantic run classification, and one end-to-end research-artifact verifier. It adds no new paid model observations; the v0.3.0 external evidence remains the empirical basis.
+**v0.5.0 — structural generalization** adds two new deterministic vulnerability classes, covers all five resistance patterns, standardizes bundled challenge adapters, and generates a cross-challenge structural coverage matrix. It adds no new paid model observations; the v0.3.0 external evidence remains the empirical basis.
 
 See [`ROADMAP.md`](ROADMAP.md).
 
@@ -277,7 +320,7 @@ See [`docs/related-work.md`](docs/related-work.md) for the current positioning a
 
 NiceTryGPT ships with machine-readable [`CITATION.cff`](CITATION.cff) metadata, so GitHub can expose **Cite this repository** with generated APA and BibTeX formats.
 
-For research or evaluation work, cite the release or commit you actually used and record the model version, tool access, run count, and evaluation protocol. The current release is **v0.4.0**. Its Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477). See [`CITING.md`](CITING.md) for the canonical human-readable citation and [`codemeta.json`](codemeta.json) for CodeMeta software metadata.
+For research or evaluation work, cite the release or commit you actually used and record the model version, tool access, run count, and evaluation protocol. The current release is **v0.5.0**. Its Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477). See [`CITING.md`](CITING.md) for the canonical human-readable citation and [`codemeta.json`](codemeta.json) for CodeMeta software metadata.
 
 ## Preservation
 
@@ -336,10 +379,14 @@ NiceTryGPT/
 │   ├── SKILL.md
 │   └── references/
 │       └── resistance-patterns.md
+├── adapters/
+│   └── *.json
 ├── examples/
 │   ├── mini-idor/
 │   ├── mini-traversal/
-│   └── mini-sqli/
+│   ├── mini-sqli/
+│   ├── mini-command-injection/
+│   └── mini-ssti/
 ├── evals/
 │   ├── README.md
 │   ├── protocol.md
@@ -347,6 +394,9 @@ NiceTryGPT/
 │   ├── results.csv
 │   └── summarize.py
 ├── scripts/
+│   ├── analyze_generalization.py
+│   ├── run_demo_adapters.py
+│   ├── validate_challenge_adapters.py
 │   ├── package_skill.py
 │   └── sync_plugin_skill.py
 └── tests/
@@ -356,9 +406,9 @@ NiceTryGPT/
 
 ## Project status
 
-**v0.4.0 — reproducible transformation artifacts.**
+**v0.5.0 — structural generalization.**
 
-The method now has machine-readable transformation reports, a derived Human Cost Gate, manifest-driven evaluation accounting, and a single reproducibility command. The empirical evidence is unchanged from v0.3.0 and remains preliminary; no universal LLM-resistance or cross-model replication claim is made.
+The repository now has five deterministic demos, executable adapters for every bundled challenge, seven recorded vulnerability classes across all committed transformation reports, and coverage of all five resistance patterns. The empirical solver evidence is unchanged from v0.3.0 and remains preliminary; no universal LLM-resistance, human-subject, or cross-model generalization claim is made.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 

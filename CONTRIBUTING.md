@@ -84,3 +84,18 @@ Prefer a small PR with one clear purpose. The E2E workflow should be green befor
 ## Maintainer
 
 Project decisions are maintained by [@aleff-github](https://github.com/aleff-github).
+
+
+## Bundled challenge adapters
+
+Every bundled demo under `examples/<name>/` must have exactly one matching `adapters/<name>.json` file.
+
+The adapter must point to the demo's machine-readable transformation report, before/after Python HTTP entrypoints, and deterministic verification functions. Run:
+
+```bash
+python scripts/validate_challenge_adapters.py
+python scripts/run_demo_adapters.py
+python scripts/analyze_generalization.py
+```
+
+External challenges are not forced into the bundled adapter format unless their pinned source/lifecycle can be reproduced honestly in CI. Do not create a nominal adapter that implies portability the repository does not actually provide.

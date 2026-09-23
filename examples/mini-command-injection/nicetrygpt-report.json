@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "challenge": {
+    "name": "mini-command-injection",
+    "source_type": "bundled_demo"
+  },
+  "final_status": "TRANSFORMED PASS",
+  "baseline": {
+    "reproduced": true,
+    "vulnerability_class": "Command injection in a restricted toy-shell wrapper",
+    "learning_objective": "identify that attacker-controlled input reaches a command context and inject a second command through a separator",
+    "prerequisite_knowledge": "basic HTTP requests and command-separator injection",
+    "difficulty_band": "Easy"
+  },
+  "shortcut": {
+    "description": "the request parameter is literally named cmd, practically announcing the intended command-injection surface",
+    "reduction_check": "the old cmd request is rejected while injecting a second toy-shell command through the host field still reaches the runtime flag"
+  },
+  "transformation": {
+    "patterns": [
+      "pattern_break"
+    ],
+    "summary": "replace a command-shaped player-facing parameter with a normal diagnostic host field while preserving the same unsafe command construction",
+    "files_changed": [
+      "after/server.py"
+    ]
+  },
+  "human_cost": {
+    "added_required_meaningful_actions": 0,
+    "added_optional_meaningful_actions": 1,
+    "post_change_difficulty_band": "Easy",
+    "new_exploit_primitive": false,
+    "brute_force_required": false,
+    "human_verification_required": false,
+    "external_trivia_required": false,
+    "artificial_multistage_chain": false
+  },
+  "verification": {
+    "baseline_solve": true,
+    "shortcut_reduced": true,
+    "transformed_e2e": true,
+    "vulnerability_preserved": true,
+    "learning_objective_preserved": true,
+    "prerequisite_knowledge_preserved": true,
+    "flag_semantics_preserved": true
+  },
+  "evidence": {
+    "deterministic_validation": true,
+    "fresh_solver_status": "NOT_TESTED",
+    "evaluation_refs": []
+  }
+}

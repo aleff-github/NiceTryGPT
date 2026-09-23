@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "id": "mini-ssti",
+  "challenge_name": "mini-ssti",
+  "report_path": "examples/mini-ssti/nicetrygpt-report.json",
+  "runtime": {
+    "kind": "python_http",
+    "before_entrypoint": "examples/mini-ssti/before/server.py",
+    "after_entrypoint": "examples/mini-ssti/after/server.py",
+    "ready_path": "/"
+  },
+  "verification": {
+    "test_module": "tests/test_demo.py",
+    "before_test": "test_ssti_before",
+    "after_test": "test_ssti_after"
+  }
+}

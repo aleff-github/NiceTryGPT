@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "id": "mini-command-injection",
+  "challenge_name": "mini-command-injection",
+  "report_path": "examples/mini-command-injection/nicetrygpt-report.json",
+  "runtime": {
+    "kind": "python_http",
+    "before_entrypoint": "examples/mini-command-injection/before/server.py",
+    "after_entrypoint": "examples/mini-command-injection/after/server.py",
+    "ready_path": "/"
+  },
+  "verification": {
+    "test_module": "tests/test_demo.py",
+    "before_test": "test_command_before",
+    "after_test": "test_command_after"
+  }
+}

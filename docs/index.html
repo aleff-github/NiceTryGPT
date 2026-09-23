@@ -37,15 +37,15 @@
       "url": "https://aleff-github.github.io/NiceTryGPT/",
       "license": "https://spdx.org/licenses/GPL-3.0-only.html",
       "programmingLanguage": "Python",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "datePublished": "2026-09-23",
       "author": {
         "@type": "Person",
         "name": "Alessandro Greco",
         "url": "https://github.com/aleff-github"
       },
-      "identifier": "https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.4.0",
-      "sameAs": "https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.4.0",
+      "identifier": "https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.5.0",
+      "sameAs": "https://github.com/aleff-github/NiceTryGPT/releases/tag/v0.5.0",
       "citation": "https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md",
       "keywords": ["CTF", "Capture the Flag", "cybersecurity", "LLM security", "AI security", "challenge design", "security education"]
     },
@@ -132,10 +132,10 @@
 
     <section class="strip" aria-label="Project snapshot">
       <div class="shell stats">
-        <div><strong>3</strong><span>demo vulnerability classes</span></div>
+        <div><strong>5</strong><span>demo vulnerability classes</span></div>
         <div><strong>0–2</strong><span>small changes by default</span></div>
         <div><strong>0</strong><span>third-party Python dependencies</span></div>
-        <div><strong>v0.4.0</strong><span>current release</span></div>
+        <div><strong>v0.5.0</strong><span>current release</span></div>
       </div>
     </section>
 
@@ -170,6 +170,8 @@
         <article class="card demo"><span class="tag">IDOR</span><h3>mini-idor</h3><p>An adjacent-ID guess stops working. The player observes one runtime activity request instead.</p><div class="meta"><span>Primary move</span><strong>Runtime discovery</strong></div><div class="meta"><span>Human cost</span><strong>+1 request</strong></div></article>
         <article class="card demo"><span class="tag">PATH TRAVERSAL</span><h3>mini-traversal</h3><p>A static export path becomes per-run state exposed through normal application behavior.</p><div class="meta"><span>Primary move</span><strong>Runtime discovery</strong></div><div class="meta"><span>Human cost</span><strong>+1 request</strong></div></article>
         <article class="card demo"><span class="tag">SQL INJECTION</span><h3>mini-sqli</h3><p>A privileged identity is no longer handed to the player and must be reconstructed from two nearby clues.</p><div class="meta"><span>Primary move</span><strong>Context split</strong></div><div class="meta"><span>Human cost</span><strong>+2 requests</strong></div></article>
+        <article class="card demo"><span class="tag">COMMAND INJECTION</span><h3>mini-command-injection</h3><p>A command-shaped interface becomes a normal diagnostic host input while preserving the same injection primitive.</p><div class="meta"><span>Primary move</span><strong>Pattern break</strong></div><div class="meta"><span>Human cost</span><strong>+0 required</strong></div></article>
+        <article class="card demo"><span class="tag">SSTI</span><h3>mini-ssti</h3><p>The same vulnerable template preview now depends on one ordinary draft-creation action.</p><div class="meta"><span>Primary move</span><strong>State dependency</strong></div><div class="meta"><span>Human cost</span><strong>+1 request</strong></div></article>
       </div>
     </section>
 
@@ -177,7 +179,7 @@
       <div>
         <div class="section-kicker">EVIDENCE DISCIPLINE</div>
         <h2>No “AI-proof” claims.</h2>
-        <p>Version 0.4.0 adds machine-readable transformation reports, a derived Human Cost Gate, and manifest-driven evidence accounting. It adds no new paid model observations: the empirical basis remains the v0.3.0 Interstellar Ingress and resource-bounded DiceMiner dataset.</p>
+        <p>Version 0.5.0 adds executable adapters for all five bundled demos and a generated structural-generalization matrix spanning seven recorded vulnerability classes and all five resistance patterns. It adds no new paid model observations: the empirical basis remains the v0.3.0 Interstellar Ingress and resource-bounded DiceMiner dataset.</p>
         <div class="inline-links">
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/evals/protocol.md">Evaluation protocol →</a>
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/docs/related-work.md">Related work →</a>
@@ -222,7 +224,7 @@
       <div>
         <div class="section-kicker">CITATION</div>
         <h2>Research-friendly metadata is built in.</h2>
-        <p>NiceTryGPT v0.4.0 is the current release. Its version-specific Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI <a href="https://doi.org/10.5281/zenodo.22858477"><code>10.5281/zenodo.22858477</code></a>. GitHub can generate citation formats from <code>CITATION.cff</code>, and CodeMeta metadata is available for software indexing and research tooling.</p>
+        <p>NiceTryGPT v0.5.0 is the current release. Its version-specific Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI <a href="https://doi.org/10.5281/zenodo.22858477"><code>10.5281/zenodo.22858477</code></a>. GitHub can generate citation formats from <code>CITATION.cff</code>, and CodeMeta metadata is available for software indexing and research tooling.</p>
         <div class="inline-links">
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff">CITATION.cff →</a>
           <a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md">How to cite →</a>
@@ -232,8 +234,8 @@
       </div>
       <div class="citation-card">
         <span class="mini-label">CURRENT RELEASE</span>
-        <p>Greco, A. (2026). <em>NiceTryGPT</em> (Version 0.4.0) [Computer software]. GitHub.</p>
-        <code>github.com/aleff-github/NiceTryGPT/releases/tag/v0.4.0</code>
+        <p>Greco, A. (2026). <em>NiceTryGPT</em> (Version 0.5.0) [Computer software]. GitHub.</p>
+        <code>github.com/aleff-github/NiceTryGPT/releases/tag/v0.5.0</code>
       </div>
     </section>
 
@@ -259,7 +261,7 @@
   </main>
 
   <footer class="shell footer">
-    <span>NiceTryGPT · v0.4.0 · GPL-3.0-only</span>
+    <span>NiceTryGPT · v0.5.0 · GPL-3.0-only</span>
     <div><a href="https://github.com/aleff-github/NiceTryGPT">GitHub</a><a href="https://github.com/aleff-github/NiceTryGPT/blob/main/CITING.md">Cite</a><a href="https://github.com/aleff-github/NiceTryGPT/blob/main/SECURITY.md">Security</a></div>
   </footer>
 </body>
