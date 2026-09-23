@@ -60,6 +60,25 @@ A fixed fresh-solver pilot is also prepared for Interstellar Ingress:
 
 Run python evals/run_codex_interstellar.py --dry-run before collecting data. The fixed procedure and evidence boundary are documented in codex-interstellar-protocol.md.
 
+### Claude / Interstellar cross-model replication
+
+A deliberately small replication pilot is prepared to add a second model family
+without repeating the expensive DiceMiner workload:
+
+- challenge: Interstellar Ingress only;
+- variants: BEFORE and AFTER;
+- model: Claude Sonnet 4.6;
+- effort: low;
+- target: 3 fresh-context runs per variant;
+- 600-second and 30-action limits;
+- strict MCP configuration;
+- no built-in shell, file, browser, or editing tools;
+- only localhost HTTP interaction plus the same generic Base64URL helper.
+
+Run `python3 evals/run_claude_interstellar.py --dry-run` first. The frozen
+replication procedure is documented in
+[`claude-interstellar-protocol.md`](claude-interstellar-protocol.md).
+
 
 ### Codex / DiceMiner benchmark
 
@@ -89,6 +108,8 @@ in `codex-diceminer-protocol.md`.
 - [`codex-diceminer-protocol.md`](codex-diceminer-protocol.md) — fixed DiceMiner Codex benchmark;
 - [`run_codex_diceminer.py`](run_codex_diceminer.py) — automated DiceMiner benchmark runner;
 - [`run_codex_interstellar.py`](run_codex_interstellar.py) — automated Codex pilot runner;
+- [`run_claude_interstellar.py`](run_claude_interstellar.py) — low-cost Claude cross-model replication runner;
+- [`claude-interstellar-protocol.md`](claude-interstellar-protocol.md) — frozen 3+3 Claude replication protocol;
 - [`solver-prompt.txt`](solver-prompt.txt) — prompt template used for every run;
 - [`results.csv`](results.csv) — raw observations;
 - [`summarize.py`](summarize.py) — dependency-free summary script;
