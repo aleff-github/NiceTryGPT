@@ -9,6 +9,8 @@ if str(EVALS_DIR) not in sys.path:
 
 import analyze_evidence as evidence
 
+EXPECTED_HEADER = evidence.EXPECTED_HEADER
+
 RESULTS = Path(__file__).with_name("results.csv")
 MANIFEST = Path(__file__).with_name("experiment-manifest.json")
 
