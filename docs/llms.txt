@@ -4,7 +4,7 @@
 
 Canonical website: https://aleff-github.github.io/NiceTryGPT/
 Source repository: https://github.com/aleff-github/NiceTryGPT
-Current release: 0.4.0
+Current release: 0.5.0
 Author: Alessandro Greco (@aleff-github)
 Current release DOI: pending Zenodo deposit
 Archived v0.2.0 DOI: 10.5281/zenodo.22858477
@@ -18,6 +18,7 @@ License: GPL-3.0-only
 - Resistance patterns: https://github.com/aleff-github/NiceTryGPT/blob/main/nice-try-gpt/references/resistance-patterns.md
 - Evaluation protocol: https://github.com/aleff-github/NiceTryGPT/blob/main/evals/protocol.md
 - Related work: https://github.com/aleff-github/NiceTryGPT/blob/main/docs/related-work.md
+- Structural generalization: https://github.com/aleff-github/NiceTryGPT/blob/main/docs/generalization-status.md
 - Roadmap: https://github.com/aleff-github/NiceTryGPT/blob/main/ROADMAP.md
 - Citation metadata: https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff
 - Archived release: https://zenodo.org/records/22858477
@@ -37,4 +38,4 @@ Keywords: CTF, cybersecurity, Agent Skills, LLM, AI security, challenge design, 
 
 ## Evidence boundary
 
-NiceTryGPT does not claim that transformed challenges are AI-proof. Version 0.4.0 adds machine-readable transformation artifacts, a derived Human Cost Gate, and manifest-driven evidence accounting. It adds no new model observations: the empirical basis remains the v0.3.0 Interstellar Ingress and resource-bounded DiceMiner dataset, with no cross-model replication claim.
+NiceTryGPT does not claim that transformed challenges are AI-proof. Version 0.5.0 adds executable adapters for all five bundled demos and a generated structural-generalization matrix covering seven recorded vulnerability classes and all five resistance patterns. It adds no new model observations: the empirical basis remains the v0.3.0 Interstellar Ingress and resource-bounded DiceMiner dataset, with no human-subject or cross-model generalization claim.
