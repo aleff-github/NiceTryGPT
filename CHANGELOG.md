@@ -21,7 +21,11 @@ All notable changes to NiceTryGPT are documented here.
 - verified cross-agent installation through the open `skills` CLI without telemetry;
 - recorded the successful Software Heritage snapshot SWHID `swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf`.
 - added a pinned public/open-source CTF candidate registry with verified local baselines for NexusCTF, DiceCTF, and CSAW candidates;
-- recorded the first independently authored public CTF transformation: Interstellar Ingress reached local `TRANSFORMED PASS` while preserving the intended `alg:none` weakness and keeping fresh-context solver evidence explicitly pending.
+- recorded the first independently authored public CTF transformation: Interstellar Ingress reached local `TRANSFORMED PASS` while preserving the intended `alg:none` weakness;
+- completed the Interstellar Ingress GPT fresh-context evaluation (5 valid BEFORE + 5 valid AFTER), preserving 5/5 solve rate while observed shortcut attempts changed from 5/5 to 0/5;
+- added DiceMiner as a second independently authored benchmark and collected a resource-bounded GPT sample of 10 valid BEFORE + 3 valid AFTER runs;
+- added auditable infrastructure-failure handling, Wilson confidence intervals, effect-size summaries, and explicit separation of observed results from illustrative projections;
+- preregistered a low-cost Claude cross-model replication; its first attempt ended before any solver action because of an infrastructure/access-limit failure, so no Claude result is counted as evidence.
 
 ### Changed
 
