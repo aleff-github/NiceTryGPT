@@ -1,15 +1,22 @@
 # Evaluation evidence status
 
-This file is generated from `evals/results.csv` by `evals/analyze_evidence.py`.
-It deliberately separates **observed evidence** from **illustrative projections**.
-Projected values are never inserted into `results.csv` and are never counted as executed runs.
+This file is generated from evals/results.csv and evals/experiment-manifest.json by evals/analyze_evidence.py.
+It deliberately separates **solver observations**, **infrastructure failures**, and **illustrative projections**.
+Projected values are never inserted into results.csv and are never counted as executed runs.
+
+## Dataset contract
+
+- a row is an **infrastructure failure** only when stop_reason=error and notes contains an explicit infrastructure_error= marker;
+- every other row is a **solver observation**, including a non-zero-action solver process that exits with stop_reason=error for a reason not classified as infrastructure;
+- zero-action error rows require explicit infrastructure classification and cannot silently enter solver denominators;
+- preregistered valid-run targets and collection status are stored in evals/experiment-manifest.json.
 
 ## Collection accounting
 
 - raw recorded attempts: **50**;
-- valid solver attempts: **23**;
+- valid solver observations: **23**;
 - infrastructure failures retained for audit but excluded from solver denominators: **27**;
-- valid-attempt share of all recorded attempts: **46.0%**;
+- valid-observation share of all recorded attempts: **46.0%**;
 - infrastructure-failure share of all recorded attempts: **54.0%**.
 
 ## Observed evidence
@@ -24,32 +31,28 @@ Projected values are never inserted into `results.csv` and are never counted as 
 
 ## Observed effect-size snapshot
 
-| challenge | solve-rate change AFTER − BEFORE | shortcut-rate change AFTER − BEFORE | status |
+| study | solve-rate change AFTER − BEFORE | shortcut-rate change AFTER − BEFORE | collection status |
 |---|---:|---:|---|
-| Interstellar Ingress | +0.0 pp | -100.0 pp | complete |
-| DiceMiner | +0.0 pp | -30.0 pp | AFTER partial |
+| interstellar-gpt-5.5-low | +0.0 pp | -100.0 pp | complete |
+| diceminer-gpt-5.5-low | +0.0 pp | -30.0 pp | resource-bounded partial |
 
-## Resource-bounded DiceMiner collection
+## Preregistered targets and collection status
 
-DiceMiner was preregistered for 10 valid runs per variant. Collection may be stopped early
-when inference/usage budget makes further repetitions impractical. Stopping for resource
-constraints does not convert missing runs into failures or successes.
+| study | target BEFORE | observed BEFORE | target AFTER | observed AFTER | status |
+|---|---:|---:|---:|---:|---|
+| interstellar-gpt-5.5-low | 5 | 5 | 5 | 5 | complete |
+| diceminer-gpt-5.5-low | 10 | 10 | 10 | 3 | resource-bounded partial |
+| interstellar-claude-sonnet-4.6-low | 3 | 0 | 3 | 0 | no valid observations |
 
-- observed BEFORE: **10/10** valid runs, **3/10** shortcut attempts
-- observed AFTER: **3/10** valid runs, **0/3** shortcut attempts
+## Illustrative completion projections
 
-## Illustrative completion projection
+The following values are planning extrapolations, **not experimental results**.
 
-The following is a planning extrapolation, **not an experimental result**.
+- **diceminer-gpt-5.5-low / AFTER**: if the observed shortcut-attempt rate (0/3) remained unchanged through 10 valid runs, the completed cell would contain approximately **0/10** shortcut attempts.
 
-If the currently observed AFTER shortcut-attempt rate (0/3) remained unchanged through 10 valid runs, the completed cell would contain approximately **0/10** shortcut attempts.
-
-This projected value is excluded from primary result tables, statistical claims, and
-`results.csv`. The small observed AFTER sample leaves substantial uncertainty.
+These projected values are excluded from primary result tables, statistical claims, and results.csv. Small observed samples can leave substantial uncertainty.
 
 ## Interpretation boundary
 
-The current evidence is appropriate for a proof-of-concept / preliminary empirical
-evaluation. It does not establish general LLM resistance. Generalization requires more
-independently authored challenges, model families, and repetitions.
+The current evidence is appropriate for a proof-of-concept / preliminary empirical evaluation. It does not establish general or universal LLM resistance. The Claude study contains no valid solver observation and therefore does not establish cross-model replication.
 

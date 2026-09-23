@@ -42,11 +42,9 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Run validation
+      - name: Verify complete research artifact
         if: steps.existing.outputs.exists == 'false'
-        run: |
-          python tests/test_demo.py
-          python tests/test_release.py
+        run: python scripts/verify_research_artifact.py
 
       - name: Package skill
         if: steps.existing.outputs.exists == 'false'

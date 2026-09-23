@@ -110,6 +110,8 @@ def test_eval_schema():
     assert header == EXPECTED_EVAL_HEADER
     assert all(len(row) == len(EXPECTED_EVAL_HEADER) for row in rows)
 
+    assert (ROOT / "evals" / "experiment-manifest.json").is_file()
+
     completed = subprocess.run(
         [sys.executable, str(ROOT / "evals" / "summarize.py")],
         check=True,
@@ -146,6 +148,7 @@ def test_example_contract():
             Path("after/README.md"),
             Path("after/server.py"),
             Path("nicetrygpt-report.md"),
+            Path("nicetrygpt-report.json"),
         ]:
             assert (challenge / relative).is_file(), f"{challenge.name}: missing {relative}"
 
