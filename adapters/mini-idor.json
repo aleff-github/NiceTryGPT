@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "id": "mini-idor",
+  "challenge_name": "mini-idor",
+  "report_path": "examples/mini-idor/nicetrygpt-report.json",
+  "runtime": {
+    "kind": "python_http",
+    "before_entrypoint": "examples/mini-idor/before/server.py",
+    "after_entrypoint": "examples/mini-idor/after/server.py",
+    "ready_path": "/"
+  },
+  "verification": {
+    "test_module": "tests/test_demo.py",
+    "before_test": "test_idor_before",
+    "after_test": "test_idor_after"
+  }
+}

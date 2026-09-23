@@ -17,6 +17,9 @@ CHECKS = [
     ("evidence analysis", [sys.executable, "tests/test_evidence_analysis.py"]),
     ("Claude harness", [sys.executable, "tests/test_claude_interstellar_runner.py"]),
     ("transformation artifacts", [sys.executable, "tests/test_transformation_artifacts.py"]),
+    ("challenge adapters", [sys.executable, "tests/test_challenge_adapters.py"]),
+    ("generalization analysis", [sys.executable, "tests/test_generalization.py"]),
+    ("adapter E2E", [sys.executable, "scripts/run_demo_adapters.py"]),
     ("Software Heritage archival helper", [sys.executable, "tests/test_swh_archive.py"]),
     (
         "machine-readable transformation reports",

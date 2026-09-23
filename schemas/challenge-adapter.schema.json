@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aleff-github/NiceTryGPT/blob/main/schemas/challenge-adapter.schema.json",
+  "title": "NiceTryGPT bundled challenge adapter",
+  "description": "Portable lifecycle metadata for a bundled deterministic before/after demo.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "challenge_name", "report_path", "runtime", "verification"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "id": {"type": "string", "minLength": 1},
+    "challenge_name": {"type": "string", "minLength": 1},
+    "report_path": {"type": "string", "minLength": 1},
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "before_entrypoint", "after_entrypoint", "ready_path"],
+      "properties": {
+        "kind": {"const": "python_http"},
+        "before_entrypoint": {"type": "string", "minLength": 1},
+        "after_entrypoint": {"type": "string", "minLength": 1},
+        "ready_path": {"type": "string", "minLength": 1}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["test_module", "before_test", "after_test"],
+      "properties": {
+        "test_module": {"type": "string", "minLength": 1},
+        "before_test": {"type": "string", "minLength": 1},
+        "after_test": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
