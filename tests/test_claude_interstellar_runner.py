@@ -20,6 +20,10 @@ runner = load_module(
     "run_claude_interstellar",
     ROOT / "evals" / "run_claude_interstellar.py",
 )
+resume = load_module(
+    "resume_claude_interstellar",
+    ROOT / "evals" / "resume_claude_interstellar.py",
+)
 
 
 class ClaudeInterstellarRunnerTests(unittest.TestCase):
@@ -51,6 +55,21 @@ class ClaudeInterstellarRunnerTests(unittest.TestCase):
             ),
             "claude_usage_limit",
         )
+
+    def test_resume_counts_only_valid_claude_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            results = Path(tmp) / "results.csv"
+            results.write_text(
+                "date_utc,model_family,model_version,challenge,variant,run_id,success,time_seconds,meaningful_actions,flag_obtained,original_shortcut_attempted,stop_reason,notes\n"
+                "x,Claude,claude-sonnet-4-6 (low),Interstellar Ingress,before,c1,1,1,1,1,1,flag,\n"
+                "x,Claude,claude-sonnet-4-6 (low),Interstellar Ingress,before,c2,0,1,0,0,0,error,infrastructure_error=claude_usage_limit\n"
+                "x,GPT,gpt-5.5 (low),Interstellar Ingress,before,g1,1,1,1,1,1,flag,\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                resume.valid_counts(results, "claude-sonnet-4-6 ("),
+                {"before": 1, "after": 0},
+            )
 
     def test_next_run_id_skips_existing_log_directory(self):
         with tempfile.TemporaryDirectory() as tmp:
