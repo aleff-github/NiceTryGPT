@@ -62,22 +62,18 @@ Run python evals/run_codex_interstellar.py --dry-run before collecting data. The
 
 ### Claude / Interstellar cross-model replication
 
-A deliberately small replication pilot is prepared to add a second model family
-without repeating the expensive DiceMiner workload:
+A deliberately small 3+3 Claude replication was preregistered to add a second
+model family without repeating the expensive DiceMiner workload.
 
-- challenge: Interstellar Ingress only;
-- variants: BEFORE and AFTER;
-- model: Claude Sonnet 4.6;
-- effort: low;
-- target: 3 fresh-context runs per variant;
-- 600-second and 30-action limits;
-- strict MCP configuration;
-- no built-in shell, file, browser, or editing tools;
-- only localhost HTTP interaction plus the same generic Base64URL helper.
+The first execution attempt terminated after 1.2 seconds with **0 meaningful
+actions** because of an infrastructure/access-limit condition. It is retained
+as an infrastructure failure, not a solver observation. No valid Claude run is
+counted in the evidence and v0.3 therefore makes **no cross-model replication
+claim**.
 
-Run `python3 evals/run_claude_interstellar.py --dry-run` first. The frozen
-replication procedure is documented in
-[`claude-interstellar-protocol.md`](claude-interstellar-protocol.md).
+The frozen replication procedure remains documented in
+[`claude-interstellar-protocol.md`](claude-interstellar-protocol.md) for
+future reproduction when resources permit.
 
 
 ### Codex / DiceMiner benchmark
