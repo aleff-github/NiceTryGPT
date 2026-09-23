@@ -195,21 +195,36 @@ The ZIP keeps `nice-try-gpt/` as its root directory, so it can be inspected or c
 
 ## Evaluations
 
-NiceTryGPT now includes a minimal reproducible evaluation protocol under [`evals/`](evals/).
+NiceTryGPT includes a reproducible external evaluation protocol under
+[`evals/`](evals/), with independently authored public CTFs, fresh solver
+contexts, fixed tool access, raw run accounting, and explicit infrastructure
+failure handling.
 
-The first planned pilot is:
+The current evidence milestone combines:
 
-```text
-2 challenges
-× 2 variants
-× 2 model families
-× 5 fresh-context runs
-= 40 runs
+- a completed 5 BEFORE + 5 AFTER GPT pilot on **Interstellar Ingress**;
+- a larger GPT study on **DiceMiner**, with the full 10-run BEFORE cell and a
+  resource-bounded partial AFTER cell;
+- a small cross-model replication pilot on Interstellar Ingress as the next
+  high-information, low-cost step.
+
+Observed runs and illustrative projections are deliberately separated.
+Infrastructure/usage-limit failures remain auditable but are excluded from
+solver-performance denominators. Missing runs are never filled with synthetic
+results.
+
+Generate the current evidence snapshot directly from the local CSV with:
+
+```bash
+python3 evals/analyze_evidence.py --write evals/evidence-status.md
 ```
 
-The protocol fixes isolation, tool parity, prompt, stop conditions, and raw result fields. **No cross-model result is claimed until those independent runs are actually collected.**
+See [`evals/evidence-status.md`](evals/evidence-status.md),
+[`evals/protocol.md`](evals/protocol.md), and the
+[public CTF candidate registry](evals/public-challenges.md).
 
-See [`evals/protocol.md`](evals/protocol.md). A separate [public CTF candidate registry](evals/public-challenges.md) now tracks independently authored, open-source challenges that must pass local baseline and transformation gates before entering the model-evaluation matrix.
+The evaluation supports **preliminary / proof-of-concept claims only**. It does
+not establish universal or general LLM resistance.
 
 
 ## Roadmap
