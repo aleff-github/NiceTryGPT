@@ -104,6 +104,63 @@ the project does not claim cross-model replication for v0.3.0.
 Illustrative projections are kept separate from observed results and are never
 inserted into the raw dataset.
 
+## v0.4.0 — reproducible transformation artifacts
+
+Release target: 2026-09-23.
+
+### Theme
+
+Turn the proof-of-concept methodology into an auditable research artifact without increasing paid benchmark volume.
+
+### Problem
+
+v0.3.0 added external evidence, but several important contracts remained implicit:
+
+- Human Cost Gate results were described in Markdown rather than derived from structured facts;
+- study targets and resource-bounded status were partly embedded in analysis code;
+- infrastructure classification depended on a notes convention that was not validated as a dataset contract;
+- the release workflow did not execute the complete CI suite.
+
+### Deliverables
+
+- machine-readable transformation reports and JSON Schema;
+- a derived Human Cost Gate with negative tests;
+- an experiment manifest for study identity, targets, and collection status;
+- explicit solver-observation versus infrastructure-failure semantics;
+- manifest-driven evidence generation with projections kept separate;
+- a common evaluation protocol aligned with the actual v0.3 external studies;
+- one offline research-artifact verification command used by CI and releases;
+- formal methodology and claim-boundary documentation.
+
+### Acceptance criteria
+
+v0.4.0 is ready only when:
+
+- the 50-row v0.3 raw dataset remains unchanged;
+- generated evidence still yields 23 solver observations and 27 infrastructure failures;
+- Interstellar and DiceMiner observed counts remain exactly those released in v0.3.0;
+- all transformation JSON reports pass the derived Human Cost Gate;
+- a deliberately over-budget or exploit-changing report fails validation;
+- the generated evidence snapshot is reproducible from raw data plus manifest;
+- deterministic demos and all evaluation harness tests pass;
+- VERSION, skill/plugin metadata, citation metadata, website metadata, roadmap, changelog, and release notes agree on 0.4.0;
+- the release workflow runs the complete research-artifact verifier.
+
+### Claims allowed
+
+- v0.4.0 improves reproducibility and auditability;
+- the Human Cost Gate is machine-checkable for the recorded artifact fields;
+- v0.3.0 observations are reproduced under an explicit evidence contract;
+- external evidence remains preliminary and resource-bounded.
+
+### Claims not allowed
+
+- new empirical model evidence;
+- universal or general LLM resistance;
+- cross-model replication;
+- empirically unchanged human difficulty without human-subject evidence;
+- treating the seven missing DiceMiner AFTER runs as observations.
+
 ## v1.0.0 — stable methodology
 
 A future v1.0.0 should mean that:

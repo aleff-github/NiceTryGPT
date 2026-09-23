@@ -2,6 +2,32 @@
 
 All notable changes to NiceTryGPT are documented here.
 
+## [0.4.0] — 2026-09-23
+
+### Added
+
+- machine-readable transformation reports and a JSON Schema contract;
+- a derived Human Cost Gate validator with negative regression tests;
+- structured reports for all bundled demos plus Interstellar Ingress and DiceMiner;
+- an experiment manifest recording exact study identity, valid-run targets, protocol paths, and collection status;
+- an explicit solver-observation / infrastructure-failure classification contract;
+- a formal methodology document and packaged report-format reference;
+- a single offline research-artifact verifier used by both CI and release validation.
+
+### Changed
+
+- evidence analysis is manifest-driven instead of hard-coding Interstellar/DiceMiner targets;
+- the umbrella evaluation protocol now matches the external v0.3 studies rather than the obsolete mini-demo planning matrix;
+- zero-action error rows cannot silently enter solver denominators without an explicit infrastructure marker;
+- release validation now executes the complete deterministic/unit suite;
+- human-readable reports now have JSON sidecars for machine validation.
+
+### v0.4.0 evidence boundary
+
+v0.4.0 adds **no new paid model observations**. The empirical dataset is the unchanged v0.3.0 dataset: 50 raw attempts, 23 valid solver observations, and 27 infrastructure failures.
+
+The release improves the reproducibility of those observations and the auditability of transformations. It does not establish universal LLM resistance, empirically unchanged human difficulty, or cross-model replication.
+
 ## [0.3.0] — 2026-09-23
 
 ### Added

@@ -8,7 +8,7 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 
 [![Tests](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml/badge.svg)](https://github.com/aleff-github/NiceTryGPT/actions/workflows/test.yml)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-[![Version: v0.3.0](https://img.shields.io/badge/version-v0.3.0-orange.svg)](#project-status)
+[![Version: v0.4.0](https://img.shields.io/badge/version-v0.4.0-orange.svg)](#project-status)
 [![Website](https://img.shields.io/badge/website-GitHub%20Pages-ffb347.svg)](https://aleff-github.github.io/NiceTryGPT/)
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-8fe3b4.svg)](CITATION.cff)
 [![Archived DOI: v0.2.0](https://img.shields.io/badge/Zenodo-v0.2.0%20archive-blue.svg)](https://doi.org/10.5281/zenodo.22858477)
@@ -25,7 +25,7 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 
 > **Increase uncertainty, not complexity.**
 
-NiceTryGPT is intentionally small: one skill, three tiny demos, one E2E test suite, no framework.
+NiceTryGPT is intentionally small: one skill, three tiny demos, reproducibility tooling, no framework.
 
 ## Try it in 30 seconds
 
@@ -177,6 +177,24 @@ python tests/test_release.py
 
 The suite verifies that each original challenge is solvable, the identified cheap shortcut stops working after transformation, normal functionality still works, and the intended vulnerability still reaches the runtime flag.
 
+## Reproducible transformation artifacts
+
+v0.4.0 adds a machine-readable companion to each transformation report. The
+Markdown report explains the design decision; the JSON sidecar records the
+preservation checks, required human cost, evidence class, and transformation
+patterns in a form CI can validate.
+
+Run the complete offline research-artifact verification with:
+
+    python scripts/verify_research_artifact.py
+
+This validates deterministic demos, evaluation harnesses, the experiment
+manifest, raw-run classification, generated evidence, plugin/skill
+synchronization, and the derived Human Cost Gate. It does not run paid model
+benchmarks.
+
+See docs/methodology.md and schemas/transformation-report.schema.json.
+
 ## Package the skill
 
 Build a deterministic ZIP containing only the installable skill:
@@ -188,7 +206,7 @@ python scripts/package_skill.py
 Output:
 
 ```text
-dist/nice-try-gpt-v0.3.0.zip
+dist/nice-try-gpt-v0.4.0.zip
 ```
 
 The ZIP keeps `nice-try-gpt/` as its root directory, so it can be inspected or copied directly into a compatible Agent Skills location.
@@ -230,7 +248,7 @@ not establish universal or general LLM resistance.
 
 ## Roadmap
 
-**v0.3.0 — external empirical evaluation** is complete. It adds fresh-context evidence on two independently authored public CTFs, transparent infrastructure-failure accounting, and explicit separation of observed results from projections.
+**v0.4.0 — reproducible transformation artifacts** formalizes the Human Cost Gate, machine-readable transformation evidence, experiment manifests, semantic run classification, and one end-to-end research-artifact verifier. It adds no new paid model observations; the v0.3.0 external evidence remains the empirical basis.
 
 See [`ROADMAP.md`](ROADMAP.md).
 
@@ -259,7 +277,7 @@ See [`docs/related-work.md`](docs/related-work.md) for the current positioning a
 
 NiceTryGPT ships with machine-readable [`CITATION.cff`](CITATION.cff) metadata, so GitHub can expose **Cite this repository** with generated APA and BibTeX formats.
 
-For research or evaluation work, cite the release or commit you actually used and record the model version, tool access, run count, and evaluation protocol. The current release is **v0.3.0**. Its Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477). See [`CITING.md`](CITING.md) for the canonical human-readable citation and [`codemeta.json`](codemeta.json) for CodeMeta software metadata.
+For research or evaluation work, cite the release or commit you actually used and record the model version, tool access, run count, and evaluation protocol. The current release is **v0.4.0**. Its Zenodo DOI will be added after the release deposit is minted; the previous v0.2.0 archive remains available under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477). See [`CITING.md`](CITING.md) for the canonical human-readable citation and [`codemeta.json`](codemeta.json) for CodeMeta software metadata.
 
 ## Preservation
 
@@ -267,7 +285,7 @@ NiceTryGPT separates distribution, preservation, and citation:
 
 - GitHub Releases provide versioned project releases;
 - Software Heritage preserves the repository independently of GitHub; the first completed snapshot is `swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf`;
-- Zenodo preserves the v0.2.0 source archive under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477); the v0.3.0 DOI is intentionally not predeclared before Zenodo mints it.
+- Zenodo preserves the v0.2.0 source archive under DOI [`10.5281/zenodo.22858477`](https://doi.org/10.5281/zenodo.22858477); the v0.4.0 DOI is intentionally not predeclared before Zenodo mints it.
 
 See [`docs/preservation.md`](docs/preservation.md) for the preservation and persistent-identifier strategy.
 
@@ -292,7 +310,7 @@ If LLM resistance and human experience conflict, **the human player wins**.
 
 NiceTryGPT does **not** claim to prove that a challenge is AI-proof.
 
-In v0.2.0, “resistance” means reducing an identified cheap shortcut while preserving the intended challenge. A same-model self-review is not evidence of resistance; fresh-context or cross-model solving is reported separately when actually performed.
+Here, “resistance” means reducing an identified cheap shortcut while preserving the intended challenge. A same-context self-review is not model evidence; deterministic validation, solver observations, infrastructure failures, and projections are reported as distinct evidence classes.
 
 ## Repository layout
 
@@ -338,9 +356,9 @@ NiceTryGPT/
 
 ## Project status
 
-**v0.3.0 — external empirical evaluation.**
+**v0.4.0 — reproducible transformation artifacts.**
 
-The method is demonstrated across IDOR, path traversal, and SQL injection, and now includes fresh-context external evaluation on Interstellar Ingress and DiceMiner. The evidence remains preliminary and does not claim universal LLM resistance or cross-model replication.
+The method now has machine-readable transformation reports, a derived Human Cost Gate, manifest-driven evaluation accounting, and a single reproducibility command. The empirical evidence is unchanged from v0.3.0 and remains preliminary; no universal LLM-resistance or cross-model replication claim is made.
 
 See [`CHANGELOG.md`](CHANGELOG.md).
 
