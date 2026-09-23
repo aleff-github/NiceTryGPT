@@ -222,8 +222,13 @@ def test_project_metadata():
     assert "swh:1:snp:6c77799e7623abf2653ab9363d3e2f57899174cf" in readme
 
     archive_workflow = (ROOT / ".github" / "workflows" / "archive.yml").read_text(encoding="utf-8")
-    assert "archive.softwareheritage.org/api/1/origin/save/" in archive_workflow
+    release_workflow = (ROOT / ".github" / "workflows" / "release.yml").read_text(encoding="utf-8")
+    archive_helper = (ROOT / "scripts" / "request_swh_archive.py").read_text(encoding="utf-8")
+    assert "scripts/request_swh_archive.py" in archive_workflow
+    assert "scripts/request_swh_archive.py" in release_workflow
     assert "release:" in archive_workflow
+    assert "continue-on-error: true" in release_workflow
+    assert "archive.softwareheritage.org/api/1/origin/save/" in archive_helper
 
 
 def test_readme_local_links():
