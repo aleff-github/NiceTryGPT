@@ -60,6 +60,8 @@ class EvidenceAnalysisTests(unittest.TestCase):
         self.assertIn("approximately **0/10**", report)
         self.assertIn("not an experimental result", report)
         self.assertIn("never inserted into `results.csv`", report)
+        self.assertIn("Observed effect-size snapshot", report)
+        self.assertIn("-30.0 pp", report)
 
 
 if __name__ == "__main__":
