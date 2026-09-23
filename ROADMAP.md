@@ -161,6 +161,51 @@ v0.4.0 is ready only when:
 - empirically unchanged human difficulty without human-subject evidence;
 - treating the seven missing DiceMiner AFTER runs as observations.
 
+## v0.5.0 — structural generalization ✅
+
+Acceptance target: complete research-artifact CI plus release metadata synchronization.
+
+### Theme
+
+Test whether the same preservation contract can be represented and deterministically verified across a broader set of challenge shapes without increasing paid benchmark volume.
+
+### Deliverables
+
+- two additional bundled vulnerability classes: command injection and server-side template injection;
+- primary demonstrations of the previously uncovered `pattern_break` and `state_dependency` patterns;
+- executable challenge adapters for every bundled deterministic demo;
+- a machine-generated structural generalization matrix over all committed transformation reports;
+- CI checks that adapter coverage stays complete and the generated matrix cannot drift;
+- explicit separation of structural coverage, deterministic evidence, and fresh-solver observations.
+
+### Acceptance criteria
+
+v0.5.0 is ready only when:
+
+- all five bundled demos pass before/after E2E tests;
+- every bundled demo has exactly one valid executable adapter;
+- all five documented resistance patterns are represented by at least one validated transformation;
+- at least five bundled demos and two independently authored external transformations are present in the structural matrix;
+- the generalization snapshot is generated from committed reports rather than hand-maintained;
+- the v0.3.0 raw solver dataset remains unchanged;
+- no bundled `NOT_TESTED` report is counted as fresh-solver evidence;
+- the complete research-artifact verifier passes.
+
+### Claims allowed
+
+- the preservation/reporting contract has deterministic examples across multiple vulnerability classes;
+- all five resistance patterns are represented in the current artifact set;
+- bundled demo lifecycle metadata is standardized through executable adapters;
+- structural coverage is broader than v0.4.0.
+
+### Claims not allowed
+
+- universal or population-level LLM generalization;
+- empirically unchanged human difficulty;
+- cross-model replication;
+- new solver evidence from the bundled demos;
+- interpreting pattern coverage as evidence that every pattern is effective for every challenge.
+
 ## v1.0.0 — stable methodology
 
 A future v1.0.0 should mean that:

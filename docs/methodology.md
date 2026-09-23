@@ -125,3 +125,14 @@ A research-grade NiceTryGPT transformation should preserve:
 
 This contract is the v0.4 direction: improve auditability before increasing
 benchmark volume.
+
+
+## Structural generalization
+
+v0.5.0 adds a separate structural-generalization layer. It asks whether the same preservation and reporting contract can be represented across heterogeneous challenge shapes, vulnerability classes, and resistance patterns.
+
+The generated snapshot in `docs/generalization-status.md` is derived from committed transformation reports. Bundled demos additionally use executable challenge adapters that identify the before/after entrypoints and their deterministic verification functions.
+
+This layer is deliberately not a statistical model-generalization claim. A larger count of vulnerability classes or represented patterns does not imply that a transformation will resist every model, that each pattern works equally well, or that the challenge population has been sampled representatively.
+
+Human difficulty is also not inferred from the adapter matrix. Without participant data, NiceTryGPT reports a bounded structural Human Cost Gate: preserved vulnerability/learning prerequisites and difficulty band, no new exploit primitive or artificial friction, and at most three required added meaningful actions for a transformed pass.
