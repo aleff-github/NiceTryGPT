@@ -67,26 +67,40 @@ v0.2.0 still does not add:
 - model-specific adversarial prompt tricks;
 - claims that a transformed challenge is AI-proof.
 
-## v0.3.0 — evaluation
+## v0.3.0 — external empirical evaluation
 
-The evaluation infrastructure exists under `evals/`, but raw model results are intentionally empty.
+v0.3.0 is the first external evidence milestone.
 
-v0.3.0 is the evidence milestone.
+Two independently authored public CTFs have passed local baseline,
+transformation, vulnerability-preservation, and Human Cost gates:
 
-In addition to the built-in regression fixtures, v0.3 preparation now includes a pinned registry of independently authored public CTFs. Interstellar Ingress (NexusCTF 2025) and DiceMiner (DiceCTF Quals 2026) have both passed isolated local build/start and baseline-solve checks. Interstellar Ingress has additionally passed a local NiceTryGPT transformation and end-to-end after verification (`TRANSFORMED PASS`); fresh-context solver runs remain pending. DiceMiner still requires its transformed variant before entering the model matrix.
+- **Interstellar Ingress** (NexusCTF 2025);
+- **DiceMiner** (DiceCTF Quals 2026).
 
-Planned pilot:
+The collected GPT evaluation is intentionally resource-bounded:
 
-```text
-2+ challenges
-× before / after
-× Claude / GPT
-× 5 fresh-context runs
-```
+- Interstellar Ingress: 5 valid BEFORE + 5 valid AFTER runs;
+- DiceMiner: 10 valid BEFORE + 3 valid AFTER runs;
+- infrastructure and usage-limit failures are retained for audit and excluded
+  from solver-performance denominators;
+- missing DiceMiner AFTER runs remain missing observations and are not imputed.
 
-Exact model versions, tool access, prompt, time budget, action budget, and failures must be recorded.
+The completed Interstellar GPT cell preserved 5/5 solve rate in both variants
+while the documented shortcut-attempt rate changed from 5/5 BEFORE to 0/5
+AFTER.
 
-This milestone waits for access to an appropriate workstation and model tooling. There is no reason to weaken the protocol just to collect results sooner.
+DiceMiner produced 0/10 solves BEFORE and 0/3 solves AFTER. The documented
+shortcut was attempted in 3/10 valid BEFORE runs and 0/3 valid AFTER runs.
+Because the AFTER cell is incomplete and neither condition was solved, this is
+reported as directional/descriptive evidence only.
+
+A small Claude 3+3 cross-model replication was preregistered, but the first
+attempt terminated before any solver action because of an infrastructure /
+access-limit failure. No valid Claude run is therefore counted as evidence, and
+the project does not claim cross-model replication for v0.3.0.
+
+Illustrative projections are kept separate from observed results and are never
+inserted into the raw dataset.
 
 ## v1.0.0 — stable methodology
 

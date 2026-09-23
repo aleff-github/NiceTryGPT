@@ -31,3 +31,9 @@ jobs:
         run: python tests/test_release.py
       - name: Run Codex evaluation harness checks
         run: python tests/test_codex_eval_runner.py
+      - name: Run DiceMiner evaluation harness checks
+        run: python tests/test_diceminer_eval_runner.py
+      - name: Run evidence analysis checks
+        run: python tests/test_evidence_analysis.py
+      - name: Run Claude replication harness checks
+        run: python tests/test_claude_interstellar_runner.py

@@ -106,7 +106,9 @@ def test_eval_schema():
     with results.open(newline="", encoding="utf-8") as handle:
         reader = csv.reader(handle)
         header = next(reader)
+        rows = list(reader)
     assert header == EXPECTED_EVAL_HEADER
+    assert all(len(row) == len(EXPECTED_EVAL_HEADER) for row in rows)
 
     completed = subprocess.run(
         [sys.executable, str(ROOT / "evals" / "summarize.py")],
@@ -114,7 +116,10 @@ def test_eval_schema():
         capture_output=True,
         text=True,
     )
-    assert "No evaluation results recorded yet." in completed.stdout
+    if rows:
+        assert "model | version | challenge | variant" in completed.stdout
+    else:
+        assert "No evaluation results recorded yet." in completed.stdout
 
 
 def test_example_contract():
