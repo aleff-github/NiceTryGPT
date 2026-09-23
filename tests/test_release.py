@@ -122,6 +122,18 @@ def test_eval_schema():
         assert "No evaluation results recorded yet." in completed.stdout
 
 
+
+def test_evidence_snapshot():
+    generated = subprocess.run(
+        [sys.executable, str(ROOT / "evals" / "analyze_evidence.py")],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    committed = (ROOT / "evals" / "evidence-status.md").read_text(encoding="utf-8")
+    assert generated.rstrip() == committed.rstrip()
+
+
 def test_example_contract():
     examples = ROOT / "examples"
     challenge_dirs = sorted(path for path in examples.iterdir() if path.is_dir())
@@ -173,7 +185,7 @@ def test_project_metadata():
     assert 'repository-code: "https://github.com/aleff-github/NiceTryGPT"' in citation
     assert 'given-names: "Alessandro"' in citation
     assert 'family-names: "Greco"' in citation
-    assert 'doi: "10.5281/zenodo.22858477"' in citation
+    assert 'doi: "10.5281/zenodo.22858477"' not in citation
 
     codemeta = json.loads((ROOT / "codemeta.json").read_text(encoding="utf-8"))
     assert codemeta["@context"] == "https://w3id.org/codemeta/3.1"
@@ -181,20 +193,22 @@ def test_project_metadata():
     assert codemeta["version"] == VERSION
     assert codemeta["datePublished"] == release_date
     assert codemeta["codeRepository"] == "https://github.com/aleff-github/NiceTryGPT"
-    assert codemeta["identifier"] == "https://doi.org/10.5281/zenodo.22858477"
+    assert codemeta["identifier"] == f"https://github.com/aleff-github/NiceTryGPT/releases/tag/v{VERSION}"
     assert codemeta["author"]["name"] == "Alessandro Greco"
 
     site = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
     assert f'v{VERSION}' in site
     assert '"version": "' + VERSION + '"' in site
     assert 'https://github.com/aleff-github/NiceTryGPT/blob/main/CITATION.cff' in site
-    assert "10.5281/zenodo.22858477" in site
+    assert f"https://github.com/aleff-github/NiceTryGPT/releases/tag/v{VERSION}" in site
+    assert "10.5281/zenodo.22858477" in site  # archived v0.2.0 reference
     assert "Alessandro Greco" in site
     assert 'name="google-site-verification"' in site
 
     llms = (ROOT / "docs" / "llms.txt").read_text(encoding="utf-8")
     assert f"Current release: {VERSION}" in llms
-    assert "DOI: 10.5281/zenodo.22858477" in llms
+    assert "Current release DOI: pending Zenodo deposit" in llms
+    assert "Archived v0.2.0 DOI: 10.5281/zenodo.22858477" in llms
 
     preservation = (ROOT / "docs" / "preservation.md").read_text(encoding="utf-8")
     assert "Software Heritage" in preservation
@@ -227,6 +241,7 @@ def main():
         ("release package", test_package),
         ("Claude Code plugin", test_claude_plugin),
         ("evaluation schema", test_eval_schema),
+        ("evidence snapshot", test_evidence_snapshot),
         ("example contract", test_example_contract),
         ("release docs", test_release_docs),
         ("project metadata", test_project_metadata),
