@@ -27,6 +27,16 @@ A minimal-diff workflow for reducing cheap LLM shortcuts in existing CTF challen
 
 NiceTryGPT is intentionally small: one skill, five tiny demos, reproducibility tooling, no framework.
 
+## 🧪 An unexpected research finding
+
+Since publishing NiceTryGPT, I have discovered an entirely unplanned side effect of the project: I have never received so many unsolicited offers to buy GitHub stars, increase citations to my DOI, boost the repository's visibility, or achieve guaranteed success — sometimes, apparently, starting from just **$1**.
+
+I am still not entirely sure which particular property of this repository triggered such enthusiasm from the less scientific corners of the Internet.
+
+At this point, however, the phenomenon appears sufficiently reproducible that I am seriously considering it an undocumented NiceTryGPT benchmark.
+
+Further investigation may be required. 😄
+
 ## Try it in 30 seconds
 
 For a project-local Claude Code skill, copy the `nice-try-gpt` directory into your CTF repository as:
